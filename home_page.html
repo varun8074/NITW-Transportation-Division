@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Transportation Division</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    body {
+      background-color: rgba(243, 200, 143, 0.164);
+      padding: 10%;
+    }
+    .scrollable-container {
+      max-height: 350px; /* Adjust height as needed */
+      overflow-y: auto;
+    }
+
+    .vertical-tabs .nav-link.active::after {
+      content: "";
+      position: absolute;
+      left: 100%;
+      bottom: 5px;
+      transform: translateY(-50%);
+      border-width: 8px;
+      border-style: solid;
+      border-color: transparent transparent transparent #c20315;
+    }
+
+    .nav-link {
+      background-color: #00b6e2;
+      color: rgb(0, 0, 0);
+      position: relative;
+    }
+
+    .nav-link.active {
+      background-color: #c20315 !important;
+      color: white !important;
+      position: relative;
+    }
+
+    /* Arrow below active tab */
+    .nav-link.active::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px;
+      border-style: solid;
+      border-color: #c20315 transparent transparent transparent;
+    }
+    .image-container {
+      position: relative;
+      width: 150px;
+      height: 175px;
+      display: inline-block;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 3px solid #ffc107; /* Border Warning Color */
+    }
+
+    .hover-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .image-container:hover .hover-text {
+      opacity: 1;
+    }
+  </style>
+  <body>
+    <img
+      src="NITW_Transportation_LOGO_Modified_on_20th_January-removebg-preview (1).png"
+      class="rounded mx-auto d-block"
+      height="400px"
+      width="800px"
+      alt="..."
+    />
+
+    <div class="d-inline-flex align-items-start">
+      <div
+        class="nav nav-pills-rounded vertical-tabs flex-column me-3"
+        id="v-pills-tab"
+        role="tablist"
+        aria-orientation="vertical"
+        style="min-width: 230px"
+      >
+        <button
+          class="nav-link text-start active position-relative"
+          id="v-pills-home-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-home"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-home"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          Home
+        </button>
+        <button
+          class="nav-link text-start"
+          id="v-pills-AcademicPrograms-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-AcademicPrograms"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-AcademicPrograms"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          Academic Programs
+        </button>
+        <button
+          class="nav-link text-start"
+          id="v-pills-people-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-people"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-people"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          People
+        </button>
+        <button
+          class="nav-link text-start"
+          id="v-pills-ResearchAndConsultancy-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-ResearchAndConsultancy"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-ResearchAndConsultancy"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          Research And Consultancy
+        </button>
+        <button
+          class="nav-link text-start"
+          id="v-pills-Collaborations-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-Collaborations"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-Collaborations"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          Collaborations
+        </button>
+        <button
+          class="nav-link text-start"
+          id="v-pills-CapacityBuildingAndKnowledgeTransfer-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-CapacityBuildingAndKnowledgeTransfer"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-CapacityBuildingAndKnowledgeTransfer"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          Capacity Building And Knowledge Transfer
+        </button>
+        <button
+          class="nav-link text-start"
+          id="v-pills-Publications-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-Publications"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-Publications"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          Publications
+        </button>
+        <button
+          class="nav-link text-start"
+          id="v-pills-Facilities-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-Facilities"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-Facilities"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          Facilities
+        </button>
+        <button
+          class="nav-link text-start"
+          id="v-pills-Students-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-Students"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-Students"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          Students
+        </button>
+        <button
+          class="nav-link text-start"
+          id="v-pills-UsefulLinks-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#v-pills-UsefulLinks"
+          type="button"
+          role="tab"
+          aria-controls="v-pills-UsefulLinks"
+          aria-selected="true"
+          style="margin: 2px"
+        >
+          Useful Links
+        </button>
+        <div class="lh-1">
+          <a
+            href="https://erp.nitw.ac.in/ext/profile/ce-kvreddy"
+            target="_blank"
+            style="text-decoration: none; color: black"
+          >
+            <img
+              class="border border-5 border-warning"
+              src="https://erp.nitw.ac.in/ext/profile/getUserImage/ce-kvreddy"
+              alt="..."
+              width="150px"
+            />
+            <p class="fw-bold">Prof. K Venkata Reddy</p>
+          </a>
+          <p class="fst-italic fw-semibold">Head of the Department</p>
+          <a
+            class="text-secondary"
+            href="mailto:civil_hod@nitw.ac.in"
+            style="text-decoration: none"
+            >civil_hod@nitw.ac.in</a
+          >
+          <p>9490165341</p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="v-pills-tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="v-pills-home"
+          role="tabpanel"
+          aria-labelledby="v-pills-home-tab"
+          tabindex="0"
+        >
+          <div class="container text-center">
+            <div class="row align-items-start">
+              <div class="col">
+                <p class="text-start lh-lg">
+                  Transportation Engineering Discipline was introduced in the
+                  Department of Civil Engineering, National Institute of
+                  Technology, Warangal in the year 1968 under the aegis of
+                  UNESCO-UNDP and Government of India, in realization of the
+                  emerging area and the urgent need to train Engineers/Planners
+                  in this discipline. This is the first Institution in India to
+                  have started a full-fledged M.Tech Degree Programme in
+                  Transportation Engineering. Under the able guidance of Prof.
+                  Martin Ekse of Washington State University, USA, Prof. V.V.
+                  Sylyanov of Moscow Automobile and Road Construction Institute,
+                  USSR, and other distinguished experts in India. The
+                  Transportation Engineering discipline has not only emerged as
+                  a forerunner in the country, but also created competent
+                  Transportation Engineering cadre in the country, who are now
+                  serving in various National and International bodies.
+                </p>
+                <div class="w-100"></div>
+                <div class="row">
+                  <div class="col">
+                    <p class="fs-1" style="color: brown">46</p>
+                  </div>
+                  <div class="col">
+                    <p class="fs-1" style="color: brown">19</p>
+                  </div>
+                  <div class="col">
+                    <p class="fs-1" style="color: brown">99</p>
+                  </div>
+                  <div class="col">
+                    <p class="fs-1" style="color: brown">453</p>
+                  </div>
+                  <div class="col">
+                    <p class="fs-1" style="color: brown">818</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">Faculty</div>
+                  <div class="col">Staff</div>
+                  <div class="col">PhD Research Scholars</div>
+                  <div class="col">Postgraduate Students</div>
+                  <div class="col">Publications</div>
+                </div>
+              </div>
+
+              <div class="col-4 p-3 mb-2">
+                <h1 class="display-6 text-bg-info p-2">Events</h1>
+                <!-- Update the Events Here -->
+                <div class="container mt-3">
+                  <div
+                    class="scrollable-container w-100 text-start text-danger border p-2"
+                  >
+                    ➢ 3-day VISSIM and VISUM workshop on “Sustainable Urban
+                    Transport - Comprehensive Mobility Plans” from 13th to 15th
+                    February, 2012 sponsored by the Ministry of Urban
+                    Development, Government of India, and PTV Vision, Germany.
+                    <br />➢ 3-day workshop on “Advances in flexible pavement
+                    design” from 15th to 17th March 2012. <br />➢ 3-day VISSIM
+                    and VISUM workshop on “Sustainable Urban Transport -
+                    Comprehensive Mobility Plans” from 13th to 15th February,
+                    2012 sponsored by the Ministry of Urban Development,
+                    Government of India, and PTV Vision, Germany. <br />➢ 3-day
+                    workshop on “Advances in flexible pavement design” from 15th
+                    to 17th March 2012. <br />➢ 3-day VISSIM and VISUM workshop
+                    on “Sustainable Urban Transport - Comprehensive Mobility
+                    Plans” from 13th to 15th February, 2012 sponsored by the
+                    Ministry of Urban Development, Government of India, and PTV
+                    Vision, Germany. <br />➢ 3-day workshop on “Advances in
+                    flexible pavement design” from 15th to 17th March 2012.
+                    <br />
+                  </div>
+                </div>
+
+                <div class="col">
+                  <h1 class="display-6 text-bg-info p-2">News</h1>
+                  <!-- Update the News Here -->
+                  <div class="container mt-3">
+                    <div class="w-100 scrollable-container border p-2">
+                      Updated soon.....
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <h1 class="display-6 text-bg-info p-2">Gallery</h1>
+                  <!-- Update the Gallery Here -->
+                  <div class="container mt-3">
+                    <div
+                      class="w-100 text-start scrollable-container border p-2"
+                    >
+                      <a href="#">VISSIM & VISUM WORKSHOP UMI 2011</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-AcademicPrograms"
+          role="tabpanel"
+          aria-labelledby="v-pills-AcademicPrograms-tab"
+          tabindex="0"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-9">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                  <div class="accordion-item" style="min-width: 900px">
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne"
+                        aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseOne"
+                      >
+                        M.Tech. (Transportation Engineering)
+                      </button>
+                    </h2>
+                    <div
+                      id="panelsStayOpen-collapseOne"
+                      class="accordion-collapse collapse show"
+                    >
+                      <div class="accordion-body">
+                        <p>
+                          A two-year postgraduate program in Transportation
+                          Engineering.
+                        </p>
+                        <h3>Core Courses:</h3>
+                        <ul class="course-list">
+                          <li>Transportation Planning and Management</li>
+                          <li>Highway Engineering</li>
+                          <li>Traffic Engineering</li>
+                          <li>Pavement Materials and Design</li>
+                        </ul>
+                        <h3>Elective Courses (Examples):</h3>
+                        <ul class="course-list">
+                          <li>Transportation Modeling and Simulation</li>
+                          <li>Intelligent Transportation Systems</li>
+                          <li>Airport Planning and Design</li>
+                        </ul>
+                        <p><a href="#">Learn More</a></p>
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="accordion-item" style="min-width: 900px">
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseTwo"
+                        aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseTwo"
+                      >
+                        Ph.D. Program
+                      </button>
+                    </h2>
+                    <div
+                      id="panelsStayOpen-collapseTwo"
+                      class="accordion-collapse collapse"
+                    >
+                      <div class="accordion-body">
+                        <p>A research-oriented doctoral program.</p>
+                        <p>Research areas include (but are not limited to):</p>
+                        <ul class="course-list">
+                          <li>Structural Engineering</li>
+                          <li>Geotechnical Engineering</li>
+                          <li>Transportation Engineering</li>
+                          <li>Water Resources Engineering</li>
+                        </ul>
+                        <p><a href="#">Learn More</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-people"
+          role="tabpanel"
+          aria-labelledby="v-pills-people-tab"
+          tabindex="0"
+        >
+          <ul
+            class="nav nav-pills-rounded nav-justified mb-3"
+            id="pills-tab"
+            role="tablist"
+            style="min-width: 1000px"
+          >
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link active"
+                id="pills-Faculty-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-Faculty"
+                type="button"
+                role="tab"
+                aria-controls="pills-Faculty"
+                aria-selected="true"
+              >
+                Faculty
+              </button>
+            </li>
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link"
+                id="pills-Non_Teaching_Staff-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-Non_Teaching_Staff"
+                type="button"
+                role="tab"
+                aria-controls="pills-Non_Teaching_Staff"
+                aria-selected="true"
+              >
+                Non-Teaching Staff
+              </button>
+            </li>
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link"
+                id="pills-Research_Scholars-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-Research_Scholars"
+                type="button"
+                role="tab"
+                aria-controls="pills-Research_Scholars"
+                aria-selected="true"
+              >
+                Research Scholars
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="pills-Faculty"
+              role="tabpanel"
+              aria-labelledby="pills-Faculty-tab"
+              tabindex="0"
+            >
+              <ul
+                class="nav nav-pills-rounded nav-justified mb-3"
+                id="pills-tab"
+                role="tablist"
+              >
+                <li class="nav-item px-3" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="pills-core_faculty-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-core_faculty"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-core_faculty"
+                    aria-selected="true"
+                  >
+                    Core Faculty
+                  </button>
+                </li>
+                <li class="nav-item px-3" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="pills-guest_faculty-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-guest_faculty"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-guest_faculty"
+                    aria-selected="true"
+                  >
+                    Guest Faculty
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="pills-core_faculty"
+                  role="tabpanel"
+                  aria-labelledby="pills-core_faculty-tab"
+                  tabindex="0"
+                >
+                  <div class="card mb-3" style="max-width: 900px">
+                    <!-- update core faculty here -->
+
+                    <div
+                      class="row g-0 bg-info bg-opacity-10 border border-info rounded"
+                    >
+                      <div class="col-md-4 my-auto ps-4">
+                        <img
+                          class="border border-5 border-warning"
+                          src="https://www.nitw.ac.in/CIVDeptAssets/images/3.jpg"
+                          class="img-fluid rounded-start"
+                          alt="..."
+                        />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Prof. C. S. R. K. Prasad</h5>
+                          <h6 class="card-subtitle mb-2 text-body-secondary">
+                            Professor (HAG)
+                          </h6>
+                          <br />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-telephone-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                            />
+                          </svg>
+                          +91 9440347348 (M), 9515890908 (M), 870-2468117(R)<br />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-envelope-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                            />
+                          </svg>
+                          <a
+                            class="text-secondary"
+                            href="mailto:brkadali@nitw.ac.in"
+                            style="text-decoration: none"
+                          >
+                            csrk@nitw.ac.in</a
+                          ><br />
+                          <p class="card-text">
+                            • Travel Demand Modelling, Urban & Regional
+                            Planning, Land Use Planning, Transit Oriented
+                            Development, Public Transport, Highway Network
+                            Design, Traffic Safety, Safety Audit, Traffic System
+                            Design, Transport Economics, Low Volume Roads,
+                            Project Management
+                          </p>
+                          <a href="#" class="btn btn-primary">View Profile</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="row g-0 bg-info bg-opacity-10 border border-info rounded"
+                    >
+                      <div class="col-md-4 my-auto ps-4">
+                        <img
+                          class="border border-5 border-warning"
+                          src="https://www.nitw.ac.in/CIVDeptAssets/images/37.jpg"
+                          class="img-fluid rounded-start"
+                          alt="..."
+                        />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Prof. B Raghuram Kadali</h5>
+                          <h6 class="card-subtitle mb-2 text-body-secondary">
+                            Assistant Professor
+                          </h6>
+                          <br />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-telephone-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                            />
+                          </svg>
+                          8879425755<br />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-envelope-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                            />
+                          </svg>
+                          <a
+                            class="text-secondary"
+                            href="mailto:brkadali@nitw.ac.in"
+                            style="text-decoration: none"
+                            >brkadali@nitw.ac.in</a
+                          ><br />
+                          <p class="card-text">
+                            • Pedestrian Cross Flow Modelling, Non-Motorized
+                            Safety, Traffic Safety, Driver Behaviour, Traffic
+                            flow modeling • Transportation Environment • Travel
+                            behavior, Sustainable Transportation • Freight
+                            Transportation
+                          </p>
+                          <a href="#" class="btn btn-primary">View Profile</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="pills-guest_faculty"
+                  role="tabpanel"
+                  aria-labelledby="pills-guest_faculty-tab"
+                  tabindex="0"
+                >
+                  <!-- update guest faculty here -->
+
+                  guest_faculty
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-Non_Teaching_Staff"
+              role="tabpanel"
+              aria-labelledby="pills-Non_Teaching_Staff-tab"
+              tabindex="0"
+            >
+              <!-- update non teaching staff here -->
+              <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+                <div class="col">
+                  <div
+                    class="card h-80 bg-info bg-opacity-10 border border-info rounded"
+                    style="width: 18rem"
+                  >
+                    <img
+                      src="https://www.nitw.ac.in/CIVDeptAssets/images/st9.jpg"
+                      class="card-img-top mx-auto border border-3 border-warning h-50 w-50"
+                      alt="..."
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">Sri. M Hari Bharghav</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Technical Assistant
+                      </h6>
+                      <p class="card-text">
+                        Office landline: 2163<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-telephone-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                          />
+                        </svg>
+                        8328383763<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-envelope-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                          />
+                        </svg>
+                        <a
+                          class="text-secondary"
+                          href="mailto:brkadali@nitw.ac.in"
+                          style="text-decoration: none"
+                        >
+                          haribharghavm@nitw.ac.in</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div
+                    class="card h-80 bg-info bg-opacity-10 border border-info rounded"
+                    style="width: 18rem"
+                  >
+                    <img
+                      src="https://www.nitw.ac.in/CIVDeptAssets/images/st5.jpg"
+                      class="card-img-top mx-auto border border-3 border-warning h-50 w-50"
+                      alt="..."
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">Sri. Kalumula Ramesh</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Senior Technical Assistant
+                      </h6>
+                      <p class="card-text">
+                        Office landline: 2163<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-telephone-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                          />
+                        </svg>
+                        8332969268<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-envelope-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                          />
+                        </svg>
+                        <a
+                          class="text-secondary"
+                          href="mailto:brkadali@nitw.ac.in"
+                          style="text-decoration: none"
+                        >
+                          kalumularamesh@gmail.com</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div
+                    class="card h-80 bg-info bg-opacity-10 border border-info rounded"
+                    style="width: 18rem"
+                  >
+                    <img
+                      src="https://www.nitw.ac.in/CIVDeptAssets/images/st12.jpg"
+                      class="card-img-top mx-auto border border-3 border-warning h-50 w-50"
+                      alt="..."
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">Sri. M Hari Bharghav</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Senior Technician
+                      </h6>
+                      <p class="card-text">
+                        Office landline: 2163<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-telephone-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                          />
+                        </svg>
+                        8332969280<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-envelope-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                          />
+                        </svg>
+                        <a
+                          class="text-secondary"
+                          href="mailto:brkadali@nitw.ac.in"
+                          style="text-decoration: none"
+                        >
+                          mdgaffar833296@gmail.com</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div
+                    class="card h-80 bg-info bg-opacity-10 border border-info rounded"
+                    style="width: 18rem"
+                  >
+                    <img
+                      src="https://www.nitw.ac.in/CIVDeptAssets/images/st1.jpg"
+                      class="card-img-top mx-auto border border-3 border-warning h-50 w-50"
+                      alt="..."
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">Sri. Md. Zafar</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Senior Superintendent
+                      </h6>
+                      <p class="card-text">
+                        Office landline: 2101<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-telephone-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                          />
+                        </svg>
+                        8332969574<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-envelope-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                          />
+                        </svg>
+                        <a
+                          class="text-secondary"
+                          href="mailto:brkadali@nitw.ac.in"
+                          style="text-decoration: none"
+                        >
+                          zafar@nitw.ac.in</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-Research_Scholars"
+              role="tabpanel"
+              aria-labelledby="pills-Research_Scholars-tab"
+              tabindex="0"
+            >
+              <!-- update research scholars here -->
+              <div class="row row-cols-1 row-cols-md-4 g-4 text-center">
+                <div class="col">
+                  <div
+                    class="card h-100 bg-info bg-opacity-10 border border-info rounded"
+                  >
+                    <div class="image-container mx-auto">
+                      <img
+                        src="	https://www.nitw.ac.in/CIVDeptAssets/images/phd126.jpg"
+                        alt="..."
+                      />
+                      <div class="hover-text">
+                        Research Area : Transportation Engineering
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Anirudh Subramanyam M</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Reg No.: 21CERER13
+                      </h6>
+                      <p class="card-text">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-telephone-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                          />
+                        </svg>
+                        9492203336<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-envelope-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                          />
+                        </svg>
+                        <a
+                          class="text-secondary"
+                          href="mailto:brkadali@nitw.ac.in"
+                          style="text-decoration: none"
+                        >
+                          as21cerer13@student.nitw.ac.in</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div
+                    class="card h-100 bg-info bg-opacity-10 border border-info rounded"
+                  >
+                    <div class="image-container mx-auto">
+                      <img
+                        src="https://www.nitw.ac.in/CIVDeptAssets/images/phd62.jpg"
+                        alt="..."
+                      />
+                      <div class="hover-text">
+                        Research Area : Transit oriented development
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Chintakayala Lalitha Sree</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Reg No.: 21CEFJ005
+                      </h6>
+                      <p class="card-text">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-telephone-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                          />
+                        </svg>
+                        9993290666<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-envelope-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                          />
+                        </svg>
+                        <a
+                          class="text-secondary"
+                          href="mailto:brkadali@nitw.ac.in"
+                          style="text-decoration: none"
+                        >
+                          lc712005@gmail.com</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div
+                    class="card h-100 bg-info bg-opacity-10 border border-info rounded"
+                  >
+                    <div class="image-container mx-auto">
+                      <img
+                        src="https://www.nitw.ac.in/CIVDeptAssets/images/phd86.jpg"
+                        alt="..."
+                      />
+                      <div class="hover-text">
+                        Research Area : Studies on Vehicular emissions
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Ch Rohith</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Reg No.: 22CER1R20
+                      </h6>
+                      <p class="card-text">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-telephone-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                          />
+                        </svg>
+                        8500970790<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-envelope-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                          />
+                        </svg>
+                        <a
+                          class="text-secondary"
+                          href="mailto:brkadali@nitw.ac.in"
+                          style="text-decoration: none"
+                        >
+                          cr22cer1r20@student.nitw.ac.in</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div
+                    class="card h-100 bg-info bg-opacity-10 border border-info rounded"
+                  >
+                    <div class="image-container mx-auto">
+                      <img
+                        src="https://www.nitw.ac.in/CIVDeptAssets/images/phd74.jpg"
+                        alt="..."
+                      />
+                      <div class="hover-text">
+                        Research Area : Evaluation of Bituminous Interfaces
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Gundapaneni Deepchand</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Reg No.: 21CERER15
+                      </h6>
+                      <p class="card-text">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-telephone-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                          />
+                        </svg>
+                        9542093078<br />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-envelope-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                          />
+                        </svg>
+                        <a
+                          class="text-secondary"
+                          href="mailto:brkadali@nitw.ac.in"
+                          style="text-decoration: none"
+                        >
+                          gd21cerer15@student.nitw.ac.in</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-ResearchAndConsultancy"
+          role="tabpanel"
+          aria-labelledby="v-pills-ResearchAndConsultancy-tab"
+          tabindex="0"
+        >
+          <ul
+            class="nav nav-pills-rounded mb-3 nav-justified"
+            id="pills-tab"
+            role="tablist"
+            style="min-width: 1000px"
+          >
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link active"
+                id="pills-research-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-research"
+                type="button"
+                role="tab"
+                aria-controls="pills-research"
+                aria-selected="true"
+              >
+                Research
+              </button>
+            </li>
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link"
+                id="pills-consultancy-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-consultancy"
+                type="button"
+                role="tab"
+                aria-controls="pills-consultancy"
+                aria-selected="true"
+              >
+                Consultancy
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="pills-research"
+              role="tabpanel"
+              aria-labelledby="pills-research-tab"
+              tabindex="0"
+            >
+              <ul
+                class="nav nav-pills-rounded mb-3 nav-justified"
+                id="pills-tab"
+                role="tablist"
+              >
+                <li class="nav-item px-3" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="pills-ongoing_research_project-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-ongoing_research_project"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-ongoing_research_project"
+                    aria-selected="true"
+                  >
+                    Ongoing Research Project
+                  </button>
+                </li>
+                <li class="nav-item px-4" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="pills-completed_research_project-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-completed_research_project"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-completed_research_project"
+                    aria-selected="true"
+                  >
+                    Completed Research Project
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="pills-ongoing_research_project"
+                  role="tabpanel"
+                  aria-labelledby="pills-ongoing_research_project-tab"
+                  tabindex="0"
+                >
+                  <!-- update ongoing research projects here -->
+
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-info-emphasis">
+                        ongoing research project 1
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-info-emphasis">
+                        ongoing research project 2
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-info-emphasis">
+                        ongoing research project 3
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="pills-completed_research_project"
+                  role="tabpanel"
+                  aria-labelledby="pills-completed_research_project-tab"
+                  tabindex="0"
+                >
+                  <!-- update completed research projects here -->
+
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-success">
+                        completed research project 1
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-success">
+                        completed research project 2
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-success">
+                        completed research project 3
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-consultancy"
+              role="tabpanel"
+              aria-labelledby="pills-consultancy-tab"
+              tabindex="0"
+            >
+              <ul
+                class="nav nav-pills-rounded mb-3 nav-justified"
+                id="pills-tab"
+                role="tablist"
+              >
+                <li class="nav-item px-3" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="pills-ongoing_consultancy_project-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-ongoing_consultancy_project"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-ongoing_consultancy_project"
+                    aria-selected="true"
+                  >
+                    Ongoing Consultancy Project
+                  </button>
+                </li>
+                <li class="nav-item px-4" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="pills-completed_consultancy_project-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-completed_consultancy_project"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-completed_consultancy_project"
+                    aria-selected="true"
+                  >
+                    Completed Consultancy Project
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="pills-ongoing_consultancy_project"
+                  role="tabpanel"
+                  aria-labelledby="pills-ongoing_consultancy_project-tab"
+                  tabindex="0"
+                >
+                  <!-- update ongoing consultancy projects here -->
+
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-info-emphasis">
+                        ongoing consultancy project 1
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-info-emphasis">
+                        ongoing consultancy project 2
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-info-emphasis">
+                        ongoing consultancy project 3
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="pills-completed_consultancy_project"
+                  role="tabpanel"
+                  aria-labelledby="pills-completed_consultancy_project-tab"
+                  tabindex="0"
+                >
+                  <!-- update completed consultancy projects here -->
+
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-success">
+                        completed consultancy project 1
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-success">
+                        completed consultancy project 2
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                  <div class="card border-dark mb-3" style="max-width: 50rem">
+                    <div class="card-body">
+                      <h5 class="card-title text-success">
+                        completed consultancy project 3
+                      </h5>
+                      <p class="card-text">Description about project</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-Collaborations"
+          role="tabpanel"
+          aria-labelledby="v-pills-Collaborations-tab"
+          tabindex="0"
+        >
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item" style="min-width: 900px">
+              <h2 class="accordion-header text-center">
+                <figure class="figure mx-auto">
+                  <img
+                    src="data:image/jpeg;base64,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"
+                    class="figure-img img-fluid rounded"
+                    alt="..."
+                  />
+                  <figcaption class="figure-caption text-danger">
+                    MoRD
+                  </figcaption>
+                </figure>
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                  style="border: 2px solid rgb(253, 240, 221)"
+                >
+                  Programs
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <strong>PMGSY Programme</strong>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="accordion-item" style="min-width: 900px">
+              <h2 class="accordion-header text-center">
+                <figure class="figure mx-auto">
+                  <img
+                    src="data:image/png;base64,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"
+                    class="figure-img img-fluid rounded"
+                    alt="..."
+                  />
+                  <figcaption class="figure-caption text-danger">
+                    MoUD
+                  </figcaption>
+                </figure>
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                  style="border: 2px solid rgb(253, 240, 221)"
+                >
+                  Programs
+                </button>
+              </h2>
+              <div
+                id="collapseTwo"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <strong>CUTS </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="accordion-item" style="min-width: 900px">
+              <h2 class="accordion-header text-center">
+                <figure class="figure mx-auto">
+                  <img
+                    src="data:image/png;base64,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"
+                    class="figure-img img-fluid rounded"
+                    alt="..."
+                  />
+                  <figcaption class="figure-caption text-danger">
+                    PTV Germany
+                  </figcaption>
+                </figure>
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree"
+                  aria-expanded="false"
+                  aria-controls="collapseThree"
+                  style="border: 2px solid rgb(253, 240, 221)"
+                >
+                  Programs
+                </button>
+              </h2>
+              <div
+                id="collapseThree"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <strong> </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="accordion-item" style="min-width: 900px">
+              <h2 class="accordion-header text-center">
+                <figure class="figure mx-auto">
+                  <img
+                    src="data:image/jpeg;base64,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"
+                    class="figure-img img-fluid rounded"
+                    alt="..."
+                  />
+                  <figcaption class="figure-caption text-danger">
+                    C-DAC Hyderabad
+                  </figcaption>
+                </figure>
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour"
+                  aria-expanded="false"
+                  aria-controls="collapseFour"
+                  style="border: 2px solid rgb(253, 240, 221)"
+                >
+                  Programs
+                </button>
+              </h2>
+              <div
+                id="collapseFour"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <strong> </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="accordion-item" style="min-width: 900px">
+              <h2 class="accordion-header text-center">
+                <figure class="figure mx-auto">
+                  <img src="" class="figure-img img-fluid rounded" alt="..." />
+                  <figcaption class="figure-caption text-danger">
+                    Other
+                  </figcaption>
+                </figure>
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseFive"
+                  aria-expanded="false"
+                  aria-controls="collapseFive"
+                  style="border: 2px solid rgb(253, 240, 221)"
+                >
+                  Programs
+                </button>
+              </h2>
+              <div
+                id="collapseFive"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <strong> </strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-CapacityBuildingAndKnowledgeTransfer"
+          role="tabpanel"
+          aria-labelledby="v-pills-CapacityBuildingAndKnowledgeTransfer-tab"
+          tabindex="0"
+        >
+          <ul
+            class="nav nav-pills-rounded nav-justified mb-3"
+            id="pills-tab"
+            role="tablist"
+            style="min-width: 1000px"
+          >
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link active"
+                id="pills-continuing_education_programs-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-continuing_education_programs"
+                type="button"
+                role="tab"
+                aria-controls="pills-continuing_education_programs"
+                aria-selected="true"
+              >
+                Continuing Education Programs
+              </button>
+            </li>
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link"
+                id="pills-workshops-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-workshops"
+                type="button"
+                role="tab"
+                aria-controls="pills-workshops"
+                aria-selected="false"
+              >
+                Workshops
+              </button>
+            </li>
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link"
+                id="pills-conferences-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-conferences"
+                type="button"
+                role="tab"
+                aria-controls="pills-conferences"
+                aria-selected="false"
+              >
+                Conferences
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="pills-continuing_education_programs"
+              role="tabpanel"
+              aria-labelledby="pills-continuing_education_programs-tab"
+              tabindex="0"
+            >
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card border-success h-100">
+                    <div class="card-body">
+                      <h5 class="card-title bg-transparent border-success">
+                        CEP 1
+                      </h5>
+                      <p class="card-text">
+                        Date: 2024-01-20 <br />Description: Details about the
+                        CEP.
+                      </p>
+                      <p></p>
+
+                      <p></p>
+                    </div>
+                    <div class="card-footer border-success">
+                      <small class="text-body-secondary"
+                        >Last updated 3 mins ago</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-success h-100">
+                    <div class="card-body">
+                      <h5 class="card-title bg-transparent border-success">
+                        CEP 2
+                      </h5>
+                      <p class="card-text">
+                        Date: 2024-01-20 <br />Description: Details about the
+                        CEP.
+                      </p>
+                    </div>
+                    <div class="card-footer border-success">
+                      <small class="text-body-secondary"
+                        >Last updated 3 mins ago</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-success h-100">
+                    <div class="card-body">
+                      <h5 class="card-title bg-transparent border-success">
+                        CEP 3
+                      </h5>
+                      <p class="card-text">
+                        Date: 2024-01-20 <br />Description: Details about the
+                        CEP.
+                      </p>
+                    </div>
+                    <div class="card-footer border-success">
+                      <small class="text-body-secondary"
+                        >Last updated 3 mins ago</small
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-workshops"
+              role="tabpanel"
+              aria-labelledby="pills-workshops-tab"
+              tabindex="0"
+            >
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card border-success h-100">
+                    <div class="card-body">
+                      <h5 class="card-title bg-transparent border-success">
+                        Workshop 1
+                      </h5>
+                      <p class="card-text">
+                        Date: 2024-01-20 <br />Description: Details about the
+                        Workshop.
+                      </p>
+                      <p></p>
+
+                      <p></p>
+                    </div>
+                    <div class="card-footer border-success">
+                      <small class="text-body-secondary"
+                        >Last updated 3 mins ago</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-success h-100">
+                    <div class="card-body">
+                      <h5 class="card-title bg-transparent border-success">
+                        Workshop 2
+                      </h5>
+                      <p class="card-text">
+                        Date: 2024-01-20 <br />Description: Details about the
+                        Workshop.
+                      </p>
+                    </div>
+                    <div class="card-footer border-success">
+                      <small class="text-body-secondary"
+                        >Last updated 3 mins ago</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-success h-100">
+                    <div class="card-body">
+                      <h5 class="card-title bg-transparent border-success">
+                        Workshop 3
+                      </h5>
+                      <p class="card-text">
+                        Date: 2024-01-20 <br />Description: Details about the
+                        Workshop.
+                      </p>
+                    </div>
+                    <div class="card-footer border-success">
+                      <small class="text-body-secondary"
+                        >Last updated 3 mins ago</small
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-conferences"
+              role="tabpanel"
+              aria-labelledby="pills-conferences-tab"
+              tabindex="0"
+            >
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card border-success h-100">
+                    <div class="card-body">
+                      <h5 class="card-title bg-transparent border-success">
+                        conference 1
+                      </h5>
+                      <p class="card-text">
+                        Date: 2024-01-20 <br />Description: Details about the
+                        conference.
+                      </p>
+                      <p></p>
+
+                      <p></p>
+                    </div>
+                    <div class="card-footer border-success">
+                      <small class="text-body-secondary"
+                        >Last updated 3 mins ago</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-success h-100">
+                    <div class="card-body">
+                      <h5 class="card-title bg-transparent border-success">
+                        conference 2
+                      </h5>
+                      <p class="card-text">
+                        Date: 2024-01-20 <br />Description: Details about the
+                        conference.
+                      </p>
+                    </div>
+                    <div class="card-footer border-success">
+                      <small class="text-body-secondary"
+                        >Last updated 3 mins ago</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card border-success h-100">
+                    <div class="card-body">
+                      <h5 class="card-title bg-transparent border-success">
+                        conference 3
+                      </h5>
+                      <p class="card-text">
+                        Date: 2024-01-20 <br />Description: Details about the
+                        conference.
+                      </p>
+                    </div>
+                    <div class="card-footer border-success">
+                      <small class="text-body-secondary"
+                        >Last updated 3 mins ago</small
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-Publications"
+          role="tabpanel"
+          aria-labelledby="v-pills-Publications-tab"
+          tabindex="0"
+        >
+          <ul
+            class="nav nav-pills-rounded nav-justified mb-3"
+            id="pills-tab"
+            role="tablist"
+            style="min-width: 1000px"
+          >
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link active"
+                id="pills-Journals-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-Journals"
+                type="button"
+                role="tab"
+                aria-controls="pills-Journals"
+                aria-selected="true"
+              >
+                Journals
+              </button>
+            </li>
+
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link"
+                id="pills-conference-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-conference"
+                type="button"
+                role="tab"
+                aria-controls="pills-conference"
+                aria-selected="false"
+              >
+                conference
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="pills-Journals"
+              role="tabpanel"
+              aria-labelledby="pills-Journals-tab"
+              tabindex="0"
+            >
+              <div class="card border-secondary mb-3" style="max-width: 50rem">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Title of the First Journal Publication
+                  </h5>
+                  <p class="card-text"></p>
+                  <p><strong>Authors:</strong> Author 1, Author 2, Author 3</p>
+                  <p><strong>Journal:</strong> Name of the Journal</p>
+                  <p>
+                    <strong>Volume:</strong> 10, <strong>Issue:</strong> 2,
+                    <strong>Pages:</strong> 123-145
+                  </p>
+                  <p><strong>Published Date:</strong> 2023-10-27</p>
+                  <p>
+                    <strong>Abstract:</strong> A brief abstract of the journal
+                    publication. You can include a longer abstract here if
+                    needed.
+                  </p>
+                  <p>
+                    <strong>Link:</strong>
+                    <a href="link_to_journal_1" target="_blank"
+                      >Link to the Publication</a
+                    >
+                    (Optional)
+                  </p>
+                </div>
+              </div>
+
+              <div class="card border-secondary mb-3" style="max-width: 50rem">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Title of the Second Journal Publication
+                  </h5>
+                  <p class="card-text"></p>
+                  <p><strong>Authors:</strong> Author 1, Author 2, Author 3</p>
+                  <p><strong>Journal:</strong> Name of the Journal</p>
+                  <p>
+                    <strong>Volume:</strong> 10, <strong>Issue:</strong> 2,
+                    <strong>Pages:</strong> 123-145
+                  </p>
+                  <p><strong>Published Date:</strong> 2023-10-27</p>
+                  <p>
+                    <strong>Abstract:</strong> A brief abstract of the journal
+                    publication. You can include a longer abstract here if
+                    needed.
+                  </p>
+                  <p>
+                    <strong>Link:</strong>
+                    <a href="link_to_journal_1" target="_blank"
+                      >Link to the Publication</a
+                    >
+                    (Optional)
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-conference"
+              role="tabpanel"
+              aria-labelledby="pills-conference-tab"
+              tabindex="0"
+            >
+              <div class="card border-secondary mb-3" style="max-width: 50rem">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Title of the First Conference Presentation
+                  </h5>
+                  <p><strong>Presenters:</strong> Presenter 1, Presenter 2</p>
+                  <p>
+                    <strong>Conference Name:</strong> Name of the Conference
+                  </p>
+                  <p><strong>Location:</strong> City, Country</p>
+                  <p><strong>Date:</strong> 2023-11-10</p>
+                  <p>
+                    <strong>Abstract:</strong> A brief abstract of the
+                    presentation.
+                  </p>
+                  <p>
+                    <strong>Link/Slides:</strong>
+                    <a href="link_to_slides_1" target="_blank"
+                      >Link to Slides</a
+                    >
+                    (Optional)
+                  </p>
+                </div>
+              </div>
+
+              <div class="card border-secondary mb-3" style="max-width: 50rem">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Title of the Second Conference Presentation
+                  </h5>
+                  <p><strong>Presenters:</strong> Presenter 1, Presenter 2</p>
+                  <p>
+                    <strong>Conference Name:</strong> Name of the Conference
+                  </p>
+                  <p><strong>Location:</strong> City, Country</p>
+                  <p><strong>Date:</strong> 2023-11-10</p>
+                  <p>
+                    <strong>Abstract:</strong> A brief abstract of the
+                    presentation.
+                  </p>
+                  <p>
+                    <strong>Link/Slides:</strong>
+                    <a href="link_to_slides_1" target="_blank"
+                      >Link to Slides</a
+                    >
+                    (Optional)
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-Facilities"
+          role="tabpanel"
+          aria-labelledby="v-pills-Facilities-tab"
+          tabindex="0"
+        >
+          <ul
+            class="nav nav-pills-rounded nav-justified mb-3"
+            id="pills-tab"
+            role="tablist"
+            style="min-width: 1000px"
+          >
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link active"
+                id="pills-laboratories-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-laboratories"
+                type="button"
+                role="tab"
+                aria-controls="pills-laboratories"
+                aria-selected="true"
+              >
+                Laboratories
+              </button>
+            </li>
+            <li class="nav-item pe-3" role="presentation">
+              <button
+                class="nav-link"
+                id="pills-division_library-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-division_library"
+                type="button"
+                role="tab"
+                aria-controls="pills-division_library"
+                aria-selected="false"
+              >
+                Division Library
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="pills-laboratories"
+              role="tabpanel"
+              aria-labelledby="pills-laboratories-tab"
+              tabindex="0"
+            >
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item" style="min-width: 900px">
+                  <h2 class="accordion-header text-center">
+                    <figure class="figure mx-auto">
+                      <img
+                        src="#"
+                        class="figure-img img-fluid rounded"
+                        alt="Image of laboratary here"
+                      />
+                      <figcaption class="figure-caption text-danger">
+                        Highway Materials Lab
+                      </figcaption>
+                    </figure>
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseOne"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                      style="border: 2px solid rgb(253, 240, 221)"
+                    >
+                      Laboratories Information
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseOne"
+                    class="accordion-collapse collapse show"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <!-- update lab information here -->
+                      <strong> </strong>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="accordion-item" style="min-width: 900px">
+                  <h2 class="accordion-header text-center">
+                    <figure class="figure mx-auto">
+                      <img
+                        src="#"
+                        class="figure-img img-fluid rounded"
+                        alt="Image of laboratary here"
+                      />
+                      <figcaption class="figure-caption text-danger">
+                        Pavement Evaluation Lab
+                      </figcaption>
+                    </figure>
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                      style="border: 2px solid rgb(253, 240, 221)"
+                    >
+                      Laboratories Information
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseTwo"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <!-- update lab information here -->
+
+                      <strong> </strong>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="accordion-item" style="min-width: 900px">
+                  <h2 class="accordion-header text-center">
+                    <figure class="figure mx-auto">
+                      <img
+                        src="#"
+                        class="figure-img img-fluid rounded"
+                        alt="Image of laboratary here"
+                      />
+                      <figcaption class="figure-caption text-danger">
+                        Traffic Measurements Lab
+                      </figcaption>
+                    </figure>
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseThree"
+                      aria-expanded="false"
+                      aria-controls="collapseThree"
+                      style="border: 2px solid rgb(253, 240, 221)"
+                    >
+                      Laboratories Information
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseThree"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <!-- update lab information here -->
+
+                      <strong> </strong>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="accordion-item" style="min-width: 900px">
+                  <h2 class="accordion-header text-center">
+                    <figure class="figure mx-auto">
+                      <img
+                        src="#"
+                        class="figure-img img-fluid rounded"
+                        alt="Image of laboratary here"
+                      />
+                      <figcaption class="figure-caption text-danger">
+                        Modelling, CAD & GIS Lab
+                      </figcaption>
+                    </figure>
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseFour"
+                      aria-expanded="false"
+                      aria-controls="collapseFour"
+                      style="border: 2px solid rgb(253, 240, 221)"
+                    >
+                      Laboratories Information
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseFour"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <!-- update lab information here -->
+
+                      <strong> </strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-division_library"
+              role="tabpanel"
+              aria-labelledby="pills-division_library-tab"
+              tabindex="0"
+            >
+              <p>
+                <a
+                  href="#"
+                  class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                  >click here for books information</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-Students"
+          role="tabpanel"
+          aria-labelledby="v-pills-Students-tab"
+          tabindex="0"
+        >
+          updated soon...
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-UsefulLinks"
+          role="tabpanel"
+          aria-labelledby="v-pills-UsefulLinks-tab"
+          tabindex="0"
+        >
+          updated soon...
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
