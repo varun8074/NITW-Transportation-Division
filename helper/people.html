@@ -1,0 +1,196 @@
+<style>
+  .image-container {
+    position: relative;
+    width: 150px;
+    height: 175px;
+    display: inline-block;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    border: 3px solid #ffc107;
+  }
+
+  .hover-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .image-container:hover .hover-text {
+    opacity: 1;
+  }
+</style>
+
+<!-- MAIN TABS -->
+<ul class="nav nav-pills-rounded nav-justified mb-3" id="mainTab" role="tablist" style="min-width: 1000px">
+  <li class="nav-item pe-3">
+    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#faculty" type="button">Faculty</button>
+  </li>
+  <li class="nav-item pe-3">
+    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#staff" type="button">Non-Teaching Staff</button>
+  </li>
+  <li class="nav-item pe-3">
+    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#previousfaculty" type="button">Previous Faculty</button>
+  </li>
+</ul>
+
+<div class="tab-content">
+
+  <!-- ================= FACULTY ================= -->
+  <div class="tab-pane fade show active" id="faculty">
+
+    <!-- SUB TABS -->
+    <ul class="nav nav-pills-rounded nav-justified mb-3" id="facultyTab" style="min-width: 500px">
+      <li class="nav-item pe-3">
+        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#coreFaculty" >Core Faculty</button>
+      </li>
+      <li class="nav-item pe-3">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#guestFaculty" >Guest Faculty</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+
+      <!-- CORE FACULTY -->
+      <div class="tab-pane fade show active" id="coreFaculty">
+        
+        <!-- CARD 1 -->
+        <div class="card mb-3 p-3 bg-info bg-opacity-10 border border-info rounded">
+          <div class="row g-0">
+            <div class="col-md-4 text-center">
+              <img src="https://www.nitw.ac.in/CIVDeptAssets/images/3.jpg" class="img-fluid border border-5 border-warning">
+            </div>
+            <div class="col-md-8">
+              <h5>Prof. C. S. R. K. Prasad</h5>
+              <h6 class="text-muted">Professor (HAG)</h6>
+              <p>📞 +91 9440347348</p>
+              <p>✉ csrk@nitw.ac.in</p>
+              <p>Transportation, Planning, Safety, Economics</p>
+              <a href="#" class="btn btn-primary btn-sm">View Profile</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="card mb-3 p-3 bg-info bg-opacity-10 border border-info rounded">
+          <div class="row g-0">
+            <div class="col-md-4 text-center">
+              <img src="https://www.nitw.ac.in/CIVDeptAssets/images/37.jpg" class="img-fluid border border-5 border-warning">
+            </div>
+            <div class="col-md-8">
+              <h5>Prof. B Raghuram Kadali</h5>
+              <h6 class="text-muted">Assistant Professor</h6>
+              <p>📞 8879425755</p>
+              <p>✉ brkadali@nitw.ac.in</p>
+              <p>Traffic, Safety, Behaviour, Sustainability</p>
+              <a href="#" class="btn btn-primary btn-sm">View Profile</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- GUEST FACULTY -->
+      <div class="tab-pane fade" id="guestFaculty">
+        <p>Update guest faculty here</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= STAFF ================= -->
+  <div class="tab-pane fade" id="staff">
+    <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+
+      <div class="col">
+        <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+          <img src="https://www.nitw.ac.in/CIVDeptAssets/images/st9.jpg" class="mx-auto border border-3 border-warning w-50">
+          <h5 class="mt-2">M Hari Bharghav</h5>
+          <p>Technical Assistant</p>
+          <p>📞 8328383763</p>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+          <img src="https://www.nitw.ac.in/CIVDeptAssets/images/st5.jpg" class="mx-auto border border-3 border-warning w-50">
+          <h5 class="mt-2">Kalumula Ramesh</h5>
+          <p>Senior Technical Assistant</p>
+          <p>📞 8332969268</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= PREVIOUS FACULTY ================= -->
+  <div class="tab-pane fade" id="previousfaculty">
+
+    <div class="row row-cols-1 row-cols-md-4 g-4 text-center">
+
+      <!-- CARD 1 -->
+      <div class="col">
+        <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+          <!-- <div class="image-container mx-auto"> -->
+            <!-- <img src="https://www.nitw.ac.in/CIVDeptAssets/images/phd126.jpg"> -->
+            <!-- <div class="hover-text">Transportation Engineering</div> -->
+          <!-- </div> -->
+          <!-- <h5 class="mt-2">Anirudh Subramanyam</h5>
+          <p>Reg: 21CERER13</p> -->
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="col">
+        <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+          <!-- <div class="image-container mx-auto">
+            <img src="https://www.nitw.ac.in/CIVDeptAssets/images/phd62.jpg">
+            <div class="hover-text">Transit Development</div>
+          </div>
+          <h5 class="mt-2">Lalitha Sree</h5>
+          <p>Reg: 21CEFJ005</p> -->
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="col">
+        <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+          <!-- <div class="image-container mx-auto">
+            <img src="https://www.nitw.ac.in/CIVDeptAssets/images/phd86.jpg">
+            <div class="hover-text">Vehicular Emissions</div>
+          </div>
+          <h5 class="mt-2">Ch Rohith</h5>
+          <p>Reg: 22CER1R20</p> -->
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="col">
+        <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+          <!-- <div class="image-container mx-auto">
+            <img src="https://www.nitw.ac.in/CIVDeptAssets/images/phd74.jpg">
+            <div class="hover-text">Bituminous Interfaces</div>
+          </div>
+          <h5 class="mt-2">Deepchand</h5>
+          <p>Reg: 21CERER15</p> -->
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

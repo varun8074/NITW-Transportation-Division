@@ -1,0 +1,199 @@
+<style>
+  .nav-link {
+    background-color: #00b6e2;
+    color: rgb(0, 0, 0);
+    position: relative;
+  }
+
+  .nav-link.active {
+    background-color: #c20315 !important;
+    color: white !important;
+    position: relative;
+  }
+
+  /* Arrow below active tab */
+  .nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: #c20315 transparent transparent transparent;
+  }
+  .nav-link-drop {
+    color: rgb(0, 0, 0);
+  }
+  .vertical-tabs .nav-link.active::after {
+      content: "";
+      position: absolute;
+      left: 100%;
+      bottom: 5px;
+      transform: translateY(-50%);
+      border-width: 8px;
+      border-style: solid;
+      border-color: transparent transparent transparent #c20315;
+    }
+</style>
+<div
+  class="nav nav-pills-rounded vertical-tabs flex-column me-3"
+  id="v-pills-tab"
+  role="tablist"
+  aria-orientation="vertical"
+  style="min-width: 230px"
+>
+  <button
+    class="nav-link text-start active position-relative"
+    id="v-pills-home-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-home"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-home"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    Home
+  </button>
+  <button
+    class="nav-link text-start"
+    id="v-pills-AcademicPrograms-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-AcademicPrograms"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-AcademicPrograms"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    Academic Programs
+  </button>
+  <button
+    class="nav-link text-start"
+    id="v-pills-people-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-people"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-people"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    People
+  </button>
+  <button
+    class="nav-link text-start"
+    id="v-pills-ResearchAndConsultancy-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-ResearchAndConsultancy"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-ResearchAndConsultancy"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    Research And Consultancy
+  </button>
+  <button
+    class="nav-link text-start"
+    id="v-pills-Collaborations-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-Collaborations"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-Collaborations"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    Collaborations
+  </button>
+  <button
+    class="nav-link text-start"
+    id="v-pills-CapacityBuildingAndKnowledgeTransfer-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-CapacityBuildingAndKnowledgeTransfer"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-CapacityBuildingAndKnowledgeTransfer"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    Capacity Building And Knowledge Transfer
+  </button>
+  <button
+    class="nav-link text-start"
+    id="v-pills-Publications-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-Publications"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-Publications"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    Publications
+  </button>
+  <button
+    class="nav-link text-start"
+    id="v-pills-Facilities-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-Facilities"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-Facilities"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    Facilities
+  </button>
+  <button
+    class="nav-link text-start"
+    id="v-pills-Students-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-Students"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-Students"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    Students
+  </button>
+  <button
+    class="nav-link text-start"
+    id="v-pills-UsefulLinks-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#v-pills-UsefulLinks"
+    type="button"
+    role="tab"
+    aria-controls="v-pills-UsefulLinks"
+    aria-selected="true"
+    style="margin: 2px"
+  >
+    Useful Links
+  </button>
+  <div class="lh-1">
+    <a
+      href="https://erp.nitw.ac.in/ext/profile/ce-kvreddy"
+      target="_blank"
+      style="text-decoration: none; color: black"
+    >
+      <img
+        class="border border-5 border-warning"
+        src="https://erp.nitw.ac.in/ext/profile/getUserImage/ce-ss"
+        alt="..."
+        width="150px"
+      />
+      <p class="fw-bold">Prof. S. Shankar</p>
+    </a>
+    <p class="fst-italic fw-semibold">Head of the Division</p>
+    <a
+      class="text-secondary"
+      href="mailto:ss@nitw.ac.in"
+      style="text-decoration: none"
+      >ss@nitw.ac.in</a
+    >
+    <p>9849102935</p>
+  </div>
+</div>

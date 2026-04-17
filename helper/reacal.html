@@ -1,0 +1,148 @@
+  <!-- ================= MAIN TABS ================= -->
+  <ul class="nav nav-pills-rounded nav-justified mb-3" id="mainTabs" role="tablist" style="min-width: 1000px">
+    
+    <li class="nav-item pe-3">
+      <button class="nav-link active"
+        id="research-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#researchPane"
+        type="button">
+        Research
+      </button>
+    </li>
+
+    <li class="nav-item pe-3">
+      <button class="nav-link"
+        id="consultancy-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#consultancyPane"
+        type="button">
+        Consultancy
+      </button>
+    </li>
+
+  </ul>
+
+  <div class="tab-content">
+
+    <!-- ================= RESEARCH ================= -->
+    <div class="tab-pane fade show active" id="researchPane">
+
+      <!-- SUB TABS -->
+      <ul class="nav nav-pills-rounded nav-justified mb-3" id="researchTabs">
+        
+        <li class="nav-item pe-3">
+          <button class="nav-link active"
+            data-bs-toggle="pill"
+            data-bs-target="#ongoingResearchPane">
+            Ongoing Research
+          </button>
+        </li>
+
+        <li class="nav-item pe-3">
+          <button class="nav-link"
+            data-bs-toggle="pill"
+            data-bs-target="#completedResearchPane">
+            Completed Research
+          </button>
+        </li>
+
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- ONGOING RESEARCH -->
+        <div class="tab-pane fade show active" id="ongoingResearchPane">
+
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-info">Ongoing Research Project 1</h5>
+              <p>Description about project</p>
+            </div>
+          </div>
+
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-info">Ongoing Research Project 2</h5>
+              <p>Description about project</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COMPLETED RESEARCH -->
+        <div class="tab-pane fade" id="completedResearchPane">
+
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-success">Completed Research Project 1</h5>
+              <p>Description about project</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= CONSULTANCY ================= -->
+    <div class="tab-pane fade" id="consultancyPane">
+
+      <!-- SUB TABS -->
+      <ul class="nav nav-pills-rounded nav-justified mb-3" id="consultancyTabs">
+
+        <li class="nav-item pe-3">
+          <button class="nav-link active"
+            data-bs-toggle="pill"
+            data-bs-target="#ongoingConsultancyPane">
+            Ongoing Consultancy
+          </button>
+        </li>
+
+        <li class="nav-item pe-3">
+          <button class="nav-link"
+            data-bs-toggle="pill"
+            data-bs-target="#completedConsultancyPane">
+            Completed Consultancy
+          </button>
+        </li>
+
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- ONGOING CONSULTANCY -->
+        <div class="tab-pane fade show active" id="ongoingConsultancyPane">
+
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-info">Ongoing Consultancy Project 1</h5>
+              <p>Description about project</p>
+            </div>
+          </div>
+
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-info">Ongoing Consultancy Project 2</h5>
+              <p>Description about project</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COMPLETED CONSULTANCY -->
+        <div class="tab-pane fade" id="completedConsultancyPane">
+
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-success">Completed Consultancy Project 1</h5>
+              <p>Description about project</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>

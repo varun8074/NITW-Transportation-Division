@@ -1,0 +1,229 @@
+  <!-- ================= MAIN TABS ================= -->
+  <ul class="nav nav-pills-rounded nav-justified mb-3" id="mainTabs" role="tablist" style="min-width: 1000px">
+    
+    <li class="nav-item pe-3">
+      <button class="nav-link active"
+        id="academiccollaboration -tab"
+        data-bs-toggle="pill"
+        data-bs-target="#academiccollaborationPane"
+        type="button">
+        Academic Collaborations
+      </button>
+    </li>
+
+    <li class="nav-item pe-3">
+      <button class="nav-link"
+        id="industrycollaboration-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#industrycollaborationPane"
+        type="button">
+        Industry Collaborations
+      </button>
+    </li>
+
+  </ul>
+
+  <div class="tab-content">
+
+    <!-- ================= ACADEMIC COLLABORATIONS ================= -->
+    <div class="tab-pane fade show active" id="academiccollaborationPane">
+
+      <!-- SUB TABS -->
+      <ul class="nav nav-pills-rounded nav-justified mb-3" id="academiccollaborationTabs">
+        
+        <li class="nav-item pe-3">
+          <button class="nav-link active"
+            data-bs-toggle="pill"
+            data-bs-target="#ongoingacademiccollaborationPane">
+            Ongoing Academic Collaboration
+          </button>
+        </li>
+
+        <li class="nav-item pe-3">
+          <button class="nav-link"
+            data-bs-toggle="pill"
+            data-bs-target="#completedacademiccollaborationPane">
+            Completed Academic Collaboration
+          </button>
+        </li>
+
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- ONGOING academiccollaboration -->
+        <div class="tab-pane fade show active" id="ongoingacademiccollaborationPane">
+
+          <table id="academicOngoingTable" class="table table-bordered table-striped"></table>
+
+        </div>
+
+        <!-- COMPLETED ACADEMIC COLLABORATIONS -->
+        <div class="tab-pane fade" id="completedacademiccollaborationPane">
+
+          <table id="academicCompletedTable" class="table table-bordered table-striped"></table>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= Industry Collaborations ================= -->
+    <div class="tab-pane fade" id="industrycollaborationPane">
+
+      <!-- SUB TABS -->
+      <ul class="nav nav-pills-rounded nav-justified mb-3" id="industrycollaborationTabs">
+
+        <li class="nav-item pe-3">
+          <button class="nav-link active"
+            data-bs-toggle="pill"
+            data-bs-target="#ongoingIndustrycollaborationPane">
+            Ongoing Industry Collaboration
+          </button>
+        </li>
+
+        <li class="nav-item pe-3">
+          <button class="nav-link"
+            data-bs-toggle="pill"
+            data-bs-target="#completedIndustrycollaborationPane">
+            Completed Industry Collaboration
+          </button>
+        </li>
+
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- ONGOING Industry Collaborations -->
+        <div class="tab-pane fade show active" id="ongoingIndustrycollaborationPane">
+
+           <table id="industryOngoingTable" class="table table-bordered table-striped"></table>
+
+        </div>
+
+        <!-- COMPLETED Industry Collaborations -->
+        <div class="tab-pane fade" id="completedIndustrycollaborationPane">
+
+          <table id="industryCompletedTable" class="table table-bordered table-striped"></table>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+ <script>
+$(document).ready(function () {
+
+  function loadExcel() {
+    fetch("excels\\collaboration_data.xlsx")
+      .then(res => res.arrayBuffer())
+      .then(data => {
+        const workbook = XLSX.read(data, { type: "array" });
+
+        // ================= ACADEMIC =================
+        let academicData = XLSX.utils.sheet_to_json(
+          workbook.Sheets["Academic Collaboration"]
+        );
+
+        let academicOngoing = [];
+        let academicCompleted = [];
+
+        academicData.forEach(row => {
+          let rowData = [
+            row.Project_Title,
+            row.Partner_Institute,
+            row.Principal_Investigator,
+            row.Start_Date,
+            row.End_Date || "-",
+            row.Funding_Agency,
+            row["Funding_Amount (INR)"]
+          ];
+
+          if (row.Status === "Ongoing") {
+            academicOngoing.push(rowData);
+          } else {
+            academicCompleted.push(rowData);
+          }
+        });
+
+        // Academic Tables
+        $('#academicOngoingTable').DataTable({
+          data: academicOngoing,
+          columns: getAcademicColumns()
+        });
+
+        $('#academicCompletedTable').DataTable({
+          data: academicCompleted,
+          columns: getAcademicColumns()
+        });
+
+        // ================= INDUSTRY =================
+        let industryData = XLSX.utils.sheet_to_json(
+          workbook.Sheets["Industry Collaboration"]
+        );
+
+        let industryOngoing = [];
+        let industryCompleted = [];
+
+        industryData.forEach(row => {
+          let rowData = [
+            row.Project_Title,
+            row.Company_Name,
+            row.Project_Manager,
+            row.Start_Date,
+            row.End_Date || "-",
+            row.Project_Type,
+            row["Project_Value (INR)"]
+          ];
+
+          if (row.Status === "Ongoing") {
+            industryOngoing.push(rowData);
+          } else {
+            industryCompleted.push(rowData);
+          }
+        });
+
+        // Industry Tables
+        $('#industryOngoingTable').DataTable({
+          data: industryOngoing,
+          columns: getIndustryColumns()
+        });
+
+        $('#industryCompletedTable').DataTable({
+          data: industryCompleted,
+          columns: getIndustryColumns()
+        });
+
+      });
+  }
+
+  function getAcademicColumns() {
+    return [
+      { title: "Project Title" },
+      { title: "Partner Institute" },
+      { title: "Principal Investigator" },
+      { title: "Start Date" },
+      { title: "End Date" },
+      { title: "Funding Agency" },
+      { title: "Funding Amount (INR)" }
+    ];
+  }
+
+  function getIndustryColumns() {
+    return [
+      { title: "Project Title" },
+      { title: "Company Name" },
+      { title: "Project Manager" },
+      { title: "Start Date" },
+      { title: "End Date" },
+      { title: "Project Type" },
+      { title: "Project Value (INR)" }
+    ];
+  }
+
+  loadExcel();
+
+});
+</script>

@@ -1,0 +1,147 @@
+<style>
+  .nav-link {
+    background-color: #00b6e2;
+    color: rgb(0, 0, 0);
+    position: relative;
+  }
+
+  .nav-link.active {
+    background-color: #c20315 !important;
+    color: white !important;
+    position: relative;
+  }
+</style>
+<ul
+  class="nav nav-pills-rounded nav-justified mb-3"
+  id="pills-tab"
+  role="tablist"
+  style="min-width: 1000px"
+>
+  <li class="nav-item pe-3" role="presentation">
+    <button
+      class="nav-link active"
+      id="pills-Journals-tab"
+      data-bs-toggle="pill"
+      data-bs-target="#pills-Journals"
+      type="button"
+      role="tab"
+      aria-controls="pills-Journals"
+      aria-selected="true"
+    >
+      Journals
+    </button>
+  </li>
+
+  <li class="nav-item pe-3" role="presentation">
+    <button
+      class="nav-link"
+      id="pills-conference-tab"
+      data-bs-toggle="pill"
+      data-bs-target="#pills-conference"
+      type="button"
+      role="tab"
+      aria-controls="pills-conference"
+      aria-selected="false"
+    >
+      conference
+    </button>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div
+    class="tab-pane fade show active"
+    id="pills-Journals"
+    role="tabpanel"
+    aria-labelledby="pills-Journals-tab"
+    tabindex="0"
+  >
+    <div class="card border-secondary mb-3" style="max-width: 50rem">
+      <div class="card-body">
+        <h5 class="card-title">Title of the First Journal Publication</h5>
+        <p class="card-text"></p>
+        <p><strong>Authors:</strong> Author 1, Author 2, Author 3</p>
+        <p><strong>Journal:</strong> Name of the Journal</p>
+        <p>
+          <strong>Volume:</strong> 10, <strong>Issue:</strong> 2,
+          <strong>Pages:</strong> 123-145
+        </p>
+        <p><strong>Published Date:</strong> 2023-10-27</p>
+        <p>
+          <strong>Abstract:</strong> A brief abstract of the journal
+          publication. You can include a longer abstract here if needed.
+        </p>
+        <p>
+          <strong>Link:</strong>
+          <a href="link_to_journal_1" target="_blank"
+            >Link to the Publication</a
+          >
+          (Optional)
+        </p>
+      </div>
+    </div>
+
+    <div class="card border-secondary mb-3" style="max-width: 50rem">
+      <div class="card-body">
+        <h5 class="card-title">Title of the Second Journal Publication</h5>
+        <p class="card-text"></p>
+        <p><strong>Authors:</strong> Author 1, Author 2, Author 3</p>
+        <p><strong>Journal:</strong> Name of the Journal</p>
+        <p>
+          <strong>Volume:</strong> 10, <strong>Issue:</strong> 2,
+          <strong>Pages:</strong> 123-145
+        </p>
+        <p><strong>Published Date:</strong> 2023-10-27</p>
+        <p>
+          <strong>Abstract:</strong> A brief abstract of the journal
+          publication. You can include a longer abstract here if needed.
+        </p>
+        <p>
+          <strong>Link:</strong>
+          <a href="link_to_journal_1" target="_blank"
+            >Link to the Publication</a
+          >
+          (Optional)
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tab-pane fade"
+    id="pills-conference"
+    role="tabpanel"
+    aria-labelledby="pills-conference-tab"
+    tabindex="0"
+  >
+    <div class="card border-secondary mb-3" style="max-width: 50rem">
+      <div class="card-body">
+        <h5 class="card-title">Title of the First Conference Presentation</h5>
+        <p><strong>Presenters:</strong> Presenter 1, Presenter 2</p>
+        <p><strong>Conference Name:</strong> Name of the Conference</p>
+        <p><strong>Location:</strong> City, Country</p>
+        <p><strong>Date:</strong> 2023-11-10</p>
+        <p><strong>Abstract:</strong> A brief abstract of the presentation.</p>
+        <p>
+          <strong>Link/Slides:</strong>
+          <a href="link_to_slides_1" target="_blank">Link to Slides</a>
+          (Optional)
+        </p>
+      </div>
+    </div>
+
+    <div class="card border-secondary mb-3" style="max-width: 50rem">
+      <div class="card-body">
+        <h5 class="card-title">Title of the Second Conference Presentation</h5>
+        <p><strong>Presenters:</strong> Presenter 1, Presenter 2</p>
+        <p><strong>Conference Name:</strong> Name of the Conference</p>
+        <p><strong>Location:</strong> City, Country</p>
+        <p><strong>Date:</strong> 2023-11-10</p>
+        <p><strong>Abstract:</strong> A brief abstract of the presentation.</p>
+        <p>
+          <strong>Link/Slides:</strong>
+          <a href="link_to_slides_1" target="_blank">Link to Slides</a>
+          (Optional)
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
