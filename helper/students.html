@@ -1,4 +1,42 @@
 <!-- ================= MAIN TABS ================= -->
+<style>
+  .img-hover-box {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+  }
+
+  .img-hover-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid orange;
+    border-radius: 6px;
+  }
+
+  .hover-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transition: 0.3s;
+    padding: 5px;
+  }
+
+  .img-hover-box:hover .hover-text {
+    opacity: 1;
+  }
+</style>
 <ul
   class="nav nav-pills-rounded nav-justified mb-3"
   id="mainTabs"
@@ -29,6 +67,21 @@
     </button>
   </li>
 </ul>
+<!--<style>
+  .table-responsive {
+    overflow-x: auto;
+  }
+  table td,
+  table th {
+    white-space: normal !important;
+    word-break: break-word;
+  }
+  td:nth-child(5) {
+    /* Thesis Abstract column */
+    max-width: 300px;
+    white-space: normal;
+  }
+</style> -->
 
 <div class="tab-content">
   <!-- ================= RESEARCH scholars ================= -->
@@ -66,6 +119,7 @@
           <div class="card-body">
             <h5 class="text-info">Current Research Scholars</h5>
             <p>The current research scholars are listed here.</p>
+            <div id="crsOutput" class="mt-3"></div>
           </div>
         </div>
       </div>
@@ -356,8 +410,33 @@
       <!-- Current Mtech -->
       <div class="tab-pane fade show active" id="currentmPane">
         <div class="card border-dark mb-3">
-          <h5 class="text-success">Current Batch</h5>
-          <p>The Current Batch is seen</p>
+          <div class="card-body">
+            <h5 class="text-info">Current Mtech Batch</h5>
+            <p>The current Mtech students are listed here.</p>
+            <div class="container text-center">
+              <div class="row">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info batch-btn"
+                    data-batch="2024"
+                  >
+                    view 2024 Batch
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info batch-btn"
+                    data-batch="2025"
+                  >
+                    view 2025 Batch
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div id="cmsOutput" class="mt-3"></div>
+          </div>
         </div>
       </div>
 
@@ -520,249 +599,232 @@
 </div>
 
 <script>
-$(document).ready(function () {
+  $(document).ready(function () {
+    let currentPage = 1;
+    let rowsPerPage = 8;
 
-  let state = {
-    RS: { full: [], filtered: [], page: 1 },
-    MS: { full: [], filtered: [], page: 1 }
-  };
+    let fullData = [];
+    let filteredData = [];
+    let currentMode = ''; // CRS / RS / CMS / MS
+    let currentOutput = '';
 
-  let rowsPerPage = 5;
-  let currentMode = ""; // RS or MS
+    // ================= AUTO LOAD CURRENT RS =================
+    loadExcel('excels/Phd_Current.xlsx', 'CRS', '#crsOutput');
 
-  // ================= CLICK BATCH =================
-  $(document).on("click", ".batch-btn", function () {
+    // ================= CLICK BATCH =================
+    $(document).on('click', '.batch-btn', function () {
+      let batch = $(this).data('batch').toString().trim();
 
-    let batch = $(this).data("batch").toString().trim();
-    let isRS = $(this).closest("#aluminirsPane").length > 0;
+      if ($(this).closest('#aluminirsPane').length) {
+        loadExcel('excels/Phd_Alumini.xlsx', 'RS', '#rsOutput', batch);
+      } else if ($(this).closest('#currentmPane').length) {
+        loadExcel('excels/Current_Mtech.xlsx', 'CMS', '#cmsOutput', batch);
+      } else {
+        loadExcel('excels/M-Tech_Alumini.xlsx', 'MS', '#msOutput', batch);
+      }
+    });
 
-    currentMode = isRS ? "RS" : "MS";
+    function getImagePath(photoValue) {
+      if (!photoValue) return '';
 
-    let fileUrl = isRS 
-      ? "excels/Phd_Alumini.xlsx" 
-      : "excels/M-Tech_Alumini.xlsx";
+      let val = photoValue.toString().trim();
 
-    let outputDiv = isRS ? "#rsOutput" : "#msOutput";
-
-    fetch(fileUrl)
-      .then(res => {
-        if (!res.ok) throw new Error();
-        return res.arrayBuffer();
-      })
-      .then(data => {
-
-        let wb = XLSX.read(data, { type: "array" });
-
-        let sheetName = Object.keys(wb.Sheets)
-          .find(name => name.trim() === batch);
-
-        if (!sheetName) {
-          $(outputDiv).html(`<p class="text-danger">Sheet ${batch} not found</p>`);
-          return;
+      // GOOGLE DRIVE LINK
+      if (val.includes('drive.google.com')) {
+        let match = val.match(/[-\w]{25,}/);
+        if (match) {
+          return `https://lh3.googleusercontent.com/d/${match[0]}`;
         }
+      }
 
-        let sheet = wb.Sheets[sheetName];
-        let json = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+      // DIRECT ID (if you store only ID in Excel)
+      if (val.length > 20 && !val.startsWith('http')) {
+        return `https://lh3.googleusercontent.com/d/${val}`;
+      }
 
-        // Clean keys
-        json = json.map(row => {
-          let obj = {};
-          Object.keys(row).forEach(k => obj[k.trim()] = row[k]);
-          return obj;
+      // NORMAL URL
+      if (val.startsWith('http')) return val;
+
+      // LOCAL IMAGE
+      return 'images/' + val + '.jpg';
+    }
+    // ================= LOAD EXCEL =================
+    function loadExcel(fileUrl, mode, outputDiv, batch = null) {
+      currentMode = mode;
+      currentOutput = outputDiv;
+
+      fetch(fileUrl)
+        .then((res) => res.arrayBuffer())
+        .then((data) => {
+          let workbook = XLSX.read(data, { type: 'array' });
+
+          let sheetName = batch
+            ? Object.keys(workbook.Sheets).find((n) => n.trim() === batch)
+            : workbook.SheetNames[0];
+
+          let sheet = workbook.Sheets[sheetName];
+
+          let excelData = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+
+          // clean keys
+          excelData = excelData.map((row) => {
+            let newRow = {};
+            Object.keys(row).forEach((k) => (newRow[k.trim()] = row[k]));
+            return newRow;
+          });
+
+          fullData = excelData;
+          filteredData = [...fullData];
+          currentPage = 1;
+
+          renderLayout(batch);
+          renderData();
+        });
+    }
+
+    // ================= LAYOUT =================
+    function renderLayout(batch) {
+      let prefix = currentMode;
+
+      let html = `
+        ${batch ? `<h5>Batch ${batch}</h5>` : ''}
+        <input type="text" id="search${prefix}" class="form-control mb-3" placeholder="Search...">
+        <div id="content${prefix}"></div>
+        <div class="d-flex justify-content-between mt-2">
+          <div id="info${prefix}"></div>
+          <div id="pagination${prefix}"></div>
+        </div>
+      `;
+
+      $(currentOutput).html(html);
+    }
+
+    // ================= SEARCH =================
+    $(document).on('keyup', '[id^=search]', function () {
+      let val = $(this).val().toLowerCase();
+
+      filteredData = fullData.filter((row) =>
+        Object.values(row).some((v) => String(v).toLowerCase().includes(val)),
+      );
+
+      currentPage = 1;
+      renderData();
+    });
+
+    // ================= RENDER =================
+    function renderData() {
+      let start = (currentPage - 1) * rowsPerPage;
+      let pageData = filteredData.slice(start, start + rowsPerPage);
+
+      // ===== CURRENT RS (CARDS) =====
+      if (currentMode === 'CRS') {
+        let html = `<div class="row">`;
+
+        pageData.forEach((s) => {
+          let img = getImagePath(s.Photo);
+
+          html += `
+            <div class="col-md-3 mb-3">
+              <div class="card text-center p-2">
+
+                <div class="img-hover-box">
+                  <img src="${img}">
+                  <div class="hover-text">
+                    ${s['Research Area'] || '-'}
+                  </div>
+                </div>
+
+                <h6>${s.Name || '-'}</h6>
+                <small>${s['Reg No.'] || '-'}</small><br>
+                <small>📞 ${s['Phone Number'] || '-'}</small><br>
+                <small>✉ ${
+                  s.Email ||
+                  s['Email Id'] ||
+                  s['Email ID'] ||
+                  s['E-mail'] ||
+                  '-'
+                }</small>
+
+              </div>
+            </div>
+          `;
         });
 
-        state[currentMode].full = json;
-        state[currentMode].filtered = [...json];
-        state[currentMode].page = 1;
+        html += `</div>`;
+        $('#contentCRS').html(html);
+      }
 
-        renderLayout(batch, outputDiv, currentMode);
-        renderTable();
+      // ===== TABLE MODES =====
+      else {
+        let html = `<table class="table table-bordered table-striped"><thead class="table-dark"><tr>`;
 
-      })
-      .catch(() => {
-        $(outputDiv).html(`<p class="text-danger">Error loading file</p>`);
-      });
-  });
+        Object.keys(pageData[0] || {}).forEach((k) => {
+          html += `<th>${k}</th>`;
+        });
 
-  // ================= LAYOUT =================
-  function renderLayout(batch, outputDiv, mode) {
+        html += `</tr></thead><tbody>`;
 
-    let html = `
-      <h5 class="mt-3">Batch ${batch}</h5>
+        pageData.forEach((row) => {
+          html += `<tr>`;
 
-      <input type="text" 
-             id="search_${mode}" 
-             class="form-control mb-3" 
-             placeholder="Search...">
+          Object.keys(row).forEach((k) => {
+            if (k.toLowerCase().includes('photo')) {
+              let img = getImagePath(row[k]);
 
-      <div id="table_${mode}"></div>
+              html += `<td>${
+                img
+                  ? `<img src="${img}" width="60" height="100" style="object-fit:cover;">`
+                  : 'No Image'
+              }</td>`;
+            } else {
+              html += `<td>${row[k] || '-'}</td>`;
+            }
+          });
 
-      <div class="d-flex justify-content-between mt-2">
-        <div id="info_${mode}"></div>
-        <div id="pagination_${mode}"></div>
-      </div>
-    `;
+          html += `</tr>`;
+        });
 
-    $(outputDiv).html(html);
-  }
+        html += `</tbody></table>`;
 
-  // ================= SEARCH =================
-  $(document).on("keyup", "#search_RS, #search_MS", function () {
+        $('#content' + currentMode).html(html);
+      }
 
-    let mode = this.id.split("_")[1];
-    let value = $(this).val().toLowerCase();
-
-    state[mode].filtered = state[mode].full.filter(row =>
-      Object.values(row).some(val =>
-        String(val).toLowerCase().includes(value)
-      )
-    );
-
-    state[mode].page = 1;
-    currentMode = mode;
-
-    renderTable();
-  });
-
-  // ================= TABLE =================
-  function renderTable() {
-
-    let data = state[currentMode].filtered;
-    let page = state[currentMode].page;
-
-    let start = (page - 1) * rowsPerPage;
-    let pageData = data.slice(start, start + rowsPerPage);
-
-    let html = `<table class="table table-bordered table-striped">`;
-
-    // ===== RS TABLE =====
-    if (currentMode === "RS") {
-
-      html += `
-        <thead class="table-dark">
-          <tr>
-            <th>Year</th>
-            <th>Name</th>
-            <th>Area</th>
-            <th>Supervisor</th>
-            <th>Photo</th>
-          </tr>
-        </thead><tbody>`;
-
-      pageData.forEach(row => {
-        html += `
-          <tr>
-            <td>${row.Year || "-"}</td>
-            <td>${row["Name of the Scholar"] || "-"}</td>
-            <td>${row["Area of Research"] || "-"}</td>
-            <td>${row["Supervisor(s)"] || "-"}</td>
-            <td>
-              ${row.Photo 
-                ? `<img src="images/${row.Photo}.jpg" width="60" height="80">`
-                : "No Image"}
-            </td>
-          </tr>`;
-      });
-
-    } else {
-
-      html += `
-        <thead class="table-dark">
-          <tr>
-            <th>Batch</th>
-            <th>Roll</th>
-            <th>Name</th>
-            <th>Thesis</th>
-            <th>Abstract</th>
-            <th>Seminar</th>
-            <th>Training</th>
-            <th>Position</th>
-            <th>Photo</th>
-          </tr>
-        </thead><tbody>`;
-
-      pageData.forEach(s => {
-        html += `
-          <tr>
-            <td>${s.Batch || "-"}</td>
-            <td>${s["Roll Number"] || "-"}</td>
-            <td>${s.Name || "-"}</td>
-            <td>${s["M.Tech Thesis Title"] || "-"}</td>
-            <td>${s["Thesis Abstract"] || "-"}</td>
-            <td>${s["Seminar Title"] || "-"}</td>
-            <td>${s["Industry Training"] || "-"}</td>
-            <td>${s["Current Position"] || "-"}</td>
-            <td>
-              ${s.Photo 
-                ? `<img src="images/${s.Photo}.jpg" width="60" height="80">`
-                : "No Image"}
-            </td>
-          </tr>`;
-      });
+      renderPagination();
     }
 
-    if (pageData.length === 0) {
-      html += `<tr><td colspan="9" class="text-center">No data found</td></tr>`;
-    }
+    // ================= PAGINATION =================
+    function renderPagination() {
+      let totalPages = Math.ceil(filteredData.length / rowsPerPage);
+      let prefix = currentMode;
 
-    html += `</tbody></table>`;
+      let controls = '';
 
-    $(`#table_${currentMode}`).html(html);
+      controls += `<button onclick="changePage(${currentPage - 1})"
+        ${currentPage === 1 ? 'disabled' : ''}>Prev</button>`;
 
-    renderPagination(data);
-  }
-
-  // ================= PAGINATION =================
-  function renderPagination(data) {
-
-    let totalPages = Math.ceil(data.length / rowsPerPage);
-    let page = state[currentMode].page;
-
-    if (totalPages === 0) {
-      $(`#pagination_${currentMode}`).html("");
-      $(`#info_${currentMode}`).html("No entries");
-      return;
-    }
-
-    let startPage = Math.max(1, page - 2);
-    let endPage = Math.min(totalPages, page + 2);
-
-    let buttons = `
-      <button class="btn btn-sm btn-secondary page-btn" 
-              data-page="${page - 1}" 
-              ${page === 1 ? "disabled" : ""}>Prev</button>
-    `;
-
-    for (let i = startPage; i <= endPage; i++) {
-      buttons += `
-        <button class="btn btn-sm ${i === page ? "btn-primary" : "btn-outline-primary"} page-btn"
-                data-page="${i}">
+      for (let i = 1; i <= totalPages; i++) {
+        controls += `<button onclick="changePage(${i})"
+          ${i === currentPage ? "style='font-weight:bold'" : ''}>
           ${i}
         </button>`;
+      }
+
+      controls += `<button onclick="changePage(${currentPage + 1})"
+        ${currentPage === totalPages ? 'disabled' : ''}>Next</button>`;
+
+      $('#pagination' + prefix).html(controls);
+
+      $('#info' + prefix).html(
+        `Showing ${(currentPage - 1) * rowsPerPage + 1}
+         to ${Math.min(currentPage * rowsPerPage, filteredData.length)}
+         of ${filteredData.length}`,
+      );
     }
 
-    buttons += `
-      <button class="btn btn-sm btn-secondary page-btn" 
-              data-page="${page + 1}" 
-              ${page === totalPages ? "disabled" : ""}>Next</button>
-    `;
-
-    $(`#pagination_${currentMode}`).html(buttons);
-
-    let start = (page - 1) * rowsPerPage + 1;
-    let end = Math.min(page * rowsPerPage, data.length);
-
-    $(`#info_${currentMode}`).html(
-      `Showing ${data.length === 0 ? 0 : start} to ${end} of ${data.length}`
-    );
-  }
-
-  // ================= PAGE CLICK =================
-  $(document).on("click", ".page-btn", function () {
-    let page = Number($(this).data("page"));
-    state[currentMode].page = page;
-    renderTable();
+    // ================= PAGE CHANGE =================
+    window.changePage = function (p) {
+      currentPage = p;
+      renderData();
+    };
   });
-
-});
 </script>
