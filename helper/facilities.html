@@ -4,12 +4,55 @@
     color: rgb(0, 0, 0);
     position: relative;
   }
+
   .nav-link.active {
     background-color: #c20315 !important;
     color: white !important;
     position: relative;
   }
+
+  .accordion-item {
+    min-width: 900px;
+  }
+
+  .figure-caption {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .lab-section {
+    margin-bottom: 20px;
+  }
+
+  .lab-section h5 {
+    color: #c20315;
+    margin-top: 15px;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+   .custom-table {
+    border: 2px solid #c20315;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    border: 2px solid #c20315 !important;
+  }
+
+  .custom-table th {
+    background-color: #c1eaf7 !important;
+    color: #000;
+    vertical-align: middle;
+  }
+  .custom-table td {
+    background-color: #d4f2f7 !important;
+    color: #000;
+    vertical-align: middle;
+  }
 </style>
+
 <ul
   class="nav nav-pills-rounded nav-justified mb-3"
   id="pills-tab"
@@ -24,12 +67,11 @@
       data-bs-target="#pills-laboratories"
       type="button"
       role="tab"
-      aria-controls="pills-laboratories"
-      aria-selected="true"
     >
       Laboratories
     </button>
   </li>
+
   <li class="nav-item pe-3" role="presentation">
     <button
       class="nav-link"
@@ -38,183 +80,197 @@
       data-bs-target="#pills-division_library"
       type="button"
       role="tab"
-      aria-controls="pills-division_library"
-      aria-selected="false"
     >
       Division Library
     </button>
   </li>
 </ul>
+
 <div class="tab-content" id="pills-tabContent">
+  <!-- LAB TAB -->
   <div
     class="tab-pane fade show active"
     id="pills-laboratories"
     role="tabpanel"
-    aria-labelledby="pills-laboratories-tab"
-    tabindex="0"
   >
-    <div class="accordion" id="accordionExample">
-      <div class="accordion-item" style="min-width: 900px">
-        <h2 class="accordion-header text-center">
-          <figure class="figure mx-auto">
-            <img
-              src="#"
-              class="figure-img img-fluid rounded"
-              alt="Image of laboratary here"
-            />
-            <figcaption class="figure-caption text-danger">
-              Highway Materials Lab
-            </figcaption>
-          </figure>
-          <button
-            class="accordion-button"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseOne"
-            aria-expanded="true"
-            aria-controls="collapseOne"
-            style="border: 2px solid rgb(253, 240, 221)"
-          >
-            Laboratories Information
-          </button>
-        </h2>
-        <div
-          id="collapseOne"
-          class="accordion-collapse collapse show"
-          data-bs-parent="#accordionExample"
-        >
-          <div class="accordion-body">
-            <!-- update lab information here -->
-            <strong> </strong>
-          </div>
-        </div>
-      </div>
-      <br />
-      <div class="accordion-item" style="min-width: 900px">
-        <h2 class="accordion-header text-center">
-          <figure class="figure mx-auto">
-            <img
-              src="#"
-              class="figure-img img-fluid rounded"
-              alt="Image of laboratary here"
-            />
-            <figcaption class="figure-caption text-danger">
-              Pavement Evaluation Lab
-            </figcaption>
-          </figure>
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseTwo"
-            aria-expanded="false"
-            aria-controls="collapseTwo"
-            style="border: 2px solid rgb(253, 240, 221)"
-          >
-            Laboratories Information
-          </button>
-        </h2>
-        <div
-          id="collapseTwo"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionExample"
-        >
-          <div class="accordion-body">
-            <!-- update lab information here -->
-
-            <strong> </strong>
-          </div>
-        </div>
-      </div>
-      <br />
-      <div class="accordion-item" style="min-width: 900px">
-        <h2 class="accordion-header text-center">
-          <figure class="figure mx-auto">
-            <img
-              src="#"
-              class="figure-img img-fluid rounded"
-              alt="Image of laboratary here"
-            />
-            <figcaption class="figure-caption text-danger">
-              Traffic Measurements Lab
-            </figcaption>
-          </figure>
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseThree"
-            aria-expanded="false"
-            aria-controls="collapseThree"
-            style="border: 2px solid rgb(253, 240, 221)"
-          >
-            Laboratories Information
-          </button>
-        </h2>
-        <div
-          id="collapseThree"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionExample"
-        >
-          <div class="accordion-body">
-            <!-- update lab information here -->
-
-            <strong> </strong>
-          </div>
-        </div>
-      </div>
-      <br />
-      <div class="accordion-item" style="min-width: 900px">
-        <h2 class="accordion-header text-center">
-          <figure class="figure mx-auto">
-            <img
-              src="#"
-              class="figure-img img-fluid rounded"
-              alt="Image of laboratary here"
-            />
-            <figcaption class="figure-caption text-danger">
-              Modelling, CAD & GIS Lab
-            </figcaption>
-          </figure>
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseFour"
-            aria-expanded="false"
-            aria-controls="collapseFour"
-            style="border: 2px solid rgb(253, 240, 221)"
-          >
-            Laboratories Information
-          </button>
-        </h2>
-        <div
-          id="collapseFour"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionExample"
-        >
-          <div class="accordion-body">
-            <!-- update lab information here -->
-
-            <strong> </strong>
-          </div>
-        </div>
-      </div>
+    <div class="accordion" id="labsAccordion">
+      <!-- Dynamic data comes here -->
     </div>
   </div>
+
+  <!-- LIBRARY TAB -->
   <div
     class="tab-pane fade"
     id="pills-division_library"
     role="tabpanel"
-    aria-labelledby="pills-division_library-tab"
-    tabindex="0"
   >
     <p>
       <a
         href="#"
         class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-        >click here for books information</a
       >
+        click here for books information
+      </a>
     </p>
   </div>
 </div>
+
+
+<script>
+  $(document).ready(function () {
+    fetch("excels/LabDetails.xlsx")
+      .then((response) => response.arrayBuffer())
+      .then((arrayBuffer) => {
+        const workbook = XLSX.read(arrayBuffer, { type: "array" });
+
+        const accordion = $("#labsAccordion");
+
+        workbook.SheetNames.forEach((sheetName, index) => {
+          const worksheet = workbook.Sheets[sheetName];
+
+          const data = XLSX.utils.sheet_to_json(worksheet, {
+            defval: "",
+          });
+
+          let faculty = "";
+          let softwareList = [];
+          let hardwareList = [];
+          let instructionsList = [];
+
+          data.forEach((row) => {
+            if (row["Faculty Incharge"]) {
+              faculty = row["Faculty Incharge"];
+            }
+
+            if (row["Software"]) {
+              softwareList.push(row["Software"]);
+            }
+
+            if (row["Hardware"]) {
+              hardwareList.push(row["Hardware"]);
+            }
+
+            if (row["Hardware "]) {
+              hardwareList.push(row["Hardware "]);
+            }
+
+            if (row["Instructions"]) {
+              instructionsList.push(row["Instructions"]);
+            }
+          });
+
+          const collapseId = `collapse${index}`;
+
+          const accordionHTML = `
+            <div class="accordion-item" style="background-color: #fff9ee; border: 2px solid #c20315;">
+
+              <h2 class="accordion-header text-center">
+
+                <figure class="figure mx-auto mt-3">
+                  <img
+                    src="images/${sheetName}.jpg"
+                    class="figure-img img-fluid rounded"
+                    alt="${sheetName} Lab"
+                    style="max-height:50%  ; max-width:50%;"
+                  />
+
+                  <figcaption class="figure-caption text-danger">
+                    ${sheetName} Laboratory
+                  </figcaption>
+                </figure>
+
+                <button
+                  class="accordion-button ${
+                    index !== 0 ? "collapsed" : ""
+                  }"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#${collapseId}"
+                >
+                  Laboratories Information
+                </button>
+              </h2>
+
+              <div
+                id="${collapseId}"
+                class="accordion-collapse collapse ${
+                  index === 0 ? "show" : ""
+                }"
+                data-bs-parent="#labsAccordion"
+              >
+
+                <div class="accordion-body">
+
+                  <table class="table custom-table align-middle">
+
+                    <tbody>
+
+                      <tr>
+                        <th width="25%">
+                          Faculty Incharge
+                        </th>
+
+                        <td>${faculty}</td>
+                      </tr>
+
+                      <tr>
+                        <th>
+                          Software Available
+                        </th>
+
+                        <td>
+                          <ul class="mb-0">
+                            ${softwareList
+                              .map((item) => `<li>${item}</li>`)
+                              .join("")}
+                          </ul>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th>
+                          Hardware Available
+                        </th>
+
+                        <td>
+                          <ul class="mb-0">
+                            ${hardwareList
+                              .map((item) => `<li>${item}</li>`)
+                              .join("")}
+                          </ul>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th>
+                          Instructions
+                        </th>
+
+                        <td>
+                          <ul class="mb-0">
+                            ${instructionsList
+                              .map((item) => `<li>${item}</li>`)
+                              .join("")}
+                          </ul>
+                        </td>
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <br>
+          `;
+
+          accordion.append(accordionHTML);
+        });
+      })
+      .catch((error) => {
+        console.error("Error loading Excel file:", error);
+      });
+  });
+</script>
