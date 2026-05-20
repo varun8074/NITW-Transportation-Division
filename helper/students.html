@@ -2,8 +2,8 @@
 <style>
   .img-hover-box {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 145px;
+    height: 170px;
     margin: auto;
   }
 
@@ -611,46 +611,32 @@
     };
 
     // ================= AUTO LOAD =================
-    loadExcel('excels/Phd_Current.xlsx', 'CRS', '#crsOutput');
+    loadExcel("excels/Phd_Current.xlsx", "CRS", "#crsOutput");
 
     // ================= BATCH BUTTON CLICK =================
-    $(document).on('click', '.batch-btn', function () {
-      let batch = $(this).data('batch').toString().trim();
+    $(document).on("click", ".batch-btn", function () {
+      let batch = $(this).data("batch").toString().trim();
 
-      if ($(this).closest('#aluminirsPane').length) {
-        loadExcel('excels/Phd_Alumini.xlsx', 'RS', '#rsOutput', batch);
-      } else if ($(this).closest('#currentmPane').length) {
-        loadExcel('excels/Current_Mtech.xlsx', 'CMS', '#cmsOutput', batch);
+      if ($(this).closest("#aluminirsPane").length) {
+        loadExcel("excels/Phd_Alumini.xlsx", "RS", "#rsOutput", batch);
+      } else if ($(this).closest("#currentmPane").length) {
+        loadExcel("excels/Current_Mtech.xlsx", "CMS", "#cmsOutput", batch);
       } else {
-        loadExcel('excels/M-Tech_Alumini.xlsx', 'MS', '#msOutput', batch);
+        loadExcel("excels/M-Tech_Alumini.xlsx", "MS", "#msOutput", batch);
       }
     });
 
     // ================= IMAGE PATH =================
     function getImagePath(photoValue) {
-      if (!photoValue) return '';
+      if (!photoValue) return "";
 
       let val = photoValue.toString().trim();
 
-      // GOOGLE DRIVE LINK
-      if (val.includes('drive.google.com')) {
-        let match = val.match(/[-\\w]{25,}/);
-
-        if (match) {
-          return `https://lh3.googleusercontent.com/d/${match[0]}`;
-        }
-      }
-
-      // GOOGLE DRIVE ID ONLY
-      if (val.length > 20 && !val.startsWith('http')) {
-        return `https://lh3.googleusercontent.com/d/${val}`;
-      }
-
       // DIRECT URL
-      if (val.startsWith('http')) return val;
+      if (val.startsWith("http")) return val;
 
       // LOCAL IMAGE
-      return 'images/' + val + '.jpg';
+      return "images/" + val + ".jpg";
     }
 
     // ================= LOAD EXCEL =================
@@ -658,18 +644,16 @@
       fetch(fileUrl)
         .then((res) => res.arrayBuffer())
         .then((data) => {
-          let workbook = XLSX.read(data, { type: 'array' });
+          let workbook = XLSX.read(data, { type: "array" });
 
           let sheetName = batch
-            ? Object.keys(workbook.Sheets).find(
-                (n) => n.trim() === batch,
-              )
+            ? Object.keys(workbook.Sheets).find((n) => n.trim() === batch)
             : workbook.SheetNames[0];
 
           let sheet = workbook.Sheets[sheetName];
 
           let excelData = XLSX.utils.sheet_to_json(sheet, {
-            defval: '',
+            defval: "",
           });
 
           // CLEAN COLUMN NAMES
@@ -702,7 +686,7 @@
       let data = state[mode];
 
       let html = `
-        ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ''}
+        ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ""}
 
         <input
           type="text"
@@ -723,15 +707,13 @@
     }
 
     // ================= SEARCH =================
-    $(document).on('keyup', '[id^=search]', function () {
-      let mode = this.id.replace('search', '');
+    $(document).on("keyup", "[id^=search]", function () {
+      let mode = this.id.replace("search", "");
 
       let val = $(this).val().toLowerCase();
 
       state[mode].filteredData = state[mode].fullData.filter((row) =>
-        Object.values(row).some((v) =>
-          String(v).toLowerCase().includes(val),
-        ),
+        Object.values(row).some((v) => String(v).toLowerCase().includes(val)),
       );
 
       state[mode].currentPage = 1;
@@ -743,16 +725,12 @@
     function renderData(mode) {
       let dataState = state[mode];
 
-      let start =
-        (dataState.currentPage - 1) * rowsPerPage;
+      let start = (dataState.currentPage - 1) * rowsPerPage;
 
-      let pageData = dataState.filteredData.slice(
-        start,
-        start + rowsPerPage,
-      );
+      let pageData = dataState.filteredData.slice(start, start + rowsPerPage);
 
       // ===== CURRENT RESEARCH SCHOLARS =====
-      if (mode === 'CRS') {
+      if (mode === "CRS") {
         let html = `<div class="row">`;
 
         pageData.forEach((s) => {
@@ -767,22 +745,22 @@
                   <img src="${img}">
 
                   <div class="hover-text">
-                    ${s['Research Area'] || '-'}
+                    ${s["Research Area"] || "-"}
                   </div>
                 </div>
 
                 <h6 class="mt-2">
-                  ${s.Name || '-'}
+                  ${s.Name || "-"}
                 </h6>
 
                 <small>
-                  ${s['Reg No.'] || '-'}
+                  ${s["Reg No."] || "-"}
                 </small>
 
                 <br>
 
                 <small>
-                  📞 ${s['Phone Number'] || '-'}
+                  📞 ${s["Phone Number"] || "-"}
                 </small>
 
                 <br>
@@ -790,10 +768,10 @@
                 <small>
                   ✉ ${
                     s.Email ||
-                    s['Email Id'] ||
-                    s['Email ID'] ||
-                    s['E-mail'] ||
-                    '-'
+                    s["Email Id"] ||
+                    s["Email ID"] ||
+                    s["E-mail"] ||
+                    "-"
                   }
                 </small>
 
@@ -805,7 +783,7 @@
 
         html += `</div>`;
 
-        $('#content' + mode).html(html);
+        $("#content" + mode).html(html);
       }
 
       // ===== TABLE VIEWS =====
@@ -835,7 +813,7 @@
 
           Object.keys(row).forEach((k) => {
             // IMAGE COLUMN
-            if (k.toLowerCase().includes('photo')) {
+            if (k.toLowerCase().includes("photo")) {
               let img = getImagePath(row[k]);
 
               html += `
@@ -848,7 +826,7 @@
                           height="80"
                           style="object-fit:cover;border-radius:5px;"
                         >`
-                      : 'No Image'
+                      : "No Image"
                   }
                 </td>
               `;
@@ -856,7 +834,7 @@
 
             // NORMAL COLUMN
             else {
-              html += `<td>${row[k] || '-'}</td>`;
+              html += `<td>${row[k] || "-"}</td>`;
             }
           });
 
@@ -869,7 +847,7 @@
           </div>
         `;
 
-        $('#content' + mode).html(html);
+        $("#content" + mode).html(html);
       }
 
       renderPagination(mode);
@@ -879,20 +857,16 @@
     function renderPagination(mode) {
       let dataState = state[mode];
 
-      let totalPages = Math.ceil(
-        dataState.filteredData.length / rowsPerPage,
-      );
+      let totalPages = Math.ceil(dataState.filteredData.length / rowsPerPage);
 
-      let controls = '';
+      let controls = "";
 
       // PREV
       controls += `
         <button
           class="btn btn-sm btn-outline-primary me-1"
-          onclick="changePage('${mode}', ${
-            dataState.currentPage - 1
-          })"
-          ${dataState.currentPage === 1 ? 'disabled' : ''}
+          onclick="changePage('${mode}', ${dataState.currentPage - 1})"
+          ${dataState.currentPage === 1 ? "disabled" : ""}
         >
           Prev
         </button>
@@ -904,8 +878,8 @@
           <button
             class="btn btn-sm ${
               i === dataState.currentPage
-                ? 'btn-primary'
-                : 'btn-outline-primary'
+                ? "btn-primary"
+                : "btn-outline-primary"
             } me-1"
             onclick="changePage('${mode}', ${i})"
           >
@@ -918,22 +892,16 @@
       controls += `
         <button
           class="btn btn-sm btn-outline-primary"
-          onclick="changePage('${mode}', ${
-            dataState.currentPage + 1
-          })"
-          ${
-            dataState.currentPage === totalPages
-              ? 'disabled'
-              : ''
-          }
+          onclick="changePage('${mode}', ${dataState.currentPage + 1})"
+          ${dataState.currentPage === totalPages ? "disabled" : ""}
         >
           Next
         </button>
       `;
 
-      $('#pagination' + mode).html(controls);
+      $("#pagination" + mode).html(controls);
 
-      $('#info' + mode).html(`
+      $("#info" + mode).html(`
         Showing
         ${(dataState.currentPage - 1) * rowsPerPage + 1}
 
@@ -952,9 +920,7 @@
 
     // ================= PAGE CHANGE =================
     window.changePage = function (mode, page) {
-      let totalPages = Math.ceil(
-        state[mode].filteredData.length / rowsPerPage,
-      );
+      let totalPages = Math.ceil(state[mode].filteredData.length / rowsPerPage);
 
       if (page < 1 || page > totalPages) return;
 

@@ -138,7 +138,7 @@
           <div class="card mb-3 p-3 bg-info bg-opacity-10 border border-info rounded">
             <div class="row g-0">
               <div class="col-md-4 text-center">
-                <img src="${f.Image}" class="img-fluid border border-5 border-warning">
+                <img src="${f.Image}" class="img-fluid border border-5 border-warning" width="150px" height="175px">
               </div>
               <div class="col-md-8">
                 <h5>${f.Name}</h5>
@@ -146,7 +146,7 @@
                 <p>📞 ${f.Mobile}</p>
                 <p>✉ ${f.Mail}</p>
                 <p>${f.Research}</p>
-                <a href="${f.Profile || "#"}" class="btn btn-primary btn-sm">View Profile</a>
+                <a href="${f.Profile || "#"}" target="_blank" class="btn btn-primary btn-sm">View Profile</a>
               </div>
             </div>
           </div>`;
@@ -165,7 +165,7 @@
           <div class="card mb-3 p-3 bg-info bg-opacity-10 border border-info rounded">
             <div class="row g-0">
               <div class="col-md-4 text-center">
-                <img src="${f.Image}" class="img-fluid border border-5 border-warning">
+                <img src="${f.Image}" class="img-fluid border border-5 border-warning" width="150px" height="175px">
               </div>
               <div class="col-md-8">
                 <h5>${f.Name}</h5>
@@ -192,6 +192,7 @@
               <h5 class="mt-2">${s.Name}</h5>
               <p>${s.Designation}</p>
               <p>📞 ${s.Mobile}</p>
+              <p>✉ ${s.Mail}</p>
             </div>
           </div>`;
         });
@@ -207,11 +208,12 @@
           <div class="col">
             <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
               <div class="image-container mx-auto">
-                <img src="${p.Image}">
+                <img src="${p.Image}" width="150px" height="175px">
                 <div class="hover-text">${p.Area}</div>
               </div>
               <h5 class="mt-2">${p.Name}</h5>
-              <p>${p.Reg}</p>
+              <h5 class="mt-2">From: ${p.From}</h5>
+              <h5 class="mt-2">To: ${p.To}</h5>
             </div>
           </div>`;
         });
