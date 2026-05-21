@@ -1,3 +1,4 @@
+<!-- ================= STYLES ================= -->
 <style>
   .nav-link {
     background-color: #00b6e2;
@@ -10,7 +11,13 @@
     color: white !important;
     position: relative;
   }
+
+  .publication-card {
+    max-width: 60rem;
+  }
 </style>
+
+<!-- ================= TABS ================= -->
 <ul
   class="nav nav-pills-rounded nav-justified mb-3"
   id="pills-tab"
@@ -25,8 +32,6 @@
       data-bs-target="#pills-Journals"
       type="button"
       role="tab"
-      aria-controls="pills-Journals"
-      aria-selected="true"
     >
       Journals
     </button>
@@ -40,108 +45,180 @@
       data-bs-target="#pills-conference"
       type="button"
       role="tab"
-      aria-controls="pills-conference"
-      aria-selected="false"
     >
-      conference
+      Conference
     </button>
   </li>
 </ul>
+
+<!-- ================= TAB CONTENT ================= -->
 <div class="tab-content" id="pills-tabContent">
-  <div
-    class="tab-pane fade show active"
-    id="pills-Journals"
-    role="tabpanel"
-    aria-labelledby="pills-Journals-tab"
-    tabindex="0"
-  >
-    <div class="card border-secondary mb-3" style="max-width: 50rem">
-      <div class="card-body">
-        <h5 class="card-title">Title of the First Journal Publication</h5>
-        <p class="card-text"></p>
-        <p><strong>Authors:</strong> Author 1, Author 2, Author 3</p>
-        <p><strong>Journal:</strong> Name of the Journal</p>
-        <p>
-          <strong>Volume:</strong> 10, <strong>Issue:</strong> 2,
-          <strong>Pages:</strong> 123-145
-        </p>
-        <p><strong>Published Date:</strong> 2023-10-27</p>
-        <p>
-          <strong>Abstract:</strong> A brief abstract of the journal
-          publication. You can include a longer abstract here if needed.
-        </p>
-        <p>
-          <strong>Link:</strong>
-          <a href="link_to_journal_1" target="_blank"
-            >Link to the Publication</a
-          >
-          (Optional)
-        </p>
-      </div>
-    </div>
-
-    <div class="card border-secondary mb-3" style="max-width: 50rem">
-      <div class="card-body">
-        <h5 class="card-title">Title of the Second Journal Publication</h5>
-        <p class="card-text"></p>
-        <p><strong>Authors:</strong> Author 1, Author 2, Author 3</p>
-        <p><strong>Journal:</strong> Name of the Journal</p>
-        <p>
-          <strong>Volume:</strong> 10, <strong>Issue:</strong> 2,
-          <strong>Pages:</strong> 123-145
-        </p>
-        <p><strong>Published Date:</strong> 2023-10-27</p>
-        <p>
-          <strong>Abstract:</strong> A brief abstract of the journal
-          publication. You can include a longer abstract here if needed.
-        </p>
-        <p>
-          <strong>Link:</strong>
-          <a href="link_to_journal_1" target="_blank"
-            >Link to the Publication</a
-          >
-          (Optional)
-        </p>
-      </div>
-    </div>
+  <!-- Journals -->
+  <div class="tab-pane fade show active" id="pills-Journals" role="tabpanel">
+    <div id="journalsContainer"></div>
   </div>
-  <div
-    class="tab-pane fade"
-    id="pills-conference"
-    role="tabpanel"
-    aria-labelledby="pills-conference-tab"
-    tabindex="0"
-  >
-    <div class="card border-secondary mb-3" style="max-width: 50rem">
-      <div class="card-body">
-        <h5 class="card-title">Title of the First Conference Presentation</h5>
-        <p><strong>Presenters:</strong> Presenter 1, Presenter 2</p>
-        <p><strong>Conference Name:</strong> Name of the Conference</p>
-        <p><strong>Location:</strong> City, Country</p>
-        <p><strong>Date:</strong> 2023-11-10</p>
-        <p><strong>Abstract:</strong> A brief abstract of the presentation.</p>
-        <p>
-          <strong>Link/Slides:</strong>
-          <a href="link_to_slides_1" target="_blank">Link to Slides</a>
-          (Optional)
-        </p>
-      </div>
-    </div>
 
-    <div class="card border-secondary mb-3" style="max-width: 50rem">
-      <div class="card-body">
-        <h5 class="card-title">Title of the Second Conference Presentation</h5>
-        <p><strong>Presenters:</strong> Presenter 1, Presenter 2</p>
-        <p><strong>Conference Name:</strong> Name of the Conference</p>
-        <p><strong>Location:</strong> City, Country</p>
-        <p><strong>Date:</strong> 2023-11-10</p>
-        <p><strong>Abstract:</strong> A brief abstract of the presentation.</p>
-        <p>
-          <strong>Link/Slides:</strong>
-          <a href="link_to_slides_1" target="_blank">Link to Slides</a>
-          (Optional)
-        </p>
-      </div>
-    </div>
+  <!-- Conference -->
+  <div class="tab-pane fade" id="pills-conference" role="tabpanel">
+    <div id="conferenceContainer"></div>
   </div>
 </div>
+<script>
+  $(document).ready(function () {
+    const excelFile = "excels/Publications.xlsx";
+
+    // ================= DYNAMIC RANDOM COLOR =================
+    function getRandomColor() {
+      // Generate light random colors
+      const r = Math.floor(Math.random() * 56) + 200;
+      const g = Math.floor(Math.random() * 56) + 200;
+      const b = Math.floor(Math.random() * 56) + 200;
+
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    fetch(excelFile)
+      .then((response) => response.arrayBuffer())
+      .then((data) => {
+        const workbook = XLSX.read(data, { type: "array" });
+
+        // ================= JOURNALS =================
+        const journalSheet = workbook.Sheets["Journals"];
+        const journalData = XLSX.utils.sheet_to_json(journalSheet);
+
+        let journalHTML = "";
+
+        journalData.forEach((item) => {
+          const bgColor = getRandomColor();
+
+          journalHTML += `
+            <div 
+              class="card border-secondary mb-3 publication-card"
+              style="
+                background-color:${bgColor};
+                border-radius:12px;
+              "
+            >
+              <div class="card-body">
+
+                <h5 class="card-title">
+                  ${item.Title || ""}
+                </h5>
+
+                <p>
+                  <strong>Authors:</strong>
+                  ${item.Authors || ""}
+                </p>
+
+                <p>
+                  <strong>Journal:</strong>
+                  ${item.Journal || ""}
+                </p>
+
+                <p>
+                  <strong>Volume:</strong> ${item.Volume || ""}
+                  ,
+                  <strong>Issue:</strong> ${item.Issue || ""}
+                  ,
+                  <strong>Pages:</strong> ${item.Pages || ""}
+                </p>
+
+                <p>
+                  <strong>Published Date:</strong>
+                  ${formatDate(item["Published Date"])}
+                </p>
+
+                <p>
+                  <strong>Abstract:</strong>
+                  ${item.Abstract || ""}
+                </p>
+
+                <p>
+                  <strong>Link:</strong>
+                  <a href="${item.Link || "#"}" target="_blank">
+                    View Publication
+                  </a>
+                </p>
+
+              </div>
+            </div>
+          `;
+        });
+
+        $("#journalsContainer").html(journalHTML);
+
+        // ================= CONFERENCE =================
+        const conferenceSheet = workbook.Sheets["Conference"];
+        const conferenceData = XLSX.utils.sheet_to_json(conferenceSheet);
+
+        let conferenceHTML = "";
+
+        conferenceData.forEach((item) => {
+          const bgColor = getRandomColor();
+
+          conferenceHTML += `
+            <div 
+              class="card border-secondary mb-3 publication-card"
+              style="
+                background-color:${bgColor};
+                border-radius:12px;
+              "
+            >
+              <div class="card-body">
+
+                <h5 class="card-title">
+                  ${item["Title of Conference Presentation"] || ""}
+                </h5>
+
+                <p>
+                  <strong>Presenters:</strong>
+                  ${item.Presenters || ""}
+                </p>
+
+                <p>
+                  <strong>Conference Name:</strong>
+                  ${item["Conference Name"] || ""}
+                </p>
+
+                <p>
+                  <strong>Location:</strong>
+                  ${item.Location || ""}
+                </p>
+
+                <p>
+                  <strong>Date:</strong>
+                  ${formatDate(item.Date)}
+                </p>
+
+                <p>
+                  <strong>Abstract:</strong>
+                  ${item.Abstract || ""}
+                </p>
+
+                <p>
+                  <strong>Link/Slides:</strong>
+                  <a href="${item["Link/Slides"] || "#"}" target="_blank">
+                    View Slides
+                  </a>
+                </p>
+
+              </div>
+            </div>
+          `;
+        });
+
+        $("#conferenceContainer").html(conferenceHTML);
+      });
+
+    // ================= DATE FORMAT FUNCTION =================
+    function formatDate(dateValue) {
+      if (!dateValue) return "";
+
+      const date = new Date(dateValue);
+
+      if (isNaN(date)) return dateValue;
+
+      return date.toISOString().split("T")[0];
+    }
+  });
+</script>

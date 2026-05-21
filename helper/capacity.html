@@ -59,6 +59,7 @@
             data-bs-target="#collapseOne"
             aria-expanded="true"
             aria-controls="collapseOne"
+            style="background-color: rgba(3, 155, 155, 0.11)"
           >
             Seminars
           </button>
@@ -82,6 +83,7 @@
             data-bs-target="#collapseTwo"
             aria-expanded="false"
             aria-controls="collapseTwo"
+            style="background-color: rgba(3, 158, 29, 0.089)"
           >
             Industry Training Programs
           </button>
@@ -105,6 +107,7 @@
             data-bs-target="#collapseThree"
             aria-expanded="false"
             aria-controls="collapseThree"
+            style="background-color: rgba(192, 48, 5, 0.089)"
           >
             Faculty Development Programs
           </button>
@@ -148,23 +151,23 @@
     // LOAD CEP WORKBOOK
     // =====================================================
 
-    fetch('excels/Cep.xlsx')
+    fetch("excels/Cep.xlsx")
       .then((res) => res.arrayBuffer())
 
       .then((data) => {
         const workbook = XLSX.read(data, {
-          type: 'array',
+          type: "array",
         });
 
         // LOAD EACH SHEET
-        loadSheetTable(workbook, 'Seminars', '#seminarsOutput');
+        loadSheetTable(workbook, "Seminars", "#seminarsOutput");
 
-        loadSheetTable(workbook, 'Training', '#industryOutput');
+        loadSheetTable(workbook, "Training", "#industryOutput");
 
         loadSheetTable(
           workbook,
-          'FacultyDevelopmentPrograms',
-          '#facultyOutput',
+          "FacultyDevelopmentPrograms",
+          "#facultyOutput",
         );
       });
 
@@ -172,17 +175,17 @@
     // LOAD WORKSHOPS FILE
     // =====================================================
 
-    fetch('excels/Workshops.xlsx')
+    fetch("excels/Workshops.xlsx")
       .then((res) => res.arrayBuffer())
 
       .then((data) => {
         const workbook = XLSX.read(data, {
-          type: 'array',
+          type: "array",
         });
 
         const firstSheet = workbook.SheetNames[0];
 
-        loadSheetTable(workbook, firstSheet, '#wsOutput');
+        loadSheetTable(workbook, firstSheet, "#wsOutput");
       });
 
     // =====================================================
@@ -203,7 +206,7 @@
       }
 
       let fullData = XLSX.utils.sheet_to_json(sheet, {
-        defval: '',
+        defval: "",
       });
 
       // CLEAN HEADERS
@@ -254,8 +257,8 @@
 
         // SEARCH EVENT
         $(outputId)
-          .find('.searchInput')
-          .on('keyup', function () {
+          .find(".searchInput")
+          .on("keyup", function () {
             const value = $(this).val().toLowerCase();
 
             filteredData = fullData.filter((row) =>
@@ -323,7 +326,7 @@
             html += `<tr>`;
 
             Object.values(row).forEach((value) => {
-              html += `<td>${value || '-'}</td>`;
+              html += `<td>${value || "-"}</td>`;
             });
 
             html += `</tr>`;
@@ -336,7 +339,7 @@
         </div>
       `;
 
-        $(outputId).find('.tableContainer').html(html);
+        $(outputId).find(".tableContainer").html(html);
 
         renderPagination();
       }
@@ -348,13 +351,13 @@
       function renderPagination() {
         let totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
-        let controls = '';
+        let controls = "";
 
         // PREV
         controls += `
         <button
           class="btn btn-sm btn-secondary me-1 prevBtn"
-          ${currentPage === 1 ? 'disabled' : ''}
+          ${currentPage === 1 ? "disabled" : ""}
         >
           Prev
         </button>
@@ -365,7 +368,7 @@
           controls += `
           <button
             class="btn btn-sm me-1 mb-1 pageBtn
-            ${i === currentPage ? 'btn-primary' : 'btn-outline-primary'}"
+            ${i === currentPage ? "btn-primary" : "btn-outline-primary"}"
             data-page="${i}"
           >
             ${i}
@@ -377,16 +380,16 @@
         controls += `
         <button
           class="btn btn-sm btn-secondary nextBtn"
-          ${currentPage === totalPages ? 'disabled' : ''}
+          ${currentPage === totalPages ? "disabled" : ""}
         >
           Next
         </button>
       `;
 
-        $(outputId).find('.tablePagination').html(controls);
+        $(outputId).find(".tablePagination").html(controls);
 
         // INFO
-        $(outputId).find('.tableInfo').html(`
+        $(outputId).find(".tableInfo").html(`
 
         Showing
         ${filteredData.length === 0 ? 0 : startIndex()}
@@ -400,16 +403,16 @@
 
         // EVENTS
         $(outputId)
-          .find('.pageBtn')
-          .on('click', function () {
-            currentPage = Number($(this).data('page'));
+          .find(".pageBtn")
+          .on("click", function () {
+            currentPage = Number($(this).data("page"));
 
             renderTable();
           });
 
         $(outputId)
-          .find('.prevBtn')
-          .on('click', function () {
+          .find(".prevBtn")
+          .on("click", function () {
             if (currentPage > 1) {
               currentPage--;
 
@@ -418,8 +421,8 @@
           });
 
         $(outputId)
-          .find('.nextBtn')
-          .on('click', function () {
+          .find(".nextBtn")
+          .on("click", function () {
             if (currentPage < totalPages) {
               currentPage++;
 
