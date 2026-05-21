@@ -35,22 +35,9 @@
       role="tab"
       aria-controls="pills-workshops"
       aria-selected="false"
+      data-sheet="Workshops"
     >
       Workshops
-    </button>
-  </li>
-  <li class="nav-item pe-3" role="presentation">
-    <button
-      class="nav-link"
-      id="pills-conferences-tab"
-      data-bs-toggle="pill"
-      data-bs-target="#pills-conferences"
-      type="button"
-      role="tab"
-      aria-controls="pills-conferences"
-      aria-selected="false"
-    >
-      Conferences
     </button>
   </li>
 </ul>
@@ -62,46 +49,73 @@
     aria-labelledby="pills-continuing_education_programs-tab"
     tabindex="0"
   >
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card border-success h-100">
-          <div class="card-body">
-            <h5 class="card-title bg-transparent border-success">CEP 1</h5>
-            <p class="card-text">
-              Date: 2024-01-20 <br />Description: Details about the CEP.
-            </p>
-            <p></p>
-
-            <p></p>
-          </div>
-          <div class="card-footer border-success">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card border-success h-100">
-          <div class="card-body">
-            <h5 class="card-title bg-transparent border-success">CEP 2</h5>
-            <p class="card-text">
-              Date: 2024-01-20 <br />Description: Details about the CEP.
-            </p>
-          </div>
-          <div class="card-footer border-success">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+          >
+            Seminars
+          </button>
+        </h2>
+        <div
+          id="collapseOne"
+          class="accordion-collapse collapse show"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <div id="seminarsOutput"></div>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card border-success h-100">
-          <div class="card-body">
-            <h5 class="card-title bg-transparent border-success">CEP 3</h5>
-            <p class="card-text">
-              Date: 2024-01-20 <br />Description: Details about the CEP.
-            </p>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo"
+            aria-expanded="false"
+            aria-controls="collapseTwo"
+          >
+            Industry Training Programs
+          </button>
+        </h2>
+        <div
+          id="collapseTwo"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <div id="industryOutput"></div>
           </div>
-          <div class="card-footer border-success">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseThree"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+          >
+            Faculty Development Programs
+          </button>
+        </h2>
+        <div
+          id="collapseThree"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <div id="facultyOutput"></div>
           </div>
         </div>
       </div>
@@ -114,107 +128,313 @@
     aria-labelledby="pills-workshops-tab"
     tabindex="0"
   >
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
+    <div class="row">
+      <div class="col-12">
         <div class="card border-success h-100">
           <div class="card-body">
-            <h5 class="card-title bg-transparent border-success">Workshop 1</h5>
-            <p class="card-text">
-              Date: 2024-01-20 <br />Description: Details about the Workshop.
-            </p>
-            <p></p>
-
-            <p></p>
-          </div>
-          <div class="card-footer border-success">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card border-success h-100">
-          <div class="card-body">
-            <h5 class="card-title bg-transparent border-success">Workshop 2</h5>
-            <p class="card-text">
-              Date: 2024-01-20 <br />Description: Details about the Workshop.
-            </p>
-          </div>
-          <div class="card-footer border-success">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card border-success h-100">
-          <div class="card-body">
-            <h5 class="card-title bg-transparent border-success">Workshop 3</h5>
-            <p class="card-text">
-              Date: 2024-01-20 <br />Description: Details about the Workshop.
-            </p>
-          </div>
-          <div class="card-footer border-success">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="tab-pane fade"
-    id="pills-conferences"
-    role="tabpanel"
-    aria-labelledby="pills-conferences-tab"
-    tabindex="0"
-  >
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card border-success h-100">
-          <div class="card-body">
-            <h5 class="card-title bg-transparent border-success">
-              conference 1
-            </h5>
-            <p class="card-text">
-              Date: 2024-01-20 <br />Description: Details about the conference.
-            </p>
-            <p></p>
-
-            <p></p>
-          </div>
-          <div class="card-footer border-success">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card border-success h-100">
-          <div class="card-body">
-            <h5 class="card-title bg-transparent border-success">
-              conference 2
-            </h5>
-            <p class="card-text">
-              Date: 2024-01-20 <br />Description: Details about the conference.
-            </p>
-          </div>
-          <div class="card-footer border-success">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card border-success h-100">
-          <div class="card-body">
-            <h5 class="card-title bg-transparent border-success">
-              conference 3
-            </h5>
-            <p class="card-text">
-              Date: 2024-01-20 <br />Description: Details about the conference.
-            </p>
-          </div>
-          <div class="card-footer border-success">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
+            <h5 class="text-info">Workshops</h5>
+            <div id="wsOutput" class="mt-3"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!-- SheetJS Library -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // =====================================================
+    // LOAD CEP WORKBOOK
+    // =====================================================
+
+    fetch('excels/Cep.xlsx')
+      .then((res) => res.arrayBuffer())
+
+      .then((data) => {
+        const workbook = XLSX.read(data, {
+          type: 'array',
+        });
+
+        // LOAD EACH SHEET
+        loadSheetTable(workbook, 'Seminars', '#seminarsOutput');
+
+        loadSheetTable(workbook, 'Training', '#industryOutput');
+
+        loadSheetTable(
+          workbook,
+          'FacultyDevelopmentPrograms',
+          '#facultyOutput',
+        );
+      });
+
+    // =====================================================
+    // LOAD WORKSHOPS FILE
+    // =====================================================
+
+    fetch('excels/Workshops.xlsx')
+      .then((res) => res.arrayBuffer())
+
+      .then((data) => {
+        const workbook = XLSX.read(data, {
+          type: 'array',
+        });
+
+        const firstSheet = workbook.SheetNames[0];
+
+        loadSheetTable(workbook, firstSheet, '#wsOutput');
+      });
+
+    // =====================================================
+    // MAIN FUNCTION
+    // =====================================================
+
+    function loadSheetTable(workbook, sheetName, outputId) {
+      const sheet = workbook.Sheets[sheetName];
+
+      if (!sheet) {
+        $(outputId).html(`
+        <div class="alert alert-danger">
+          Sheet "${sheetName}" not found
+        </div>
+      `);
+
+        return;
+      }
+
+      let fullData = XLSX.utils.sheet_to_json(sheet, {
+        defval: '',
+      });
+
+      // CLEAN HEADERS
+      fullData = fullData.map((row) => {
+        let newRow = {};
+
+        Object.keys(row).forEach((k) => {
+          newRow[k.trim()] = row[k];
+        });
+
+        return newRow;
+      });
+
+      let filteredData = [...fullData];
+
+      let currentPage = 1;
+
+      const rowsPerPage = 5;
+
+      renderLayout();
+
+      renderTable();
+
+      // =====================================================
+      // LAYOUT
+      // =====================================================
+
+      function renderLayout() {
+        $(outputId).html(`
+
+        <input
+          type="text"
+          class="form-control mb-3 searchInput"
+          placeholder="Search here..."
+        >
+
+        <div class="tableContainer"></div>
+
+        <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap">
+
+          <div class="tableInfo"></div>
+
+          <div class="tablePagination"></div>
+
+        </div>
+
+      `);
+
+        // SEARCH EVENT
+        $(outputId)
+          .find('.searchInput')
+          .on('keyup', function () {
+            const value = $(this).val().toLowerCase();
+
+            filteredData = fullData.filter((row) =>
+              Object.values(row).some((v) =>
+                String(v).toLowerCase().includes(value),
+              ),
+            );
+
+            currentPage = 1;
+
+            renderTable();
+          });
+      }
+
+      // =====================================================
+      // RENDER TABLE
+      // =====================================================
+
+      function renderTable() {
+        const start = (currentPage - 1) * rowsPerPage;
+
+        const end = start + rowsPerPage;
+
+        const pageData = filteredData.slice(start, end);
+
+        let html = `
+
+        <div class="table-responsive">
+
+          <table class="table table-bordered table-hover">
+
+            <thead class="table-dark text-center">
+
+              <tr>
+      `;
+
+        // HEADERS
+        if (pageData.length > 0) {
+          Object.keys(pageData[0]).forEach((key) => {
+            html += `<th>${key}</th>`;
+          });
+        }
+
+        html += `
+              </tr>
+            </thead>
+
+            <tbody>
+      `;
+
+        // NO DATA
+        if (pageData.length === 0) {
+          html += `
+          <tr>
+            <td colspan="20" class="text-center">
+              No records found
+            </td>
+          </tr>
+        `;
+        }
+
+        // ROWS
+        else {
+          pageData.forEach((row) => {
+            html += `<tr>`;
+
+            Object.values(row).forEach((value) => {
+              html += `<td>${value || '-'}</td>`;
+            });
+
+            html += `</tr>`;
+          });
+        }
+
+        html += `
+            </tbody>
+          </table>
+        </div>
+      `;
+
+        $(outputId).find('.tableContainer').html(html);
+
+        renderPagination();
+      }
+
+      // =====================================================
+      // PAGINATION
+      // =====================================================
+
+      function renderPagination() {
+        let totalPages = Math.ceil(filteredData.length / rowsPerPage);
+
+        let controls = '';
+
+        // PREV
+        controls += `
+        <button
+          class="btn btn-sm btn-secondary me-1 prevBtn"
+          ${currentPage === 1 ? 'disabled' : ''}
+        >
+          Prev
+        </button>
+      `;
+
+        // PAGE NUMBERS
+        for (let i = 1; i <= totalPages; i++) {
+          controls += `
+          <button
+            class="btn btn-sm me-1 mb-1 pageBtn
+            ${i === currentPage ? 'btn-primary' : 'btn-outline-primary'}"
+            data-page="${i}"
+          >
+            ${i}
+          </button>
+        `;
+        }
+
+        // NEXT
+        controls += `
+        <button
+          class="btn btn-sm btn-secondary nextBtn"
+          ${currentPage === totalPages ? 'disabled' : ''}
+        >
+          Next
+        </button>
+      `;
+
+        $(outputId).find('.tablePagination').html(controls);
+
+        // INFO
+        $(outputId).find('.tableInfo').html(`
+
+        Showing
+        ${filteredData.length === 0 ? 0 : startIndex()}
+        to
+        ${endIndex()}
+        of
+        ${filteredData.length}
+        entries
+
+      `);
+
+        // EVENTS
+        $(outputId)
+          .find('.pageBtn')
+          .on('click', function () {
+            currentPage = Number($(this).data('page'));
+
+            renderTable();
+          });
+
+        $(outputId)
+          .find('.prevBtn')
+          .on('click', function () {
+            if (currentPage > 1) {
+              currentPage--;
+
+              renderTable();
+            }
+          });
+
+        $(outputId)
+          .find('.nextBtn')
+          .on('click', function () {
+            if (currentPage < totalPages) {
+              currentPage++;
+
+              renderTable();
+            }
+          });
+      }
+
+      function startIndex() {
+        return (currentPage - 1) * rowsPerPage + 1;
+      }
+
+      function endIndex() {
+        return Math.min(currentPage * rowsPerPage, filteredData.length);
+      }
+    }
+  });
+</script>
