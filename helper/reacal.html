@@ -40,6 +40,7 @@
           class="nav-link active"
           data-bs-toggle="pill"
           data-bs-target="#ongoingResearchPane"
+          type="button"
         >
           Ongoing Research
         </button>
@@ -50,6 +51,7 @@
           class="nav-link"
           data-bs-toggle="pill"
           data-bs-target="#completedResearchPane"
+          type="button"
         >
           Completed Research
         </button>
@@ -57,30 +59,24 @@
     </ul>
 
     <div class="tab-content">
-      <!-- ONGOING RESEARCH -->
+      <!-- ================= ONGOING RESEARCH ================= -->
       <div class="tab-pane fade show active" id="ongoingResearchPane">
         <div class="card border-dark mb-3">
           <div class="card-body">
-            <h5 class="text-info">Ongoing Research Project 1</h5>
-            <p>Description about project</p>
-          </div>
-        </div>
+            <h5 class="text-info mb-3">Ongoing Research Projects</h5>
 
-        <div class="card border-dark mb-3">
-          <div class="card-body">
-            <h5 class="text-info">Ongoing Research Project 2</h5>
-            <p>Description about project</p>
+            <div id="orpOutput"></div>
           </div>
         </div>
       </div>
 
-      <!-- COMPLETED RESEARCH -->
+      <!-- ================= COMPLETED RESEARCH ================= -->
       <div class="tab-pane fade" id="completedResearchPane">
         <div class="card border-dark mb-3">
           <div class="card-body">
-            <h5 class="text-success">Completed Research Project 1</h5>
-            <p>The completed research projects are listed here.</p>
-            <div id="crpOutput" class="mt-3"></div>
+            <h5 class="text-success mb-3">Completed Research Projects</h5>
+
+            <div id="crpOutput"></div>
           </div>
         </div>
       </div>
@@ -96,6 +92,7 @@
           class="nav-link active"
           data-bs-toggle="pill"
           data-bs-target="#ongoingConsultancyPane"
+          type="button"
         >
           Ongoing Consultancy
         </button>
@@ -106,6 +103,7 @@
           class="nav-link"
           data-bs-toggle="pill"
           data-bs-target="#completedConsultancyPane"
+          type="button"
         >
           Completed Consultancy
         </button>
@@ -113,110 +111,132 @@
     </ul>
 
     <div class="tab-content">
-      <!-- ONGOING CONSULTANCY -->
+      <!-- ================= ONGOING CONSULTANCY ================= -->
       <div class="tab-pane fade show active" id="ongoingConsultancyPane">
         <div class="card border-dark mb-3">
           <div class="card-body">
-            <h5 class="text-info">Ongoing Consultancy Project 1</h5>
-            <p>Description about project</p>
-          </div>
-        </div>
+            <h5 class="text-info mb-3">Ongoing Consultancy Projects</h5>
 
-        <div class="card border-dark mb-3">
-          <div class="card-body">
-            <h5 class="text-info">Ongoing Consultancy Project 2</h5>
-            <p>Description about project</p>
+            <div id="ocpOutput"></div>
           </div>
         </div>
       </div>
 
-      <!-- COMPLETED CONSULTANCY -->
+      <!-- ================= COMPLETED CONSULTANCY ================= -->
       <div class="tab-pane fade" id="completedConsultancyPane">
         <div class="card border-dark mb-3">
           <div class="card-body">
-            <h5 class="text-info">Completed Consultancy Projects</h5>
-            <p>The completed consultancy projects are listed here.</p>
-            <div id="ccpOutput" class="mt-3"></div>
+            <h5 class="text-info mb-3">Completed Consultancy Projects</h5>
+
+            <div id="ccpOutput"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- ================= XLSX LIBRARY ================= -->
-<!-- SheetJS Library -->
-<!-- SheetJS Library -->
-<!-- SheetJS Library -->
-
-<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-
 
 <script>
   $(document).ready(function () {
-
     // =====================================================
-    // STORE SEPARATE STATE FOR EACH TABLE
+    // TABLE STATE
     // =====================================================
 
     const tableState = {
+      // ONGOING RESEARCH
+      ORP: {
+        currentPage: 1,
+        rowsPerPage: 5,
+        fullData: [],
+        filteredData: [],
+        output: "#orpOutput",
+        type: "ongoingResearch",
+      },
+
+      // COMPLETED RESEARCH
       CRP: {
         currentPage: 1,
         rowsPerPage: 5,
         fullData: [],
         filteredData: [],
-        output: '#crpOutput'
+        output: "#crpOutput",
+        type: "completedResearch",
       },
 
+      // ONGOING CONSULTANCY
+      OCP: {
+        currentPage: 1,
+        rowsPerPage: 5,
+        fullData: [],
+        filteredData: [],
+        output: "#ocpOutput",
+        type: "ongoingConsultancy",
+      },
+
+      // COMPLETED CONSULTANCY
       CCP: {
         currentPage: 1,
         rowsPerPage: 5,
         fullData: [],
         filteredData: [],
-        output: '#ccpOutput'
-      }
+        output: "#ccpOutput",
+        type: "completedConsultancy",
+      },
     };
 
     // =====================================================
-    // AUTO LOAD COMPLETED RESEARCH
+    // LOAD RESEARCH FILES
     // =====================================================
 
-    loadExcel('excels/Research.xlsx', 'CRP');
+    loadExcel("excels/Research.xlsx", "Research_ongoing", "ORP");
+
+    loadExcel("excels/Research.xlsx", "Research_completed", "CRP");
 
     // =====================================================
-    // LOAD CONSULTANCY ON TAB CLICK
+    // LOAD CONSULTANCY FILES
     // =====================================================
 
-    $('button[data-bs-target="#completedConsultancyPane"]').one(
-      'shown.bs.tab',
+    $('button[data-bs-target="#consultancyPane"]').one(
+      "shown.bs.tab",
       function () {
-        loadExcel('excels/Consultancy.xlsx', 'CCP');
-      }
+        loadExcel("excels/Consultancy.xlsx", "Ongoing Consultancy", "OCP");
+
+        loadExcel("excels/Consultancy.xlsx", "Completed Consultancy", "CCP");
+      },
     );
 
     // =====================================================
-    // LOAD EXCEL
+    // LOAD EXCEL FUNCTION
     // =====================================================
 
-    function loadExcel(fileUrl, mode) {
-
+    function loadExcel(fileUrl, sheetName, mode) {
       fetch(fileUrl)
         .then((res) => res.arrayBuffer())
 
         .then((data) => {
-
           const workbook = XLSX.read(data, {
-            type: 'array',
+            type: "array",
           });
 
-          const sheet = workbook.Sheets[workbook.SheetNames[0]];
+          const sheet = workbook.Sheets[sheetName];
+
+          // SHEET NOT FOUND
+          if (!sheet) {
+            $(tableState[mode].output).html(`
+              <div class="alert alert-danger">
+                Sheet "${sheetName}" not found
+              </div>
+            `);
+
+            return;
+          }
 
           let excelData = XLSX.utils.sheet_to_json(sheet, {
-            defval: '',
+            defval: "",
           });
 
           // CLEAN COLUMN NAMES
           excelData = excelData.map((row) => {
-
             let newRow = {};
 
             Object.keys(row).forEach((k) => {
@@ -227,15 +247,17 @@
           });
 
           tableState[mode].fullData = excelData;
+
           tableState[mode].filteredData = [...excelData];
+
           tableState[mode].currentPage = 1;
 
           renderLayout(mode);
+
           renderTable(mode);
         })
 
         .catch((err) => {
-
           console.error(err);
 
           $(tableState[mode].output).html(`
@@ -251,7 +273,6 @@
     // =====================================================
 
     function renderLayout(mode) {
-
       let html = `
 
         <input
@@ -279,18 +300,14 @@
     // SEARCH
     // =====================================================
 
-    $(document).on('keyup', '[id^=search]', function () {
-
-      const mode = this.id.replace('search', '');
+    $(document).on("keyup", "[id^=search]", function () {
+      const mode = this.id.replace("search", "");
 
       const value = $(this).val().toLowerCase();
 
-      tableState[mode].filteredData =
-        tableState[mode].fullData.filter((row) =>
-          Object.values(row).some((v) =>
-            String(v).toLowerCase().includes(value)
-          )
-        );
+      tableState[mode].filteredData = tableState[mode].fullData.filter((row) =>
+        Object.values(row).some((v) => String(v).toLowerCase().includes(value)),
+      );
 
       tableState[mode].currentPage = 1;
 
@@ -302,17 +319,13 @@
     // =====================================================
 
     function renderTable(mode) {
-
       const state = tableState[mode];
 
-      const start =
-        (state.currentPage - 1) * state.rowsPerPage;
+      const start = (state.currentPage - 1) * state.rowsPerPage;
 
-      const end =
-        start + state.rowsPerPage;
+      const end = start + state.rowsPerPage;
 
-      const pageData =
-        state.filteredData.slice(start, end);
+      const pageData = state.filteredData.slice(start, end);
 
       let html = `
         <div class="table-responsive">
@@ -325,11 +338,27 @@
       `;
 
       // =====================================================
-      // RESEARCH HEADERS
+      // ONGOING RESEARCH HEADERS
       // =====================================================
 
-      if (mode === 'CRP') {
+      if (state.type === "ongoingResearch") {
+        html += `
+          <th>Project ID</th>
+          <th>Project Title</th>
+          <th>Research Domain</th>
+          <th>Technology Used</th>
+          <th>Start Date</th>
+          <th>Status</th>
+          <th>Completion %</th>
+          <th>Team Size</th>
+          <th>Funding Amount (USD)</th>
+        `;
+      }
 
+      // =====================================================
+      // COMPLETED RESEARCH HEADERS
+      // =====================================================
+      else if (state.type === "completedResearch") {
         html += `
           <th>S.No</th>
           <th>Project Title – Broad Area</th>
@@ -340,14 +369,28 @@
       }
 
       // =====================================================
-      // CONSULTANCY HEADERS
+      // ONGOING CONSULTANCY HEADERS
       // =====================================================
+      else if (state.type === "ongoingConsultancy") {
+        html += `
+          <th>Consultancy ID</th>
+          <th>Client Name</th>
+          <th>Project Title</th>
+          <th>Consultancy Area</th>
+          <th>Start Date</th>
+          <th>Status</th>
+          <th>Consultant Team</th>
+          <th>Project Value</th>
+        `;
+      }
 
+      // =====================================================
+      // COMPLETED CONSULTANCY HEADERS
+      // =====================================================
       else {
-
         html += `
           <th>S.No</th>
-          <th>Project Title – Broad Area</th>
+          <th>Project Title - Broad Area</th>
           <th>Sponsored By</th>
         `;
       }
@@ -365,11 +408,10 @@
       // =====================================================
 
       if (pageData.length === 0) {
-
         html += `
           <tr>
 
-            <td colspan="${mode === 'CRP' ? 5 : 3}"
+            <td colspan="10"
                 class="text-center">
 
               No records found
@@ -381,54 +423,146 @@
       }
 
       // =====================================================
-      // DATA ROWS
+      // TABLE ROWS
       // =====================================================
-
       else {
-
         pageData.forEach((row, index) => {
+          html += `<tr>`;
 
-          html += `
-            <tr>
+          // =====================================================
+          // ONGOING RESEARCH DATA
+          // =====================================================
 
+          if (state.type === "ongoingResearch") {
+            html += `
+              <td>
+                ${row["Project_ID"] || "-"}
+              </td>
+
+              <td>
+                ${row["Project_Title"] || "-"}
+              </td>
+
+              <td>
+                ${row["Research_Domain"] || "-"}
+              </td>
+
+              <td>
+                ${row["Technology_Used"] || "-"}
+              </td>
+
+              <td class="text-center">
+                ${row["Start_Date"] || "-"}
+              </td>
+
+              <td class="text-center">
+                ${row["Current_Status"] || "-"}
+              </td>
+
+              <td class="text-center">
+                ${row["Completion_Percentage"] || "-"}%
+              </td>
+
+              <td class="text-center">
+                ${row["Team_Size"] || "-"}
+              </td>
+
+              <td class="text-end">
+                ${row["Funding_Amount_USD"] || "-"}
+              </td>
+            `;
+          }
+
+          // =====================================================
+          // COMPLETED RESEARCH DATA
+          // =====================================================
+          else if (state.type === "completedResearch") {
+            html += `
               <td class="text-center">
                 ${start + index + 1}
               </td>
 
               <td>
                 ${
-                  row['Project Title – Broad Area'] ||
-                  row['Project Title-Broad Area'] ||
-                  '-'
+                  row["Project Title – Broad Area"] ||
+                  row["Project Title-Broad Area"] ||
+                  "-"
                 }
               </td>
 
               <td>
-                ${row['Sponsored By'] || '-'}
+                ${row["Sponsored By"] || "-"}
               </td>
-          `;
-
-          // =====================================================
-          // RESEARCH EXTRA COLUMNS
-          // =====================================================
-
-          if (mode === 'CRP') {
-
-            html += `
 
               <td class="text-center">
-                ${row['Year of Study'] || '-'}
+                ${row["Year of Study"] || "-"}
               </td>
 
               <td class="text-end">
-                ${row['Amount (Rs. Lakhs)'] || '-'}
+                ${row["Amount (Rs. Lakhs)"] || "-"}
               </td>
             `;
           }
 
-          html += `
-            </tr>
-          `;
+          // =====================================================
+          // ONGOING CONSULTANCY DATA
+          // =====================================================
+          else if (state.type === "ongoingConsultancy") {
+            html += `
+              <td>
+                ${row["Consultancy_ID"] || "-"}
+              </td>
+
+              <td>
+                ${row["Client_Name"] || "-"}
+              </td>
+
+              <td>
+                ${row["Project_Title"] || "-"}
+              </td>
+
+              <td>
+                ${row["Consultancy_Area"] || "-"}
+              </td>
+
+              <td class="text-center">
+                ${row["Start_Date"] || "-"}
+              </td>
+
+              <td class="text-center">
+                ${row["Status"] || "-"}
+              </td>
+
+              <td class="text-center">
+                ${row["Consultant_Team_Size"] || "-"}
+              </td>
+
+              <td class="text-end">
+                ${row["Project_Value_USD"] || "-"}
+              </td>
+            `;
+          }
+
+          // =====================================================
+          // COMPLETED CONSULTANCY DATA
+          // =====================================================
+          else {
+            html += `
+              <td class="text-center">
+                ${row["S.No"] || "-"}
+              </td>
+
+              <td>
+                ${row["Project Title-Broad Area"] || "-"}
+              </td>
+
+              <td>
+                ${row["Sponsored By"] || "-"}
+              </td>
+            `;
+          }
+
+          html += `</tr>`;
         });
       }
 
@@ -440,7 +574,7 @@
         </div>
       `;
 
-      $('#content' + mode).html(html);
+      $("#content" + mode).html(html);
 
       renderPagination(mode);
     }
@@ -450,38 +584,39 @@
     // =====================================================
 
     function renderPagination(mode) {
-
       const state = tableState[mode];
 
-      let totalPages =
-        Math.ceil(
-          state.filteredData.length / state.rowsPerPage
-        );
+      const totalPages = Math.ceil(
+        state.filteredData.length / state.rowsPerPage,
+      );
 
-      let controls = '';
+      let controls = "";
 
-      // PREV
+      // =====================================================
+      // PREV BUTTON
+      // =====================================================
+
       controls += `
         <button
           class="btn btn-sm btn-secondary me-1 page-btn"
           data-mode="${mode}"
           data-page="${state.currentPage - 1}"
-          ${state.currentPage === 1 ? 'disabled' : ''}>
+          ${state.currentPage === 1 ? "disabled" : ""}>
 
           Prev
 
         </button>
       `;
 
-      // PAGE NUMBERS
-      for (let i = 1; i <= totalPages; i++) {
+      // =====================================================
+      // PAGE BUTTONS
+      // =====================================================
 
+      for (let i = 1; i <= totalPages; i++) {
         controls += `
           <button
             class="btn btn-sm me-1 mb-1 page-btn
-            ${i === state.currentPage
-              ? 'btn-primary'
-              : 'btn-outline-primary'}"
+            ${i === state.currentPage ? "btn-primary" : "btn-outline-primary"}"
 
             data-mode="${mode}"
             data-page="${i}">
@@ -492,26 +627,29 @@
         `;
       }
 
-      // NEXT
+      // =====================================================
+      // NEXT BUTTON
+      // =====================================================
+
       controls += `
         <button
           class="btn btn-sm btn-secondary page-btn"
           data-mode="${mode}"
           data-page="${state.currentPage + 1}"
-          ${state.currentPage === totalPages ? 'disabled' : ''}>
+          ${state.currentPage === totalPages ? "disabled" : ""}>
 
           Next
 
         </button>
       `;
 
-      $('#pagination' + mode).html(controls);
+      $("#pagination" + mode).html(controls);
 
       // =====================================================
-      // INFO
+      // TABLE INFO
       // =====================================================
 
-      $('#info' + mode).html(`
+      $("#info" + mode).html(`
 
         Showing
 
@@ -525,12 +663,15 @@
 
         ${Math.min(
           state.currentPage * state.rowsPerPage,
-          state.filteredData.length
+
+          state.filteredData.length,
         )}
 
         of
 
         ${state.filteredData.length}
+
+        entries
       `);
     }
 
@@ -538,18 +679,16 @@
     // PAGINATION CLICK
     // =====================================================
 
-    $(document).on('click', '.page-btn', function () {
+    $(document).on("click", ".page-btn", function () {
+      const mode = $(this).data("mode");
 
-      const mode = $(this).data('mode');
-
-      const page = Number($(this).data('page'));
+      const page = Number($(this).data("page"));
 
       const state = tableState[mode];
 
-      const totalPages =
-        Math.ceil(
-          state.filteredData.length / state.rowsPerPage
-        );
+      const totalPages = Math.ceil(
+        state.filteredData.length / state.rowsPerPage,
+      );
 
       if (page < 1 || page > totalPages) return;
 
@@ -557,6 +696,5 @@
 
       renderTable(mode);
     });
-
   });
 </script>
