@@ -5,7 +5,7 @@
         <div class="accordion-item" style="min-width: 900px">
           <h2 class="accordion-header">
             <button
-              class="accordion-button"
+              class="accordion-button fw-bold fs-3"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#panelsStayOpen-collapseOne"
@@ -19,24 +19,9 @@
             id="panelsStayOpen-collapseOne"
             class="accordion-collapse collapse show"
           >
-            <div class="accordion-body">
-              <p>
-                A two-year postgraduate program in Transportation Engineering.
-              </p>
-              <h3>Core Courses:</h3>
-              <ul class="course-list">
-                <li>Transportation Planning and Management</li>
-                <li>Highway Engineering</li>
-                <li>Traffic Engineering</li>
-                <li>Pavement Materials and Design</li>
-              </ul>
-              <h3>Elective Courses (Examples):</h3>
-              <ul class="course-list">
-                <li>Transportation Modeling and Simulation</li>
-                <li>Intelligent Transportation Systems</li>
-                <li>Airport Planning and Design</li>
-              </ul>
-              <p><a href="#">Learn More</a></p>
+            <div class="accordion-body bg-gradient" style="background-color: #f1b30a23">
+              <p>A Postgraduate program in Transportation Engineering.</p>
+              <div id="mtechOutput"></div>
             </div>
           </div>
         </div>
@@ -44,7 +29,7 @@
         <div class="accordion-item" style="min-width: 900px">
           <h2 class="accordion-header">
             <button
-              class="accordion-button collapsed"
+              class="accordion-button fw-bold fs-3 collapsed"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#panelsStayOpen-collapseTwo"
@@ -58,16 +43,9 @@
             id="panelsStayOpen-collapseTwo"
             class="accordion-collapse collapse"
           >
-            <div class="accordion-body">
+            <div class="accordion-body bg-gradient" style="background-color: #85f10a13">
               <p>A research-oriented doctoral program.</p>
-              <p>Research areas include (but are not limited to):</p>
-              <ul class="course-list">
-                <li>Structural Engineering</li>
-                <li>Geotechnical Engineering</li>
-                <li>Transportation Engineering</li>
-                <li>Water Resources Engineering</li>
-              </ul>
-              <p><a href="#">Learn More</a></p>
+              <div id="phdOutput"></div>
             </div>
           </div>
         </div>
@@ -75,3 +53,157 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    // =====================================================
+    // LOAD ACADEMIC PROGRAMS EXCEL
+    // =====================================================
+
+    fetch("excels/AcademicPrograms.xlsx")
+      .then((res) => res.arrayBuffer())
+
+      .then((data) => {
+        const workbook = XLSX.read(data, {
+          type: "array",
+        });
+
+        // LOAD MTECH SHEET
+        loadProgramData(workbook, "Mtech", "#mtechOutput");
+
+        // LOAD PHD SHEET
+        loadProgramData(workbook, "Phd", "#phdOutput");
+      })
+
+      .catch((error) => {
+        console.log(error);
+
+        $("#mtechOutput").html(`
+          <div class="alert alert-danger">
+            Unable to load Excel file
+          </div>
+        `);
+
+        $("#phdOutput").html(`
+          <div class="alert alert-danger">
+            Unable to load Excel file
+          </div>
+        `);
+      });
+
+    // =====================================================
+    // MAIN FUNCTION
+    // =====================================================
+
+    function loadProgramData(workbook, sheetName, outputId) {
+      const sheet = workbook.Sheets[sheetName];
+
+      // SHEET NOT FOUND
+      if (!sheet) {
+        $(outputId).html(`
+          <div class="alert alert-danger">
+            Sheet "${sheetName}" not found
+          </div>
+        `);
+
+        return;
+      }
+
+      // READ SHEET
+      let data = XLSX.utils.sheet_to_json(sheet, {
+        header: 1,
+        defval: "",
+      });
+
+      // REMOVE EMPTY ROWS
+      data = data.filter(
+        (row) =>
+          row.length > 0 && row.some((cell) => String(cell).trim() !== ""),
+      );
+
+      let html = "";
+
+      // =====================================================
+      // RANDOM LIGHT COLOR FUNCTION
+      // =====================================================
+
+      function getRandomColor() {
+        const r = Math.floor(Math.random() * 56) + 200;
+        const g = Math.floor(Math.random() * 56) + 200;
+        const b = Math.floor(Math.random() * 56) + 200;
+
+        return `rgb(${r}, ${g}, ${b})`;
+      }
+
+      // =====================================================
+      // DISPLAY DATA
+      // =====================================================
+
+      data.forEach((row) => {
+        const heading = row[0] || "-";
+
+        const content = row[1] || "-";
+
+        // RANDOM CARD COLOR
+        const bgColor = getRandomColor();
+
+        html += `
+
+    <div 
+      class="card shadow-sm mb-3"
+      style="
+        background-color:${bgColor};
+        border-radius:12px;
+        "
+    >
+
+      <div class="card-body p-3">
+
+        <h6 class="fw-bold text-decoration-underline mb-2">
+          ${heading}
+        </h6>
+
+        <div 
+          style="
+            white-space:${
+              heading.trim() === "Program Outcomes" ||
+              heading.trim() === "Eligibility Criteria"
+                ? "pre-line"
+                : "normal"
+            };
+
+            line-height:1.6;
+            margin:0;
+            padding:0;
+          "
+        >
+          ${formatLinks(content)}
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+      });
+
+      $(outputId).html(html);
+    }
+
+    // =====================================================
+    // FORMAT LINKS
+    // =====================================================
+
+    function formatLinks(text) {
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+      return String(text).replace(urlRegex, function (url) {
+        return `
+          <a href="${url}" target="_blank">
+            ${url}
+          </a>
+        `;
+      });
+    }
+  });
+</script>
