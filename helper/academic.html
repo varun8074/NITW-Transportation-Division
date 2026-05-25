@@ -1,3 +1,29 @@
+<style>
+.vm-card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.vm-card:hover {
+  transform: translateY(-5px);
+}
+
+.vm-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.vision-bg {
+  background: linear-gradient(135deg,#0d6efd,#7ab6ff);
+}
+
+.mission-bg {
+  background: linear-gradient(135deg,#198754,#7ee2ad);
+}
+</style>
+
 <div class="container">
   <div class="row">
     <div class="col-9">
@@ -19,7 +45,10 @@
             id="panelsStayOpen-collapseOne"
             class="accordion-collapse collapse show"
           >
-            <div class="accordion-body bg-gradient" style="background-color: #f1b30a23">
+            <div
+              class="accordion-body bg-gradient"
+              style="background-color: #5ff10a17"
+            >
               <p>A Postgraduate program in Transportation Engineering.</p>
               <div id="mtechOutput"></div>
             </div>
@@ -43,7 +72,10 @@
             id="panelsStayOpen-collapseTwo"
             class="accordion-collapse collapse"
           >
-            <div class="accordion-body bg-gradient" style="background-color: #85f10a13">
+            <div
+              class="accordion-body bg-gradient"
+              style="background-color: #3c0af113"
+            >
               <p>A research-oriented doctoral program.</p>
               <div id="phdOutput"></div>
             </div>
@@ -51,6 +83,34 @@
         </div>
       </div>
     </div>
+     
+<div class="col-lg-3">
+
+  <div class="card vm-card shadow mb-4">
+    <div class="card-body vision-bg text-white text-center p-4">
+      <h4>Vision</h4>
+      <hr>
+      <p>
+        To be a leading centre for education and research in
+        Transportation Engineering.
+      </p>
+    </div>
+  </div>
+
+  <div class="card vm-card shadow">
+    <div class="card-body mission-bg text-white text-center p-4">
+      <h4>Mission</h4>
+      <hr>
+      <ul class="text-start">
+        <li>Quality education</li>
+        <li>Innovative research</li>
+        <li>Sustainable transport solutions</li>
+        <li>Industry collaboration</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
   </div>
 </div>
 
@@ -150,7 +210,7 @@
         html += `
 
     <div 
-      class="card shadow-sm mb-3"
+      class="card shadow mb-3"
       style="
         background-color:${bgColor};
         border-radius:12px;
