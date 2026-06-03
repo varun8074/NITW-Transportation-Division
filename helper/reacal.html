@@ -211,40 +211,90 @@
 
     function loadExcel(fileUrl, sheetName, mode) {
       fetch(fileUrl)
-        .then((res) => res.arrayBuffer())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Failed to load "${fileUrl}" (HTTP ${res.status})`);
+          }
+
+          return res.arrayBuffer();
+        })
 
         .then((data) => {
-          const workbook = XLSX.read(data, {
-            type: "array",
-          });
+          let workbook;
+
+          try {
+            workbook = XLSX.read(data, {
+              type: "array",
+            });
+          } catch (error) {
+            throw new Error("Invalid or corrupted Excel file.");
+          }
 
           const sheet = workbook.Sheets[sheetName];
 
+          // ==========================
           // SHEET NOT FOUND
-          if (!sheet) {
-            $(tableState[mode].output).html(`
-              <div class="alert alert-danger">
-                Sheet "${sheetName}" not found
-              </div>
-            `);
+          // ==========================
 
-            return;
+          if (!sheet) {
+            throw new Error(`Sheet "${sheetName}" not found.`);
           }
 
           let excelData = XLSX.utils.sheet_to_json(sheet, {
             defval: "",
           });
 
+          // ==========================
           // CLEAN COLUMN NAMES
-          excelData = excelData.map((row) => {
-            let newRow = {};
+          // ==========================
 
-            Object.keys(row).forEach((k) => {
-              newRow[k.trim()] = row[k];
+          excelData = excelData.map((row) => {
+            const newRow = {};
+
+            Object.keys(row).forEach((key) => {
+              newRow[key.trim()] = row[key];
             });
 
             return newRow;
           });
+
+          // ==========================
+          // EMPTY SHEET
+          // ==========================
+
+          if (excelData.length === 0) {
+            throw new Error(`No records found in "${sheetName}".`);
+          }
+
+          // ==========================
+          // COLUMN VALIDATION
+          // ==========================
+
+          const columnRules = {
+            ongoingResearch: ["Project_Title", "Research_Domain"],
+
+            completedResearch: ["Sponsored By"],
+
+            ongoingConsultancy: ["Consultancy_ID", "Client_Name"],
+
+            completedConsultancy: ["Sponsored By"],
+          };
+
+          const requiredColumns = columnRules[tableState[mode].type] || [];
+
+          const missingColumns = requiredColumns.filter(
+            (col) => !(col in excelData[0]),
+          );
+
+          if (missingColumns.length > 0) {
+            throw new Error(
+              `Missing required columns: ${missingColumns.join(", ")}`,
+            );
+          }
+
+          // ==========================
+          // SAVE DATA
+          // ==========================
 
           tableState[mode].fullData = excelData;
 
@@ -257,14 +307,15 @@
           renderTable(mode);
         })
 
-        .catch((err) => {
-          console.error(err);
+        .catch((error) => {
+          console.error(`Error loading ${sheetName}:`, error);
 
           $(tableState[mode].output).html(`
-            <div class="alert alert-danger">
-              Failed to load Excel file
-            </div>
-          `);
+        <div class="alert alert-danger">
+          <strong>Error:</strong>
+          ${error.message}
+        </div>
+      `);
         });
     }
 
@@ -343,7 +394,6 @@
 
       if (state.type === "ongoingResearch") {
         html += `
-          <th>Project ID</th>
           <th>Project Title</th>
           <th>Research Domain</th>
           <th>Technology Used</th>
@@ -435,9 +485,7 @@
 
           if (state.type === "ongoingResearch") {
             html += `
-              <td>
-                ${row["Project_ID"] || "-"}
-              </td>
+            
 
               <td>
                 ${row["Project_Title"] || "-"}

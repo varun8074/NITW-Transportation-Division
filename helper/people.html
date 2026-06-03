@@ -109,12 +109,51 @@
     ></div>
   </div>
 
-  <!-- ================= PREVIOUS ================= -->
+  <!-- ================= PREVIOUS FACULTY ================= -->
   <div class="tab-pane fade" id="previousfaculty">
-    <div
-      class="row row-cols-1 row-cols-md-4 g-4 text-center"
-      id="previousContainer"
-    ></div>
+    <!-- SUB TABS -->
+    <ul
+      class="nav nav-pills-rounded nav-justified mb-3"
+      style="min-width: 500px"
+    >
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link active"
+          data-bs-toggle="pill"
+          data-bs-target="#previousFacultyTab"
+        >
+          Previous Faculty
+        </button>
+      </li>
+
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link"
+          data-bs-toggle="pill"
+          data-bs-target="#previousHODTab"
+        >
+          Previous HOD
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- Previous Faculty -->
+      <div class="tab-pane fade show active" id="previousFacultyTab">
+        <div
+          class="row row-cols-1 row-cols-md-4 g-4 text-center"
+          id="previousFacultyContainer"
+        ></div>
+      </div>
+
+      <!-- Previous HOD -->
+      <div class="tab-pane fade" id="previousHODTab">
+        <div
+          class="row row-cols-1 row-cols-md-4 g-4 text-center"
+          id="previousHODContainer"
+        ></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -199,26 +238,77 @@
 
         $("#staffContainer").html(staffHTML);
 
-        // ================= PREVIOUS =================
-        let prevData = XLSX.utils.sheet_to_json(workbook.Sheets["Previous"]);
-        let prevHTML = "";
+        // ================= PREVIOUS FACULTY =================
+let previousFacultyData = XLSX.utils.sheet_to_json(
+  workbook.Sheets["PreviousFaculty"] || {}
+);
 
-        $.each(prevData, function (i, p) {
-          prevHTML += `
-          <div class="col">
-            <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
-              <div class="image-container mx-auto">
-                <img src="${p.Image}" width="150px" height="175px">
-                <div class="hover-text">${p.Area}</div>
-              </div>
-              <h5 class="mt-2">${p.Name}</h5>
-              <h5 class="mt-2">From: ${p.From}</h5>
-              <h5 class="mt-2">To: ${p.To}</h5>
-            </div>
-          </div>`;
-        });
+let previousFacultyHTML = "";
 
-        $("#previousContainer").html(prevHTML);
+$.each(previousFacultyData, function (i, p) {
+  previousFacultyHTML += `
+    <div class="col">
+      <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+        <div class="image-container mx-auto">
+          <img src="${p.Image}" width="150" height="175">
+          <div class="hover-text">${p.Area}</div>
+        </div>
+
+        <h5 class="mt-2">${p.Name}</h5>
+
+        ${
+          p.From
+            ? `<p class="mb-1"><strong>From:</strong> ${p.From}</p>`
+            : ""
+        }
+
+        ${
+          p.To
+            ? `<p class="mb-0"><strong>To:</strong> ${p.To}</p>`
+            : ""
+        }
+      </div>
+    </div>
+  `;
+});
+
+$("#previousFacultyContainer").html(previousFacultyHTML);
+
+// ================= PREVIOUS HOD =================
+let previousHODData = XLSX.utils.sheet_to_json(
+  workbook.Sheets["PreviousHOD"] || {}
+);
+
+let previousHODHTML = "";
+
+$.each(previousHODData, function (i, p) {
+  previousHODHTML += `
+    <div class="col">
+      <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+        <div class="image-container mx-auto">
+          <img src="${p.Image}" width="150" height="175">
+          <div class="hover-text">${p.Area}</div>
+        </div>
+
+        <h5 class="mt-2">${p.Name}</h5>
+
+        ${
+          p.From
+            ? `<p class="mb-1"><strong>From:</strong> ${p.From}</p>`
+            : ""
+        }
+
+        ${
+          p.To
+            ? `<p class="mb-0"><strong>To:</strong> ${p.To}</p>`
+            : ""
+        }
+      </div>
+    </div>
+  `;
+});
+
+$("#previousHODContainer").html(previousHODHTML);
       },
       error: function (err) {
         console.error("Excel load error:", err);
