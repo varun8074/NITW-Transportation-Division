@@ -1,4 +1,13 @@
 <style>
+  .carousel-container {
+    width: 100%;
+    height: 500px;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
   .carousel-item img {
     height: 500px;
     object-fit: cover;
@@ -14,30 +23,54 @@
     }
   }
 </style>
-<div
-  id="carouselExampleCaptions"
-  class="carousel slide carousel-fade"
-  data-bs-ride="carousel"
->
 <div class="container-fluid mt-4">
-    <div class="card border-primary shadow-sm">
-      <div class="card-header bg-primary text-white fw-bold">
-        📰 Latest News & Announcements
-      </div>
-
-      <div class="card-body p-0">
-        <marquee
-          direction="up"
-          scrollamount="2"
-          height="250"
-          onmouseover="this.stop()"
-          onmouseout="this.start()"
+  <div class="card border-primary shadow-sm">
+    <div
+      class="card-header bg-primary text-white fw-bold d-flex justify-content-between align-items-center"
+    >
+      <span>📰 Latest News & Announcements</span>
+      <div class="btn-group" role="group" style="gap: 5px">
+        <button
+          type="button"
+          class="btn btn-sm btn-light"
+          id="newsFirst"
+          title="Go to first news"
         >
-          <ul class="list-group list-group-flush" id="newsContainer"></ul>
-        </marquee>
+          ⏮️ First
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-light"
+          id="newsPrev"
+          title="Previous news"
+        >
+          ⬆️ Prev
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-light"
+          id="newsNext"
+          title="Next news"
+        >
+          ⬇️ Next
+        </button>
       </div>
     </div>
+
+    <div
+      class="card-body p-0"
+      style="height: 250px; overflow-y: auto"
+      id="newsScroller"
+    >
+      <ul class="list-group list-group-flush" id="newsContainer"></ul>
+    </div>
   </div>
+</div>
+<div
+  id="carouselExampleCaptions"
+  class="carousel slide carousel-fade carousel-container pt-4"
+  data-bs-ride="carousel"
+>
   <div class="carousel-indicators" id="carouselIndicators"></div>
 
   <div class="carousel-inner" id="carouselInner"></div>
@@ -59,7 +92,6 @@
   >
     <span class="carousel-control-next-icon"></span>
   </button>
-  
 </div>
 <script>
   $(document).ready(function () {
@@ -137,6 +169,32 @@
         });
 
         $("#newsContainer").html(newsHTML);
+
+        // News Navigation
+        const newsScroller = document.getElementById("newsScroller");
+        const newsItems = document.querySelectorAll("#newsContainer li");
+        const itemHeight = newsItems[0]?.offsetHeight || 60;
+
+        document
+          .getElementById("newsFirst")
+          .addEventListener("click", function () {
+            newsScroller.scrollTop = 0;
+          });
+
+        document
+          .getElementById("newsPrev")
+          .addEventListener("click", function () {
+            newsScroller.scrollTop = Math.max(
+              0,
+              newsScroller.scrollTop - itemHeight,
+            );
+          });
+
+        document
+          .getElementById("newsNext")
+          .addEventListener("click", function () {
+            newsScroller.scrollTop += itemHeight;
+          });
       },
       error: function (err) {
         console.error("Error loading Excel:", err);
