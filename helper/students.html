@@ -1000,6 +1000,19 @@
       return "images/" + val + ".jpg";
     }
 
+    // ================= BADGE COLOR =================
+    function getBadgeColor(mode) {
+      if (!mode) return "badge bg-secondary";
+
+      let val = mode.toString().toLowerCase().trim();
+
+      if (val.includes("full")) return "badge bg-success";
+      if (val.includes("part")) return "badge bg-warning text-dark";
+  
+
+      return "badge bg-secondary";
+    }
+
     // ================= LOAD EXCEL =================
     function loadExcel(fileUrl, mode, outputDiv, batch = null) {
       fetch(fileUrl)
@@ -1135,6 +1148,12 @@
                     "-"
                   }
                 </small>
+
+                <br>
+
+                <span class="${getBadgeColor(s["Study Mode"] || s["Mode of Study"])}">
+                  ${s["Study Mode"] || s["Mode of Study"] || "Unknown"}
+                </span>
 
               </div>
 

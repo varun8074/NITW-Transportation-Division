@@ -1,224 +1,181 @@
 <!-- ================= STYLES ================= -->
 <style>
-  .nav-link {
-    background-color: #00b6e2;
-    color: rgb(0, 0, 0);
-    position: relative;
-  }
+.timeline {
+  position: relative;
+  margin-left: 30px;
+  padding-left: 30px;
+}
 
-  .nav-link.active {
-    background-color: #c20315 !important;
-    color: white !important;
-    position: relative;
-  }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #c20315;
+}
 
-  .publication-card {
-    max-width: 60rem;
-  }
+.timeline-year {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.timeline-year::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border: 4px solid #c20315;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.year-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #c20315;
+  margin-bottom: 10px;
+}
+
+.publication-item {
+  background: #f5f5f5;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  border-left: 4px solid #00b6e2;
+  transition: all 0.3s ease;
+}
+
+.publication-item:hover {
+  transform: translateX(5px);
+  background: #ececec;
+}
 </style>
 
 <!-- ================= TABS ================= -->
+<!-- Tabs -->
 <ul
   class="nav nav-pills-rounded nav-justified mb-3"
   id="pills-tab"
   role="tablist"
-  style="min-width: 1000px"
+  style="min-width:1000px"
 >
-  <li class="nav-item pe-3" role="presentation">
+  <li class="nav-item pe-3">
     <button
       class="nav-link active"
-      id="pills-Journals-tab"
+      id="pills-journals-tab"
       data-bs-toggle="pill"
-      data-bs-target="#pills-Journals"
+      data-bs-target="#pills-journals"
       type="button"
-      role="tab"
     >
       Journals
     </button>
   </li>
 
-  <li class="nav-item pe-3" role="presentation">
+  <li class="nav-item pe-3">
     <button
       class="nav-link"
       id="pills-conference-tab"
       data-bs-toggle="pill"
       data-bs-target="#pills-conference"
       type="button"
-      role="tab"
     >
       Conference
     </button>
   </li>
 </ul>
 
-<!-- ================= TAB CONTENT ================= -->
-<div class="tab-content" id="pills-tabContent">
-  <!-- Journals -->
-  <div class="tab-pane fade show active" id="pills-Journals" role="tabpanel">
+<!-- Tab Content -->
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="pills-journals">
     <div id="journalsContainer"></div>
   </div>
 
-  <!-- Conference -->
-  <div class="tab-pane fade" id="pills-conference" role="tabpanel">
+  <div class="tab-pane fade" id="pills-conference">
     <div id="conferenceContainer"></div>
   </div>
 </div>
 <script>
-  $(document).ready(function () {
+$(document).ready(function () {
     const excelFile = "excels/Publications.xlsx";
 
-    // ================= DYNAMIC RANDOM COLOR =================
-    function getRandomColor() {
-      // Generate light random colors
-      const r = Math.floor(Math.random() * 56) + 200;
-      const g = Math.floor(Math.random() * 56) + 200;
-      const b = Math.floor(Math.random() * 56) + 200;
-
-      return `rgb(${r}, ${g}, ${b})`;
-    }
-
     fetch(excelFile)
-      .then((response) => response.arrayBuffer())
-      .then((data) => {
-        const workbook = XLSX.read(data, { type: "array" });
+        .then(response => response.arrayBuffer())
+        .then(data => {
 
-        // ================= JOURNALS =================
-        const journalSheet = workbook.Sheets["Journals"];
-        const journalData = XLSX.utils.sheet_to_json(journalSheet);
+            const workbook = XLSX.read(data, { type: "array" });
 
-        let journalHTML = "";
+            loadTimeline(
+                workbook.Sheets["Journals"],
+                "#journalsContainer"
+            );
 
-        journalData.forEach((item) => {
-          const bgColor = getRandomColor();
-
-          journalHTML += `
-            <div 
-              class="card border-secondary mb-3 publication-card"
-              style="
-                background-color:${bgColor};
-                border-radius:12px;
-              "
-            >
-              <div class="card-body">
-
-                <h5 class="card-title">
-                  ${item.Title || ""}
-                </h5>
-
-                <p>
-                  <strong>Authors:</strong>
-                  ${item.Authors || ""}
-                </p>
-
-                <p>
-                  <strong>Journal:</strong>
-                  ${item.Journal || ""}
-                </p>
-
-                <p>
-                  <strong>Volume:</strong> ${item.Volume || ""}
-                  ,
-                  <strong>Issue:</strong> ${item.Issue || ""}
-                  ,
-                  <strong>Pages:</strong> ${item.Pages || ""}
-                </p>
-
-                <p>
-                  <strong>Published Date:</strong>
-                  ${formatDate(item["Published Date"])}
-                </p>
-
-                <p>
-                  <strong>Abstract:</strong>
-                  ${item.Abstract || ""}
-                </p>
-
-                <p>
-                  <strong>Link:</strong>
-                  <a href="${item.Link || "#"}" target="_blank">
-                    View Publication
-                  </a>
-                </p>
-
-              </div>
-            </div>
-          `;
+            loadTimeline(
+                workbook.Sheets["Conference"],
+                "#conferenceContainer"
+            );
         });
 
-        $("#journalsContainer").html(journalHTML);
+    function loadTimeline(sheet, container) {
 
-        // ================= CONFERENCE =================
-        const conferenceSheet = workbook.Sheets["Conference"];
-        const conferenceData = XLSX.utils.sheet_to_json(conferenceSheet);
+    const data = XLSX.utils.sheet_to_json(sheet);
 
-        let conferenceHTML = "";
+    const grouped = {};
 
-        conferenceData.forEach((item) => {
-          const bgColor = getRandomColor();
+    data.forEach(item => {
 
-          conferenceHTML += `
-            <div 
-              class="card border-secondary mb-3 publication-card"
-              style="
-                background-color:${bgColor};
-                border-radius:12px;
-              "
-            >
-              <div class="card-body">
+        let title = (item.Title || "").trim();
 
-                <h5 class="card-title">
-                  ${item["Title of Conference Presentation"] || ""}
-                </h5>
+        // Extract last 4 characters as year
+        let year = title.slice(-4);
 
-                <p>
-                  <strong>Presenters:</strong>
-                  ${item.Presenters || ""}
-                </p>
+        // Check if extracted value is a valid year
+        if (!/^\d{4}$/.test(year)) {
+            year = "Others";
+        } else {
+            // Remove year from title
+            title = title.slice(0, -4).trim();
 
-                <p>
-                  <strong>Conference Name:</strong>
-                  ${item["Conference Name"] || ""}
-                </p>
+            // Remove trailing commas, dots, hyphens
+            title = title.replace(/[,\.\-\s]+$/, "");
+        }
 
-                <p>
-                  <strong>Location:</strong>
-                  ${item.Location || ""}
-                </p>
+        if (!grouped[year]) {
+            grouped[year] = [];
+        }
 
-                <p>
-                  <strong>Date:</strong>
-                  ${formatDate(item.Date)}
-                </p>
+        grouped[year].push(title);
+    });
 
-                <p>
-                  <strong>Abstract:</strong>
-                  ${item.Abstract || ""}
-                </p>
+    let html = '<div class="timeline">';
 
-                <p>
-                  <strong>Link/Slides:</strong>
-                  <a href="${item["Link/Slides"] || "#"}" target="_blank">
-                    View Slides
-                  </a>
-                </p>
+    Object.keys(grouped)
+        .sort((a, b) => b.localeCompare(a))
+        .forEach(year => {
 
-              </div>
-            </div>
-          `;
+            html += `
+                <div class="timeline-year">
+                    <div class="year-title">${year}</div>
+            `;
+
+            grouped[year].forEach(title => {
+                html += `
+                    <div class="publication-item">
+                        ${title}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
         });
 
-        $("#conferenceContainer").html(conferenceHTML);
-      });
+    html += '</div>';
 
-    // ================= DATE FORMAT FUNCTION =================
-    function formatDate(dateValue) {
-      if (!dateValue) return "";
-
-      const date = new Date(dateValue);
-
-      if (isNaN(date)) return dateValue;
-
-      return date.toISOString().split("T")[0];
-    }
-  });
+    $(container).html(html);
+}
+});
 </script>
