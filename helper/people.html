@@ -159,6 +159,14 @@
 
 <script>
   $(document).ready(function () {
+    const DUMMY_IMAGE = "images/placeholder.jpg";
+
+    function getImageWithFallback(imagePath) {
+      return !imagePath || imagePath.toString().trim() === ""
+        ? DUMMY_IMAGE
+        : imagePath;
+    }
+
     $.ajax({
       url: "excels/faculty.xlsx", // your Excel file path
       method: "GET",
@@ -177,7 +185,7 @@
           <div class="card mb-3 p-3 bg-info bg-opacity-10 border border-info rounded">
             <div class="row g-0">
               <div class="col-md-4 text-center">
-                <img src="${f.Image}" class="img-fluid border border-5 border-warning" width="150px" height="175px">
+                <img src="${getImageWithFallback(f.Image)}" class="img-fluid border border-5 border-warning" width="150px" height="175px" onerror="this.src='images/placeholder.jpg'">
               </div>
               <div class="col-md-8">
                 <h5>${f.Name}</h5>
@@ -204,7 +212,7 @@
           <div class="card mb-3 p-3 bg-info bg-opacity-10 border border-info rounded">
             <div class="row g-0">
               <div class="col-md-4 text-center">
-                <img src="${f.Image}" class="img-fluid border border-5 border-warning" width="150px" height="175px">
+                <img src="${getImageWithFallback(f.Image)}" class="img-fluid border border-5 border-warning" width="150px" height="175px" onerror="this.src='images/placeholder.jpg'">
               </div>
               <div class="col-md-8">
                 <h5>${f.Name}</h5>
@@ -227,7 +235,7 @@
           staffHTML += `
           <div class="col">
             <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
-              <img src="${s.Image}" class="mx-auto border border-3 border-warning w-50">
+              <img src="${getImageWithFallback(s.Image)}" class="mx-auto border border-3 border-warning w-50" onerror="this.src='images/placeholder.jpg'">
               <h5 class="mt-2">${s.Name}</h5>
               <p>${s.Designation}</p>
               <p>📞 ${s.Mobile}</p>
@@ -239,76 +247,60 @@
         $("#staffContainer").html(staffHTML);
 
         // ================= PREVIOUS FACULTY =================
-let previousFacultyData = XLSX.utils.sheet_to_json(
-  workbook.Sheets["PreviousFaculty"] || {}
-);
+        let previousFacultyData = XLSX.utils.sheet_to_json(
+          workbook.Sheets["PreviousFaculty"] || {},
+        );
 
-let previousFacultyHTML = "";
+        let previousFacultyHTML = "";
 
-$.each(previousFacultyData, function (i, p) {
-  previousFacultyHTML += `
+        $.each(previousFacultyData, function (i, p) {
+          previousFacultyHTML += `
     <div class="col">
       <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
         <div class="image-container mx-auto">
-          <img src="${p.Image}" width="150" height="175">
+          <img src="${getImageWithFallback(p.Image)}" width="150" height="175" onerror="this.src='images/placeholder.jpg'">
           <div class="hover-text">${p.Area}</div>
         </div>
 
         <h5 class="mt-2">${p.Name}</h5>
 
-        ${
-          p.From
-            ? `<p class="mb-1"><strong>From:</strong> ${p.From}</p>`
-            : ""
-        }
+        ${p.From ? `<p class="mb-1"><strong>From:</strong> ${p.From}</p>` : ""}
 
-        ${
-          p.To
-            ? `<p class="mb-0"><strong>To:</strong> ${p.To}</p>`
-            : ""
-        }
+        ${p.To ? `<p class="mb-0"><strong>To:</strong> ${p.To}</p>` : ""}
       </div>
     </div>
   `;
-});
+        });
 
-$("#previousFacultyContainer").html(previousFacultyHTML);
+        $("#previousFacultyContainer").html(previousFacultyHTML);
 
-// ================= PREVIOUS HOD =================
-let previousHODData = XLSX.utils.sheet_to_json(
-  workbook.Sheets["PreviousHOD"] || {}
-);
+        // ================= PREVIOUS HOD =================
+        let previousHODData = XLSX.utils.sheet_to_json(
+          workbook.Sheets["PreviousHOD"] || {},
+        );
 
-let previousHODHTML = "";
+        let previousHODHTML = "";
 
-$.each(previousHODData, function (i, p) {
-  previousHODHTML += `
+        $.each(previousHODData, function (i, p) {
+          previousHODHTML += `
     <div class="col">
       <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
         <div class="image-container mx-auto">
-          <img src="${p.Image}" width="150" height="175">
+          <img src="${getImageWithFallback(p.Image)}" width="150" height="175" onerror="this.src='images/placeholder.jpg'">
           <div class="hover-text">${p.Area}</div>
         </div>
 
         <h5 class="mt-2">${p.Name}</h5>
 
-        ${
-          p.From
-            ? `<p class="mb-1"><strong>From:</strong> ${p.From}</p>`
-            : ""
-        }
+        ${p.From ? `<p class="mb-1"><strong>From:</strong> ${p.From}</p>` : ""}
 
-        ${
-          p.To
-            ? `<p class="mb-0"><strong>To:</strong> ${p.To}</p>`
-            : ""
-        }
+        ${p.To ? `<p class="mb-0"><strong>To:</strong> ${p.To}</p>` : ""}
       </div>
     </div>
   `;
-});
+        });
 
-$("#previousHODContainer").html(previousHODHTML);
+        $("#previousHODContainer").html(previousHODHTML);
       },
       error: function (err) {
         console.error("Excel load error:", err);

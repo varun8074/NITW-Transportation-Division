@@ -989,9 +989,13 @@
 
     // ================= IMAGE PATH =================
     function getImagePath(photoValue) {
-      if (!photoValue) return "";
+      const DUMMY_IMAGE = "images/placeholder.jpg";
+
+      if (!photoValue) return DUMMY_IMAGE;
 
       let val = photoValue.toString().trim();
+
+      if (!val) return DUMMY_IMAGE;
 
       // DIRECT URL
       if (val.startsWith("http")) return val;
@@ -1008,7 +1012,6 @@
 
       if (val.includes("full")) return "badge bg-success";
       if (val.includes("part")) return "badge bg-warning text-dark";
-  
 
       return "badge bg-secondary";
     }
@@ -1198,16 +1201,13 @@
 
               html += `
                 <td>
-                  ${
-                    img
-                      ? `<img
-                          src="${img}"
-                          width="60"
-                          height="80"
-                          style="object-fit:cover;border-radius:5px;"
-                        >`
-                      : "No Image"
-                  }
+                  <img
+                    src="${img}"
+                    width="60"
+                    height="80"
+                    style="object-fit:cover;border-radius:5px;"
+                    onerror="this.src='images/placeholder.jpg'"
+                  >
                 </td>
               `;
             }
