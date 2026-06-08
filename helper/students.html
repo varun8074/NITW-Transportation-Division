@@ -389,6 +389,16 @@
           Alumini
         </button>
       </li>
+
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link"
+          data-bs-toggle="pill"
+          data-bs-target="#awardspPane"
+        >
+          Roll of Honours/Awards and Medals
+        </button>
+      </li>
     </ul>
 
     <div class="tab-content">
@@ -955,358 +965,591 @@
           </div>
         </div>
       </div>
+
+      <!-- Roll of Honours/Awards -->
+      <div class="tab-pane fade" id="awardspPane">
+        <div class="card border-dark mb-3">
+          <div class="card-body">
+            <h5 class="text-success">Roll of Honours - Awards & Medals</h5>
+            <p>Awards and medals received by M.Tech students</p>
+
+            <!-- SUB TABS FOR SHEETS -->
+            <ul
+              class="nav nav-pills-rounded nav-justified mb-3"
+              id="awardsTabs"
+            >
+              <li class="nav-item pe-3">
+                <button
+                  class="nav-link active"
+                  data-bs-toggle="pill"
+                  data-bs-target="#awardSheet1Pane"
+                >
+                  Roll of honours
+                </button>
+              </li>
+
+              <li class="nav-item pe-3">
+                <button
+                  class="nav-link"
+                  data-bs-toggle="pill"
+                  data-bs-target="#awardSheet2Pane"
+                >
+                  Medals & Awards
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <!-- Sheet 1 -->
+              <div class="tab-pane fade show active" id="awardSheet1Pane">
+                <div id="awardsOutput1" class="mt-3"></div>
+              </div>
+
+              <!-- Sheet 2 -->
+              <div class="tab-pane fade" id="awardSheet2Pane">
+                <div id="awardsOutput2" class="mt-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  $(document).ready(function () {
-    let rowsPerPage = 8;
+$(document).ready(function () {
 
-    // ================= STATE =================
-    let state = {
-      CRS: {},
-      RS: {},
-      CMS: {},
-      MS: {},
-    };
+    const rowsPerPage = 8;
 
-    // ================= AUTO LOAD =================
-    loadExcel("excels/Phd_Current.xlsx", "CRS", "#crsOutput");
-
-    // ================= BATCH BUTTON CLICK =================
-    $(document).on("click", ".batch-btn", function () {
-      let batch = $(this).data("batch").toString().trim();
-
-      if ($(this).closest("#aluminirsPane").length) {
-        loadExcel("excels/Phd_Alumini.xlsx", "RS", "#rsOutput", batch);
-      } else if ($(this).closest("#currentmPane").length) {
-        loadExcel("excels/Current_Mtech.xlsx", "CMS", "#cmsOutput", batch);
-      } else {
-        loadExcel("excels/M-Tech_Alumini.xlsx", "MS", "#msOutput", batch);
-      }
-    });
+    const state = {};
 
     // ================= IMAGE PATH =================
+
     function getImagePath(photoValue) {
-      const DUMMY_IMAGE = "images/placeholder.jpg";
 
-      if (!photoValue) return DUMMY_IMAGE;
+        const DUMMY_IMAGE = "images/placeholder.jpg";
 
-      let val = photoValue.toString().trim();
+        if (!photoValue) return DUMMY_IMAGE;
 
-      if (!val) return DUMMY_IMAGE;
+        let value = String(photoValue).trim();
 
-      // DIRECT URL
-      if (val.startsWith("http")) return val;
+        if (!value) return DUMMY_IMAGE;
 
-      // LOCAL IMAGE
-      return "images/" + val + ".jpg";
+        if (value.startsWith("http")) return value;
+
+        return `images/${value}.jpg`;
     }
 
     // ================= BADGE COLOR =================
+
     function getBadgeColor(mode) {
-      if (!mode) return "badge bg-secondary";
 
-      let val = mode.toString().toLowerCase().trim();
+        if (!mode) return "badge bg-secondary";
 
-      if (val.includes("full")) return "badge bg-success";
-      if (val.includes("part")) return "badge bg-warning text-dark";
+        const val = String(mode).toLowerCase().trim();
 
-      return "badge bg-secondary";
+        if (val.includes("full"))
+            return "badge bg-success";
+
+        if (val.includes("part"))
+            return "badge bg-warning text-dark";
+
+        return "badge bg-secondary";
     }
 
     // ================= LOAD EXCEL =================
-    function loadExcel(fileUrl, mode, outputDiv, batch = null) {
-      fetch(fileUrl)
-        .then((res) => res.arrayBuffer())
-        .then((data) => {
-          let workbook = XLSX.read(data, { type: "array" });
 
-          let sheetName = batch
-            ? Object.keys(workbook.Sheets).find((n) => n.trim() === batch)
-            : workbook.SheetNames[0];
+    async function loadExcel(fileUrl, mode, outputDiv, batch = null) {
 
-          let sheet = workbook.Sheets[sheetName];
+        try {
 
-          let excelData = XLSX.utils.sheet_to_json(sheet, {
-            defval: "",
-          });
+            const response = await fetch(fileUrl);
 
-          // CLEAN COLUMN NAMES
-          excelData = excelData.map((row) => {
-            let newRow = {};
+            if (!response.ok)
+                throw new Error(`Cannot load ${fileUrl}`);
 
-            Object.keys(row).forEach((k) => {
-              newRow[k.trim()] = row[k];
+            const data = await response.arrayBuffer();
+
+            const workbook = XLSX.read(data, {
+                type: "array"
             });
 
-            return newRow;
-          });
+            let sheetName;
 
-          // SAVE STATE
-          state[mode] = {
-            fullData: excelData,
-            filteredData: [...excelData],
-            currentPage: 1,
-            outputDiv: outputDiv,
-            batch: batch,
-          };
+            if (batch) {
 
-          renderLayout(mode);
-          renderData(mode);
-        });
+                sheetName = workbook.SheetNames.find(
+                    s => s.toString().trim() === batch.toString().trim()
+                );
+
+                if (!sheetName)
+                    sheetName = workbook.SheetNames[0];
+
+            } else {
+
+                sheetName = workbook.SheetNames[0];
+
+            }
+
+            const sheet = workbook.Sheets[sheetName];
+
+            let excelData = XLSX.utils.sheet_to_json(sheet, {
+                defval: ""
+            });
+
+            excelData = excelData.map(row => {
+
+                const cleaned = {};
+
+                Object.keys(row).forEach(key => {
+                    cleaned[key.trim()] = row[key];
+                });
+
+                return cleaned;
+            });
+
+            state[mode] = {
+                fullData: excelData,
+                filteredData: [...excelData],
+                currentPage: 1,
+                outputDiv,
+                batch
+            };
+
+            renderLayout(mode);
+            renderData(mode);
+
+        } catch (err) {
+
+            console.error(err);
+
+            $(outputDiv).html(`
+                <div class="alert alert-danger">
+                    Failed to load data
+                </div>
+            `);
+        }
     }
 
-    // ================= RENDER LAYOUT =================
-    function renderLayout(mode) {
-      let data = state[mode];
+    // ================= LOAD ALL SHEETS =================
 
-      let html = `
-        ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ""}
+    async function loadExcelAllSheets(fileUrl) {
 
-        <input
-          type="text"
-          id="search${mode}"
-          class="form-control mb-3"
-          placeholder="Search..."
-        >
+        try {
 
-        <div id="content${mode}"></div>
+            const response = await fetch(fileUrl);
 
-        <div class="d-flex justify-content-between mt-3">
-          <div id="info${mode}"></div>
-          <div id="pagination${mode}"></div>
-        </div>
-      `;
+            if (!response.ok)
+                throw new Error(fileUrl);
 
-      $(data.outputDiv).html(html);
+            const data = await response.arrayBuffer();
+
+            const workbook = XLSX.read(data, {
+                type: "array"
+            });
+
+            for (let i = 0; i < Math.min(2, workbook.SheetNames.length); i++) {
+
+                const sheet = workbook.Sheets[workbook.SheetNames[i]];
+
+                let excelData = XLSX.utils.sheet_to_json(sheet, {
+                    defval: ""
+                });
+
+                excelData = excelData.map(row => {
+
+                    const cleaned = {};
+
+                    Object.keys(row).forEach(key => {
+                        cleaned[key.trim()] = row[key];
+                    });
+
+                    return cleaned;
+                });
+
+                const mode = `AWARDS${i + 1}`;
+
+                state[mode] = {
+                    fullData: excelData,
+                    filteredData: [...excelData],
+                    currentPage: 1,
+                    outputDiv: `#awardsOutput${i + 1}`
+                };
+
+                renderLayout(mode);
+                renderData(mode);
+            }
+
+        } catch (err) {
+
+            console.error(err);
+        }
     }
 
-    // ================= SEARCH =================
-    $(document).on("keyup", "[id^=search]", function () {
-      let mode = this.id.replace("search", "");
+    // ================= INITIAL LOAD =================
 
-      let val = $(this).val().toLowerCase();
+    loadExcel(
+        "excels/Phd_Current.xlsx",
+        "CRS",
+        "#crsOutput"
+    );
 
-      state[mode].filteredData = state[mode].fullData.filter((row) =>
-        Object.values(row).some((v) => String(v).toLowerCase().includes(val)),
-      );
+    loadExcelAllSheets(
+        "excels/awards and honours.xlsx"
+    );
 
-      state[mode].currentPage = 1;
+    // ================= BATCH BUTTON =================
 
-      renderData(mode);
+    $(document).on("click", ".batch-btn", function () {
+
+        const batch = $(this)
+            .data("batch")
+            .toString()
+            .trim();
+
+        if ($(this).closest("#aluminirsPane").length) {
+
+            loadExcel(
+                "excels/Phd_Alumini.xlsx",
+                "RS",
+                "#rsOutput",
+                batch
+            );
+
+        } else if ($(this).closest("#currentmPane").length) {
+
+            loadExcel(
+                "excels/Current_Mtech.xlsx",
+                "CMS",
+                "#cmsOutput",
+                batch
+            );
+
+        } else {
+
+            loadExcel(
+                "excels/M-Tech_Alumini.xlsx",
+                "MS",
+                "#msOutput",
+                batch
+            );
+        }
     });
 
-    // ================= RENDER DATA =================
-    function renderData(mode) {
-      let dataState = state[mode];
+    // ================= SEARCH =================
 
-      let start = (dataState.currentPage - 1) * rowsPerPage;
+    $(document).on("input", "[id^='search']", function () {
 
-      let pageData = dataState.filteredData.slice(start, start + rowsPerPage);
+        const mode = this.id.replace("search", "");
 
-      // ===== CURRENT RESEARCH SCHOLARS =====
-      if (mode === "CRS") {
-        let html = `<div class="row">`;
+        const searchText = $(this)
+            .val()
+            .trim()
+            .toLowerCase();
 
-        pageData.forEach((s) => {
-          let img = getImagePath(s.Photo);
+        if (!state[mode])
+            return;
 
-          html += `
-            <div class="col-md-3 mb-3">
+        state[mode].filteredData =
+            state[mode].fullData.filter(row => {
 
-              <div class="card text-center p-2 shadow-sm">
+                return Object.values(row).some(value => {
 
-                <div class="img-hover-box">
-                  <img src="${img}">
+                    return String(value || "")
+                        .toLowerCase()
+                        .includes(searchText);
 
-                  <div class="hover-text">
-                    ${s["Research Area"] || "-"}
-                  </div>
-                </div>
+                });
 
-                <h6 class="mt-2">
-                  ${s.Name || "-"}
-                </h6>
+            });
 
-                <small>
-                  ${s["Reg No."] || "-"}
-                </small>
+        state[mode].currentPage = 1;
 
-                <br>
+        renderData(mode);
+    });
 
-                <small>
-                  📞 ${s["Phone Number"] || "-"}
-                </small>
+    // ================= RENDER LAYOUT =================
 
-                <br>
+    function renderLayout(mode) {
 
-                <small>
-                  ✉ ${
-                    s.Email ||
-                    s["Email Id"] ||
-                    s["Email ID"] ||
-                    s["E-mail"] ||
-                    "-"
-                  }
-                </small>
+        const data = state[mode];
 
-                <br>
+        $(data.outputDiv).html(`
 
-                <span class="${getBadgeColor(s["Study Mode"] || s["Mode of Study"])}">
-                  ${s["Study Mode"] || s["Mode of Study"] || "Unknown"}
-                </span>
+            ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ""}
 
-              </div>
+            <input
+                type="text"
+                id="search${mode}"
+                class="form-control mb-3"
+                placeholder="Search..."
+            >
+
+            <div id="content${mode}"></div>
+
+            <div class="d-flex justify-content-between mt-3">
+
+                <div id="info${mode}"></div>
+
+                <div id="pagination${mode}"></div>
 
             </div>
-          `;
-        });
+        `);
+    }
 
-        html += `</div>`;
+    // ================= RENDER DATA =================
 
-        $("#content" + mode).html(html);
-      }
+    function renderData(mode) {
 
-      // ===== TABLE VIEWS =====
-      else {
-        let html = `
-          <div class="table-responsive">
+        const dataState = state[mode];
 
-          <table class="table table-bordered table-striped align-middle">
+        if (!dataState)
+            return;
 
-          <thead class="table-dark">
+        if (!dataState.filteredData.length) {
 
-          <tr>
-        `;
+            $("#content" + mode).html(`
+                <div class="alert alert-warning">
+                    No matching records found
+                </div>
+            `);
 
-        Object.keys(pageData[0] || {}).forEach((k) => {
-          html += `<th>${k}</th>`;
-        });
+            $("#pagination" + mode).html("");
 
-        html += `
-          </tr>
-          </thead>
-          <tbody>
-        `;
+            $("#info" + mode).html("0 results");
 
-        pageData.forEach((row) => {
-          html += `<tr>`;
+            return;
+        }
 
-          Object.keys(row).forEach((k) => {
-            // IMAGE COLUMN
-            if (k.toLowerCase().includes("photo")) {
-              let img = getImagePath(row[k]);
+        const start =
+            (dataState.currentPage - 1) *
+            rowsPerPage;
 
-              html += `
-                <td>
-                  <img
-                    src="${img}"
-                    width="60"
-                    height="80"
-                    style="object-fit:cover;border-radius:5px;"
-                    onerror="this.src='images/placeholder.jpg'"
-                  >
-                </td>
-              `;
-            }
+        const pageData =
+            dataState.filteredData.slice(
+                start,
+                start + rowsPerPage
+            );
 
-            // NORMAL COLUMN
-            else {
-              html += `<td>${row[k] || "-"}</td>`;
-            }
-          });
+        if (mode === "CRS") {
 
-          html += `</tr>`;
-        });
+            let html = `<div class="row">`;
 
-        html += `
-          </tbody>
-          </table>
-          </div>
-        `;
+            pageData.forEach(s => {
 
-        $("#content" + mode).html(html);
-      }
+                html += `
+                    <div class="col-md-3 mb-3">
 
-      renderPagination(mode);
+                        <div class="card text-center p-2 shadow-sm">
+
+                            <div class="img-hover-box">
+
+                                <img
+                                  src="${getImagePath(s.Photo)}"
+                                  onerror="this.src='images/placeholder.jpg'"
+                                >
+
+                                <div class="hover-text">
+                                    ${s["Research Area"] || "-"}
+                                </div>
+
+                            </div>
+
+                            <h6 class="mt-2">
+                                ${s.Name || "-"}
+                            </h6>
+
+                            <small>
+                                ${s["Reg No."] || "-"}
+                            </small>
+
+                            <br>
+
+                            <small>
+                                📞 ${s["Phone Number"] || "-"}
+                            </small>
+
+                            <br>
+
+                            <small>
+                                ✉ ${s.Email ||
+                                    s["Email Id"] ||
+                                    s["Email ID"] ||
+                                    s["E-mail"] ||
+                                    "-"}
+                            </small>
+
+                            <br>
+
+                            <span class="${getBadgeColor(
+                                s["Study Mode"] ||
+                                s["Mode of Study"]
+                            )}">
+                                ${s["Study Mode"] ||
+                                  s["Mode of Study"] ||
+                                  "Unknown"}
+                            </span>
+
+                        </div>
+
+                    </div>
+                `;
+            });
+
+            html += "</div>";
+
+            $("#content" + mode).html(html);
+
+        } else {
+
+            let html = `
+                <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+            `;
+
+            Object.keys(pageData[0]).forEach(col => {
+                html += `<th>${col}</th>`;
+            });
+
+            html += "</tr></thead><tbody>";
+
+            pageData.forEach(row => {
+
+                html += "<tr>";
+
+                Object.keys(row).forEach(col => {
+
+                    if (
+                        col.toLowerCase().includes("photo")
+                    ) {
+
+                        html += `
+                            <td>
+                                <img
+                                    src="${getImagePath(row[col])}"
+                                    width="60"
+                                    height="80"
+                                    style="object-fit:cover"
+                                    onerror="this.src='images/placeholder.jpg'"
+                                >
+                            </td>
+                        `;
+
+                    } else {
+
+                        html += `
+                            <td>${row[col] || "-"}</td>
+                        `;
+                    }
+                });
+
+                html += "</tr>";
+            });
+
+            html += `
+                </tbody>
+                </table>
+                </div>
+            `;
+
+            $("#content" + mode).html(html);
+        }
+
+        renderPagination(mode);
     }
 
     // ================= PAGINATION =================
+
     function renderPagination(mode) {
-      let dataState = state[mode];
 
-      let totalPages = Math.ceil(dataState.filteredData.length / rowsPerPage);
+        const dataState = state[mode];
 
-      let controls = "";
+        const totalPages = Math.max(
+            1,
+            Math.ceil(
+                dataState.filteredData.length /
+                rowsPerPage
+            )
+        );
 
-      // PREV
-      controls += `
-        <button
-          class="btn btn-sm btn-outline-primary me-1"
-          onclick="changePage('${mode}', ${dataState.currentPage - 1})"
-          ${dataState.currentPage === 1 ? "disabled" : ""}
-        >
-          Prev
-        </button>
-      `;
+        let buttons = "";
 
-      // PAGE NUMBERS
-      for (let i = 1; i <= totalPages; i++) {
-        controls += `
-          <button
-            class="btn btn-sm ${
-              i === dataState.currentPage
-                ? "btn-primary"
-                : "btn-outline-primary"
-            } me-1"
-            onclick="changePage('${mode}', ${i})"
-          >
-            ${i}
-          </button>
+        buttons += `
+            <button
+              class="btn btn-sm btn-outline-primary me-1"
+              onclick="changePage('${mode}', ${dataState.currentPage - 1})"
+              ${dataState.currentPage === 1 ? "disabled" : ""}
+            >
+                Prev
+            </button>
         `;
-      }
 
-      // NEXT
-      controls += `
-        <button
-          class="btn btn-sm btn-outline-primary"
-          onclick="changePage('${mode}', ${dataState.currentPage + 1})"
-          ${dataState.currentPage === totalPages ? "disabled" : ""}
-        >
-          Next
-        </button>
-      `;
+        for (let i = 1; i <= totalPages; i++) {
 
-      $("#pagination" + mode).html(controls);
+            buttons += `
+                <button
+                    class="btn btn-sm ${
+                        i === dataState.currentPage
+                        ? "btn-primary"
+                        : "btn-outline-primary"
+                    } me-1"
+                    onclick="changePage('${mode}', ${i})"
+                >
+                    ${i}
+                </button>
+            `;
+        }
 
-      $("#info" + mode).html(`
-        Showing
-        ${(dataState.currentPage - 1) * rowsPerPage + 1}
+        buttons += `
+            <button
+              class="btn btn-sm btn-outline-primary"
+              onclick="changePage('${mode}', ${dataState.currentPage + 1})"
+              ${dataState.currentPage === totalPages ? "disabled" : ""}
+            >
+                Next
+            </button>
+        `;
 
-        to
+        $("#pagination" + mode).html(buttons);
 
-        ${Math.min(
-          dataState.currentPage * rowsPerPage,
-          dataState.filteredData.length,
-        )}
-
-        of
-
-        ${dataState.filteredData.length}
-      `);
+        $("#info" + mode).html(`
+            Showing
+            ${Math.min(
+                (dataState.currentPage - 1) * rowsPerPage + 1,
+                dataState.filteredData.length
+            )}
+            to
+            ${Math.min(
+                dataState.currentPage * rowsPerPage,
+                dataState.filteredData.length
+            )}
+            of
+            ${dataState.filteredData.length}
+        `);
     }
 
-    // ================= PAGE CHANGE =================
+    // ================= GLOBAL PAGE CHANGE =================
+
     window.changePage = function (mode, page) {
-      let totalPages = Math.ceil(state[mode].filteredData.length / rowsPerPage);
 
-      if (page < 1 || page > totalPages) return;
+        if (!state[mode])
+            return;
 
-      state[mode].currentPage = page;
+        const totalPages = Math.ceil(
+            state[mode].filteredData.length /
+            rowsPerPage
+        );
 
-      renderData(mode);
+        if (page < 1 || page > totalPages)
+            return;
+
+        state[mode].currentPage = page;
+
+        renderData(mode);
     };
-  });
+
+});
 </script>
