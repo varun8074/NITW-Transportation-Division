@@ -966,6 +966,27 @@
         </div>
       </div>
 
+      <!-- =========================================
+     THESIS ABSTRACT MODAL
+========================================= -->
+      <div class="modal fade" id="abstractModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="abstractTitle">Thesis Abstract</h5>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+
+            <div class="modal-body" id="abstractContent"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- Roll of Honours/Awards -->
       <div class="tab-pane fade" id="awardspPane">
         <div class="card border-dark mb-3">
@@ -1018,8 +1039,7 @@
 </div>
 
 <script>
-$(document).ready(function () {
-
+  $(document).ready(function () {
     const rowsPerPage = 8;
 
     const state = {};
@@ -1027,255 +1047,208 @@ $(document).ready(function () {
     // ================= IMAGE PATH =================
 
     function getImagePath(photoValue) {
+      const DUMMY_IMAGE = "images/placeholder.jpg";
 
-        const DUMMY_IMAGE = "images/placeholder.jpg";
+      if (!photoValue) return DUMMY_IMAGE;
 
-        if (!photoValue) return DUMMY_IMAGE;
+      let value = String(photoValue).trim();
 
-        let value = String(photoValue).trim();
+      if (!value) return DUMMY_IMAGE;
 
-        if (!value) return DUMMY_IMAGE;
+      if (value.startsWith("http")) return value;
 
-        if (value.startsWith("http")) return value;
-
-        return `images/${value}.jpg`;
+      return `images/${value}.jpg`;
     }
 
     // ================= BADGE COLOR =================
 
     function getBadgeColor(mode) {
+      if (!mode) return "badge bg-secondary";
 
-        if (!mode) return "badge bg-secondary";
+      const val = String(mode).toLowerCase().trim();
 
-        const val = String(mode).toLowerCase().trim();
+      if (val.includes("full")) return "badge bg-success";
 
-        if (val.includes("full"))
-            return "badge bg-success";
+      if (val.includes("part")) return "badge bg-warning text-dark";
 
-        if (val.includes("part"))
-            return "badge bg-warning text-dark";
-
-        return "badge bg-secondary";
+      return "badge bg-secondary";
     }
 
     // ================= LOAD EXCEL =================
 
     async function loadExcel(fileUrl, mode, outputDiv, batch = null) {
+      try {
+        const response = await fetch(fileUrl);
 
-        try {
+        if (!response.ok) throw new Error(`Cannot load ${fileUrl}`);
 
-            const response = await fetch(fileUrl);
+        const data = await response.arrayBuffer();
 
-            if (!response.ok)
-                throw new Error(`Cannot load ${fileUrl}`);
+        const workbook = XLSX.read(data, {
+          type: "array",
+        });
 
-            const data = await response.arrayBuffer();
+        let sheetName;
 
-            const workbook = XLSX.read(data, {
-                type: "array"
-            });
+        if (batch) {
+          sheetName = workbook.SheetNames.find(
+            (s) => s.toString().trim() === batch.toString().trim(),
+          );
 
-            let sheetName;
+          if (!sheetName) sheetName = workbook.SheetNames[0];
+        } else {
+          sheetName = workbook.SheetNames[0];
+        }
 
-            if (batch) {
+        const sheet = workbook.Sheets[sheetName];
 
-                sheetName = workbook.SheetNames.find(
-                    s => s.toString().trim() === batch.toString().trim()
-                );
+        let excelData = XLSX.utils.sheet_to_json(sheet, {
+          defval: "",
+        });
 
-                if (!sheetName)
-                    sheetName = workbook.SheetNames[0];
+        excelData = excelData.map((row) => {
+          const cleaned = {};
 
-            } else {
+          Object.keys(row).forEach((key) => {
+            cleaned[key.trim()] = row[key];
+          });
 
-                sheetName = workbook.SheetNames[0];
+          return cleaned;
+        });
 
-            }
+        state[mode] = {
+          fullData: excelData,
+          filteredData: [...excelData],
+          currentPage: 1,
+          outputDiv,
+          batch,
+        };
 
-            const sheet = workbook.Sheets[sheetName];
+        renderLayout(mode);
+        renderData(mode);
+      } catch (err) {
+        console.error(err);
 
-            let excelData = XLSX.utils.sheet_to_json(sheet, {
-                defval: ""
-            });
-
-            excelData = excelData.map(row => {
-
-                const cleaned = {};
-
-                Object.keys(row).forEach(key => {
-                    cleaned[key.trim()] = row[key];
-                });
-
-                return cleaned;
-            });
-
-            state[mode] = {
-                fullData: excelData,
-                filteredData: [...excelData],
-                currentPage: 1,
-                outputDiv,
-                batch
-            };
-
-            renderLayout(mode);
-            renderData(mode);
-
-        } catch (err) {
-
-            console.error(err);
-
-            $(outputDiv).html(`
+        $(outputDiv).html(`
                 <div class="alert alert-danger">
                     Failed to load data
                 </div>
             `);
-        }
+      }
     }
 
     // ================= LOAD ALL SHEETS =================
 
     async function loadExcelAllSheets(fileUrl) {
+      try {
+        const response = await fetch(fileUrl);
 
-        try {
+        if (!response.ok) throw new Error(fileUrl);
 
-            const response = await fetch(fileUrl);
+        const data = await response.arrayBuffer();
 
-            if (!response.ok)
-                throw new Error(fileUrl);
+        const workbook = XLSX.read(data, {
+          type: "array",
+        });
 
-            const data = await response.arrayBuffer();
+        for (let i = 0; i < Math.min(2, workbook.SheetNames.length); i++) {
+          const sheet = workbook.Sheets[workbook.SheetNames[i]];
 
-            const workbook = XLSX.read(data, {
-                type: "array"
+          let excelData = XLSX.utils.sheet_to_json(sheet, {
+            defval: "",
+          });
+
+          excelData = excelData.map((row) => {
+            const cleaned = {};
+
+            Object.keys(row).forEach((key) => {
+              cleaned[key.trim()] = row[key];
             });
 
-            for (let i = 0; i < Math.min(2, workbook.SheetNames.length); i++) {
+            return cleaned;
+          });
 
-                const sheet = workbook.Sheets[workbook.SheetNames[i]];
+          const mode = `AWARDS${i + 1}`;
 
-                let excelData = XLSX.utils.sheet_to_json(sheet, {
-                    defval: ""
-                });
+          state[mode] = {
+            fullData: excelData,
+            filteredData: [...excelData],
+            currentPage: 1,
+            outputDiv: `#awardsOutput${i + 1}`,
+          };
 
-                excelData = excelData.map(row => {
-
-                    const cleaned = {};
-
-                    Object.keys(row).forEach(key => {
-                        cleaned[key.trim()] = row[key];
-                    });
-
-                    return cleaned;
-                });
-
-                const mode = `AWARDS${i + 1}`;
-
-                state[mode] = {
-                    fullData: excelData,
-                    filteredData: [...excelData],
-                    currentPage: 1,
-                    outputDiv: `#awardsOutput${i + 1}`
-                };
-
-                renderLayout(mode);
-                renderData(mode);
-            }
-
-        } catch (err) {
-
-            console.error(err);
+          renderLayout(mode);
+          renderData(mode);
         }
+      } catch (err) {
+        console.error(err);
+      }
     }
 
     // ================= INITIAL LOAD =================
 
-    loadExcel(
-        "excels/Phd_Current.xlsx",
-        "CRS",
-        "#crsOutput"
-    );
+    loadExcel("excels/Phd_Current.xlsx", "CRS", "#crsOutput");
 
-    loadExcelAllSheets(
-        "excels/awards and honours.xlsx"
-    );
+    loadExcelAllSheets("excels/awards and honours.xlsx");
 
     // ================= BATCH BUTTON =================
 
     $(document).on("click", ".batch-btn", function () {
+      const batch = $(this).data("batch").toString().trim();
 
-        const batch = $(this)
-            .data("batch")
-            .toString()
-            .trim();
-
-        if ($(this).closest("#aluminirsPane").length) {
-
-            loadExcel(
-                "excels/Phd_Alumini.xlsx",
-                "RS",
-                "#rsOutput",
-                batch
-            );
-
-        } else if ($(this).closest("#currentmPane").length) {
-
-            loadExcel(
-                "excels/Current_Mtech.xlsx",
-                "CMS",
-                "#cmsOutput",
-                batch
-            );
-
-        } else {
-
-            loadExcel(
-                "excels/M-Tech_Alumini.xlsx",
-                "MS",
-                "#msOutput",
-                batch
-            );
-        }
+      if ($(this).closest("#aluminirsPane").length) {
+        loadExcel("excels/Phd_Alumini.xlsx", "RS", "#rsOutput", batch);
+      } else if ($(this).closest("#currentmPane").length) {
+        loadExcel("excels/Current_Mtech.xlsx", "CMS", "#cmsOutput", batch);
+      } else {
+        loadExcel("excels/M-Tech_Alumini.xlsx", "MS", "#msOutput", batch);
+      }
     });
 
     // ================= SEARCH =================
 
     $(document).on("input", "[id^='search']", function () {
+      const mode = this.id.replace("search", "");
 
-        const mode = this.id.replace("search", "");
+      const searchText = $(this).val().trim().toLowerCase();
 
-        const searchText = $(this)
-            .val()
-            .trim()
-            .toLowerCase();
+      if (!state[mode]) return;
 
-        if (!state[mode])
-            return;
+      state[mode].filteredData = state[mode].fullData.filter((row) => {
+        return Object.values(row).some((value) => {
+          return String(value || "")
+            .toLowerCase()
+            .includes(searchText);
+        });
+      });
 
-        state[mode].filteredData =
-            state[mode].fullData.filter(row => {
+      state[mode].currentPage = 1;
 
-                return Object.values(row).some(value => {
+      renderData(mode);
+    });
+    // ========click event for popup=============
+    $(document).on("click", ".thesis-link", function (e) {
+      e.preventDefault();
 
-                    return String(value || "")
-                        .toLowerCase()
-                        .includes(searchText);
+      $("#abstractTitle").text($(this).data("title"));
 
-                });
+      $("#abstractContent").html(
+        $(this).data("abstract") || "Abstract not available.",
+      );
 
-            });
+      const modal = new bootstrap.Modal(
+        document.getElementById("abstractModal"),
+      );
 
-        state[mode].currentPage = 1;
-
-        renderData(mode);
+      modal.show();
     });
 
     // ================= RENDER LAYOUT =================
 
     function renderLayout(mode) {
+      const data = state[mode];
 
-        const data = state[mode];
-
-        $(data.outputDiv).html(`
+      $(data.outputDiv).html(`
 
             ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ""}
 
@@ -1301,44 +1274,33 @@ $(document).ready(function () {
     // ================= RENDER DATA =================
 
     function renderData(mode) {
+      const dataState = state[mode];
 
-        const dataState = state[mode];
+      if (!dataState) return;
 
-        if (!dataState)
-            return;
-
-        if (!dataState.filteredData.length) {
-
-            $("#content" + mode).html(`
+      if (!dataState.filteredData.length) {
+        $("#content" + mode).html(`
                 <div class="alert alert-warning">
                     No matching records found
                 </div>
             `);
 
-            $("#pagination" + mode).html("");
+        $("#pagination" + mode).html("");
 
-            $("#info" + mode).html("0 results");
+        $("#info" + mode).html("0 results");
 
-            return;
-        }
+        return;
+      }
 
-        const start =
-            (dataState.currentPage - 1) *
-            rowsPerPage;
+      const start = (dataState.currentPage - 1) * rowsPerPage;
 
-        const pageData =
-            dataState.filteredData.slice(
-                start,
-                start + rowsPerPage
-            );
+      const pageData = dataState.filteredData.slice(start, start + rowsPerPage);
 
-        if (mode === "CRS") {
+      if (mode === "CRS") {
+        let html = `<div class="row">`;
 
-            let html = `<div class="row">`;
-
-            pageData.forEach(s => {
-
-                html += `
+        pageData.forEach((s) => {
+          html += `
                     <div class="col-md-3 mb-3">
 
                         <div class="card text-center p-2 shadow-sm">
@@ -1373,111 +1335,143 @@ $(document).ready(function () {
                             <br>
 
                             <small>
-                                ✉ ${s.Email ||
-                                    s["Email Id"] ||
-                                    s["Email ID"] ||
-                                    s["E-mail"] ||
-                                    "-"}
+                                ✉ ${
+                                  s.Email ||
+                                  s["Email Id"] ||
+                                  s["Email ID"] ||
+                                  s["E-mail"] ||
+                                  "-"
+                                }
                             </small>
 
                             <br>
 
                             <span class="${getBadgeColor(
-                                s["Study Mode"] ||
-                                s["Mode of Study"]
+                              s["Study Mode"] || s["Mode of Study"],
                             )}">
-                                ${s["Study Mode"] ||
+                                ${
+                                  s["Study Mode"] ||
                                   s["Mode of Study"] ||
-                                  "Unknown"}
+                                  "Unknown"
+                                }
                             </span>
 
                         </div>
 
                     </div>
                 `;
-            });
+        });
 
-            html += "</div>";
+        html += "</div>";
 
-            $("#content" + mode).html(html);
+        $("#content" + mode).html(html);
+      } // ================= TABLE VIEW =================
+      else {
+        let html = `
+        <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+    `;
 
-        } else {
+        const hasAbstractPopup = mode === "MS" || mode === "CMS";
 
-            let html = `
-                <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                <thead class="table-dark">
-                <tr>
-            `;
+        // TABLE HEADERS
+        Object.keys(pageData[0]).forEach((col) => {
+          // Hide Thesis Abstract column
+          if (hasAbstractPopup && col.toLowerCase().includes("abstract")) {
+            return;
+          }
 
-            Object.keys(pageData[0]).forEach(col => {
-                html += `<th>${col}</th>`;
-            });
+          html += `<th>${col}</th>`;
+        });
 
-            html += "</tr></thead><tbody>";
+        html += "</tr></thead><tbody>";
 
-            pageData.forEach(row => {
+        // TABLE ROWS
+        pageData.forEach((row) => {
+          html += "<tr>";
 
-                html += "<tr>";
+          Object.keys(row).forEach((col) => {
+            // Hide Thesis Abstract column
+            if (hasAbstractPopup && col.toLowerCase().includes("abstract")) {
+              return;
+            }
 
-                Object.keys(row).forEach(col => {
+            // PHOTO COLUMN
+            if (col.toLowerCase().includes("photo")) {
+              html += `
+                    <td>
+                        <img
+                            src="${getImagePath(row[col])}"
+                            width="60"
+                            height="80"
+                            style="object-fit:cover"
+                            onerror="this.src='images/placeholder.jpg'"
+                        >
+                    </td>
+                `;
+            }
 
-                    if (
-                        col.toLowerCase().includes("photo")
-                    ) {
+            // THESIS TITLE COLUMN
+            else if (hasAbstractPopup && col.toLowerCase().includes("thesis")) {
+              const abstract =
+                row["Thesis Abstract"] ||
+                row["THESIS ABSTRACT"] ||
+                row["thesis abstract"] ||
+                row["Abstract"] ||
+                "";
 
-                        html += `
-                            <td>
-                                <img
-                                    src="${getImagePath(row[col])}"
-                                    width="60"
-                                    height="80"
-                                    style="object-fit:cover"
-                                    onerror="this.src='images/placeholder.jpg'"
-                                >
-                            </td>
-                        `;
+              html += `
+                    <td>
+                        <a
+                            href="javascript:void(0)"
+                            class="thesis-link text-primary fw-bold text-decoration-none"
+                            data-title="${String(row[col]).replace(/"/g, "&quot;")}"
+                            data-abstract="${String(abstract).replace(/"/g, "&quot;")}"
+                        >
+                            ${row[col] || "-"}
+                        </a>
+                    </td>
+                `;
+            }
 
-                    } else {
+            // NORMAL COLUMN
+            else {
+              html += `
+                    <td>${row[col] || "-"}</td>
+                `;
+            }
+          });
 
-                        html += `
-                            <td>${row[col] || "-"}</td>
-                        `;
-                    }
-                });
+          html += "</tr>";
+        });
 
-                html += "</tr>";
-            });
+        html += `
+        </tbody>
+        </table>
+        </div>
+    `;
 
-            html += `
-                </tbody>
-                </table>
-                </div>
-            `;
+        $("#content" + mode).html(html);
+      }
 
-            $("#content" + mode).html(html);
-        }
-
-        renderPagination(mode);
+      renderPagination(mode);
     }
 
     // ================= PAGINATION =================
 
     function renderPagination(mode) {
+      const dataState = state[mode];
 
-        const dataState = state[mode];
+      const totalPages = Math.max(
+        1,
+        Math.ceil(dataState.filteredData.length / rowsPerPage),
+      );
 
-        const totalPages = Math.max(
-            1,
-            Math.ceil(
-                dataState.filteredData.length /
-                rowsPerPage
-            )
-        );
+      let buttons = "";
 
-        let buttons = "";
-
-        buttons += `
+      buttons += `
             <button
               class="btn btn-sm btn-outline-primary me-1"
               onclick="changePage('${mode}', ${dataState.currentPage - 1})"
@@ -1487,12 +1481,11 @@ $(document).ready(function () {
             </button>
         `;
 
-        for (let i = 1; i <= totalPages; i++) {
-
-            buttons += `
+      for (let i = 1; i <= totalPages; i++) {
+        buttons += `
                 <button
                     class="btn btn-sm ${
-                        i === dataState.currentPage
+                      i === dataState.currentPage
                         ? "btn-primary"
                         : "btn-outline-primary"
                     } me-1"
@@ -1501,9 +1494,9 @@ $(document).ready(function () {
                     ${i}
                 </button>
             `;
-        }
+      }
 
-        buttons += `
+      buttons += `
             <button
               class="btn btn-sm btn-outline-primary"
               onclick="changePage('${mode}', ${dataState.currentPage + 1})"
@@ -1513,18 +1506,18 @@ $(document).ready(function () {
             </button>
         `;
 
-        $("#pagination" + mode).html(buttons);
+      $("#pagination" + mode).html(buttons);
 
-        $("#info" + mode).html(`
+      $("#info" + mode).html(`
             Showing
             ${Math.min(
-                (dataState.currentPage - 1) * rowsPerPage + 1,
-                dataState.filteredData.length
+              (dataState.currentPage - 1) * rowsPerPage + 1,
+              dataState.filteredData.length,
             )}
             to
             ${Math.min(
-                dataState.currentPage * rowsPerPage,
-                dataState.filteredData.length
+              dataState.currentPage * rowsPerPage,
+              dataState.filteredData.length,
             )}
             of
             ${dataState.filteredData.length}
@@ -1534,22 +1527,17 @@ $(document).ready(function () {
     // ================= GLOBAL PAGE CHANGE =================
 
     window.changePage = function (mode, page) {
+      if (!state[mode]) return;
 
-        if (!state[mode])
-            return;
+      const totalPages = Math.ceil(
+        state[mode].filteredData.length / rowsPerPage,
+      );
 
-        const totalPages = Math.ceil(
-            state[mode].filteredData.length /
-            rowsPerPage
-        );
+      if (page < 1 || page > totalPages) return;
 
-        if (page < 1 || page > totalPages)
-            return;
+      state[mode].currentPage = page;
 
-        state[mode].currentPage = page;
-
-        renderData(mode);
+      renderData(mode);
     };
-
-});
+  });
 </script>
