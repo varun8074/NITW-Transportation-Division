@@ -185,10 +185,6 @@
               hardwareList.push(row["Hardware"]);
             }
 
-            if (row["Hardware "]) {
-              hardwareList.push(row["Hardware "]);
-            }
-
             if (row["Instructions"]) {
               instructionsList.push(row["Instructions"]);
             }
@@ -203,7 +199,8 @@
 
                 <figure class="figure mx-auto mt-3">
                   <img
-                    src="images/${sheetName}.jpg"
+                    src="images/labs/${sheetName}.jpg"
+                    onerror="this.onerror=null; this.src='images/labs/${sheetName}.jpeg';"
                     class="figure-img img-fluid rounded"
                     alt="${sheetName} Lab"
                     style="max-height:50%; max-width:50%;"
@@ -287,14 +284,12 @@
     // DIVISION LIBRARY
     // =========================
     function createTableWithPagination(data, columns, outputId, prefix) {
+      let currentPage = 1;
+      let rowsPerPage = 10;
+      let filteredData = [...data];
+      let searchText = "";
 
-    let currentPage = 1;
-    let rowsPerPage = 10;
-    let filteredData = [...data];
-    let searchText = '';
-
-    function renderTable() {
-
+      function renderTable() {
         const start = (currentPage - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const pageData = filteredData.slice(start, end);
@@ -318,8 +313,8 @@
                         <tr>
         `;
 
-        columns.forEach(col => {
-            html += `<th>${col}</th>`;
+        columns.forEach((col) => {
+          html += `<th>${col}</th>`;
         });
 
         html += `
@@ -329,42 +324,31 @@
         `;
 
         if (pageData.length === 0) {
-
-            html += `
+          html += `
                 <tr>
                     <td colspan="${columns.length}" class="text-center">
                         No Records Found
                     </td>
                 </tr>
             `;
-
         } else {
+          pageData.forEach((row, index) => {
+            html += `<tr>`;
 
-            pageData.forEach((row, index) => {
-
-                html += `<tr>`;
-
-                columns.forEach(col => {
-
-                    if (col === 'S.No.') {
-
-                        html += `
+            columns.forEach((col) => {
+              if (col === "S.No.") {
+                html += `
                             <td>${start + index + 1}</td>
                         `;
-
-                    } else {
-
-                        html += `
-                            <td>${row[col] || ''}</td>
+              } else {
+                html += `
+                            <td>${row[col] || ""}</td>
                         `;
-                    }
-
-                });
-
-                html += `</tr>`;
-
+              }
             });
 
+            html += `</tr>`;
+          });
         }
 
         html += `
@@ -383,43 +367,33 @@
         renderPagination();
 
         $(`#${prefix}Search`)
-            .off('input')
-            .on('input', function () {
+          .off("input")
+          .on("input", function () {
+            searchText = $(this).val().toLowerCase();
 
-                searchText = $(this).val().toLowerCase();
+            filteredData = data.filter((row) =>
+              Object.values(row).join(" ").toLowerCase().includes(searchText),
+            );
 
-                filteredData = data.filter(row =>
-                    Object.values(row)
-                        .join(' ')
-                        .toLowerCase()
-                        .includes(searchText)
-                );
+            currentPage = 1;
 
-                currentPage = 1;
+            renderTable();
 
-                renderTable();
+            const input = document.getElementById(`${prefix}Search`);
 
-                const input = document.getElementById(`${prefix}Search`);
+            input.focus();
 
-                input.focus();
+            input.setSelectionRange(searchText.length, searchText.length);
+          });
+      }
 
-                input.setSelectionRange(
-                    searchText.length,
-                    searchText.length
-                );
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage) || 1;
 
-            });
-    }
-
-    function renderPagination() {
-
-        const totalPages =
-            Math.ceil(filteredData.length / rowsPerPage) || 1;
-
-        let paginationHTML = '';
+        let paginationHTML = "";
 
         paginationHTML += `
-            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
                 <a class="page-link" href="#" data-page="${currentPage - 1}">
                     Previous
                 </a>
@@ -427,9 +401,8 @@
         `;
 
         for (let i = 1; i <= totalPages; i++) {
-
-            paginationHTML += `
-                <li class="page-item ${currentPage === i ? 'active' : ''}">
+          paginationHTML += `
+                <li class="page-item ${currentPage === i ? "active" : ""}">
                     <a class="page-link" href="#" data-page="${i}">
                         ${i}
                     </a>
@@ -438,7 +411,7 @@
         }
 
         paginationHTML += `
-            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+            <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
                 <a class="page-link" href="#" data-page="${currentPage + 1}">
                     Next
                 </a>
@@ -448,25 +421,21 @@
         $(`#${prefix}Pagination`).html(paginationHTML);
 
         $(`#${prefix}Pagination .page-link`)
-            .off('click')
-            .on('click', function (e) {
+          .off("click")
+          .on("click", function (e) {
+            e.preventDefault();
 
-                e.preventDefault();
+            const page = parseInt($(this).data("page"));
 
-                const page = parseInt($(this).data('page'));
+            if (page >= 1 && page <= totalPages) {
+              currentPage = page;
+              renderTable();
+            }
+          });
+      }
 
-                if (page >= 1 && page <= totalPages) {
-
-                    currentPage = page;
-                    renderTable();
-
-                }
-
-            });
+      renderTable();
     }
-
-    renderTable();
-}
     // ==========================================
     // DIVISION LIBRARY EXCEL
     // ==========================================
