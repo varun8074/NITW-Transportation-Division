@@ -1047,7 +1047,7 @@
     // ================= IMAGE PATH =================
 
     function getImagePath(photoValue) {
-      const DUMMY_IMAGE = "images/placeholder.jpg";
+      const DUMMY_IMAGE = 'images/placeholder.jpg';
 
       if (!photoValue) return DUMMY_IMAGE;
 
@@ -1055,7 +1055,7 @@
 
       if (!value) return DUMMY_IMAGE;
 
-      if (value.startsWith("http")) return value;
+      if (value.startsWith('http')) return value;
 
       return `images/${value}.jpg`;
     }
@@ -1063,15 +1063,15 @@
     // ================= BADGE COLOR =================
 
     function getBadgeColor(mode) {
-      if (!mode) return "badge bg-secondary";
+      if (!mode) return 'badge bg-secondary';
 
       const val = String(mode).toLowerCase().trim();
 
-      if (val.includes("full")) return "badge bg-success";
+      if (val.includes('full')) return 'badge bg-success';
 
-      if (val.includes("part")) return "badge bg-warning text-dark";
+      if (val.includes('part')) return 'badge bg-warning text-dark';
 
-      return "badge bg-secondary";
+      return 'badge bg-secondary';
     }
 
     // ================= LOAD EXCEL =================
@@ -1085,7 +1085,7 @@
         const data = await response.arrayBuffer();
 
         const workbook = XLSX.read(data, {
-          type: "array",
+          type: 'array',
         });
 
         let sheetName;
@@ -1103,7 +1103,7 @@
         const sheet = workbook.Sheets[sheetName];
 
         let excelData = XLSX.utils.sheet_to_json(sheet, {
-          defval: "",
+          defval: '',
         });
 
         excelData = excelData.map((row) => {
@@ -1148,14 +1148,14 @@
         const data = await response.arrayBuffer();
 
         const workbook = XLSX.read(data, {
-          type: "array",
+          type: 'array',
         });
 
         for (let i = 0; i < Math.min(2, workbook.SheetNames.length); i++) {
           const sheet = workbook.Sheets[workbook.SheetNames[i]];
 
           let excelData = XLSX.utils.sheet_to_json(sheet, {
-            defval: "",
+            defval: '',
           });
 
           excelData = excelData.map((row) => {
@@ -1187,28 +1187,38 @@
 
     // ================= INITIAL LOAD =================
 
-    loadExcel("excels/Phd_Current.xlsx", "CRS", "#crsOutput");
+    loadExcel('excels/Phd_Current.xlsx', 'CRS', '#crsOutput');
 
-    loadExcelAllSheets("excels/awards and honours.xlsx");
+    loadExcelAllSheets('excels/awards and honours.xlsx');
 
     // ================= BATCH BUTTON =================
+    $(document).on('click', '.batch-btn', function () {
+      // Highlight selected button
+      const parentContainer = $(this).closest('.card-body');
 
-    $(document).on("click", ".batch-btn", function () {
-      const batch = $(this).data("batch").toString().trim();
+      parentContainer
+        .find('.batch-btn')
+        .removeClass('btn-info')
+        .addClass('btn-outline-info');
 
-      if ($(this).closest("#aluminirsPane").length) {
-        loadExcel("excels/Phd_Alumini.xlsx", "RS", "#rsOutput", batch);
-      } else if ($(this).closest("#currentmPane").length) {
-        loadExcel("excels/Current_Mtech.xlsx", "CMS", "#cmsOutput", batch);
+      $(this).removeClass('btn-outline-info').addClass('btn-info');
+
+      // Load corresponding Excel sheet
+      let batch = $(this).data('batch').toString().trim();
+
+      if ($(this).closest('#aluminirsPane').length) {
+        loadExcel('excels/Phd_Alumini.xlsx', 'RS', '#rsOutput', batch);
+      } else if ($(this).closest('#currentmPane').length) {
+        loadExcel('excels/Current_Mtech.xlsx', 'CMS', '#cmsOutput', batch);
       } else {
-        loadExcel("excels/M-Tech_Alumini.xlsx", "MS", "#msOutput", batch);
+        loadExcel('excels/M-Tech_Alumini.xlsx', 'MS', '#msOutput', batch);
       }
     });
 
     // ================= SEARCH =================
 
-    $(document).on("input", "[id^='search']", function () {
-      const mode = this.id.replace("search", "");
+    $(document).on('input', "[id^='search']", function () {
+      const mode = this.id.replace('search', '');
 
       const searchText = $(this).val().trim().toLowerCase();
 
@@ -1216,7 +1226,7 @@
 
       state[mode].filteredData = state[mode].fullData.filter((row) => {
         return Object.values(row).some((value) => {
-          return String(value || "")
+          return String(value || '')
             .toLowerCase()
             .includes(searchText);
         });
@@ -1227,17 +1237,17 @@
       renderData(mode);
     });
     // ========click event for popup=============
-    $(document).on("click", ".thesis-link", function (e) {
+    $(document).on('click', '.thesis-link', function (e) {
       e.preventDefault();
 
-      $("#abstractTitle").text($(this).data("title"));
+      $('#abstractTitle').text($(this).data('title'));
 
-      $("#abstractContent").html(
-        $(this).data("abstract") || "Abstract not available.",
+      $('#abstractContent').html(
+        $(this).data('abstract') || 'Abstract not available.',
       );
 
       const modal = new bootstrap.Modal(
-        document.getElementById("abstractModal"),
+        document.getElementById('abstractModal'),
       );
 
       modal.show();
@@ -1250,7 +1260,7 @@
 
       $(data.outputDiv).html(`
 
-            ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ""}
+            ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ''}
 
             <input
                 type="text"
@@ -1279,15 +1289,15 @@
       if (!dataState) return;
 
       if (!dataState.filteredData.length) {
-        $("#content" + mode).html(`
+        $('#content' + mode).html(`
                 <div class="alert alert-warning">
                     No matching records found
                 </div>
             `);
 
-        $("#pagination" + mode).html("");
+        $('#pagination' + mode).html('');
 
-        $("#info" + mode).html("0 results");
+        $('#info' + mode).html('0 results');
 
         return;
       }
@@ -1296,7 +1306,7 @@
 
       const pageData = dataState.filteredData.slice(start, start + rowsPerPage);
 
-      if (mode === "CRS") {
+      if (mode === 'CRS') {
         let html = `<div class="row">`;
 
         pageData.forEach((s) => {
@@ -1313,23 +1323,23 @@
                                 >
 
                                 <div class="hover-text">
-                                    ${s["Research Area"] || "-"}
+                                    ${s['Research Area'] || '-'}
                                 </div>
 
                             </div>
 
                             <h6 class="mt-2">
-                                ${s.Name || "-"}
+                                ${s.Name || '-'}
                             </h6>
 
                             <small>
-                                ${s["Reg No."] || "-"}
+                                ${s['Reg No.'] || '-'}
                             </small>
 
                             <br>
 
                             <small>
-                                📞 ${s["Phone Number"] || "-"}
+                                📞 ${s['Phone Number'] || '-'}
                             </small>
 
                             <br>
@@ -1337,22 +1347,22 @@
                             <small>
                                 ✉ ${
                                   s.Email ||
-                                  s["Email Id"] ||
-                                  s["Email ID"] ||
-                                  s["E-mail"] ||
-                                  "-"
+                                  s['Email Id'] ||
+                                  s['Email ID'] ||
+                                  s['E-mail'] ||
+                                  '-'
                                 }
                             </small>
 
                             <br>
 
                             <span class="${getBadgeColor(
-                              s["Study Mode"] || s["Mode of Study"],
+                              s['Study Mode'] || s['Mode of Study'],
                             )}">
                                 ${
-                                  s["Study Mode"] ||
-                                  s["Mode of Study"] ||
-                                  "Unknown"
+                                  s['Study Mode'] ||
+                                  s['Mode of Study'] ||
+                                  'Unknown'
                                 }
                             </span>
 
@@ -1362,9 +1372,9 @@
                 `;
         });
 
-        html += "</div>";
+        html += '</div>';
 
-        $("#content" + mode).html(html);
+        $('#content' + mode).html(html);
       } // ================= TABLE VIEW =================
       else {
         let html = `
@@ -1374,32 +1384,32 @@
         <tr>
     `;
 
-        const hasAbstractPopup = mode === "MS" || mode === "CMS";
+        const hasAbstractPopup = mode === 'MS' || mode === 'CMS';
 
         // TABLE HEADERS
         Object.keys(pageData[0]).forEach((col) => {
           // Hide Thesis Abstract column
-          if (hasAbstractPopup && col.toLowerCase().includes("abstract")) {
+          if (hasAbstractPopup && col.toLowerCase().includes('abstract')) {
             return;
           }
 
           html += `<th>${col}</th>`;
         });
 
-        html += "</tr></thead><tbody>";
+        html += '</tr></thead><tbody>';
 
         // TABLE ROWS
         pageData.forEach((row) => {
-          html += "<tr>";
+          html += '<tr>';
 
           Object.keys(row).forEach((col) => {
             // Hide Thesis Abstract column
-            if (hasAbstractPopup && col.toLowerCase().includes("abstract")) {
+            if (hasAbstractPopup && col.toLowerCase().includes('abstract')) {
               return;
             }
 
             // PHOTO COLUMN
-            if (col.toLowerCase().includes("photo")) {
+            if (col.toLowerCase().includes('photo')) {
               html += `
                     <td>
                         <img
@@ -1414,23 +1424,23 @@
             }
 
             // THESIS TITLE COLUMN
-            else if (hasAbstractPopup && col.toLowerCase().includes("thesis")) {
+            else if (hasAbstractPopup && col.toLowerCase().includes('thesis')) {
               const abstract =
-                row["Thesis Abstract"] ||
-                row["THESIS ABSTRACT"] ||
-                row["thesis abstract"] ||
-                row["Abstract"] ||
-                "";
+                row['Thesis Abstract'] ||
+                row['THESIS ABSTRACT'] ||
+                row['thesis abstract'] ||
+                row['Abstract'] ||
+                '';
 
               html += `
                     <td>
                         <a
                             href="javascript:void(0)"
                             class="thesis-link text-primary fw-bold text-decoration-none"
-                            data-title="${String(row[col]).replace(/"/g, "&quot;")}"
-                            data-abstract="${String(abstract).replace(/"/g, "&quot;")}"
+                            data-title="${String(row[col]).replace(/"/g, '&quot;')}"
+                            data-abstract="${String(abstract).replace(/"/g, '&quot;')}"
                         >
-                            ${row[col] || "-"}
+                            ${row[col] || '-'}
                         </a>
                     </td>
                 `;
@@ -1439,12 +1449,12 @@
             // NORMAL COLUMN
             else {
               html += `
-                    <td>${row[col] || "-"}</td>
+                    <td>${row[col] || '-'}</td>
                 `;
             }
           });
 
-          html += "</tr>";
+          html += '</tr>';
         });
 
         html += `
@@ -1453,7 +1463,7 @@
         </div>
     `;
 
-        $("#content" + mode).html(html);
+        $('#content' + mode).html(html);
       }
 
       renderPagination(mode);
@@ -1469,13 +1479,13 @@
         Math.ceil(dataState.filteredData.length / rowsPerPage),
       );
 
-      let buttons = "";
+      let buttons = '';
 
       buttons += `
             <button
               class="btn btn-sm btn-outline-primary me-1"
               onclick="changePage('${mode}', ${dataState.currentPage - 1})"
-              ${dataState.currentPage === 1 ? "disabled" : ""}
+              ${dataState.currentPage === 1 ? 'disabled' : ''}
             >
                 Prev
             </button>
@@ -1486,8 +1496,8 @@
                 <button
                     class="btn btn-sm ${
                       i === dataState.currentPage
-                        ? "btn-primary"
-                        : "btn-outline-primary"
+                        ? 'btn-primary'
+                        : 'btn-outline-primary'
                     } me-1"
                     onclick="changePage('${mode}', ${i})"
                 >
@@ -1500,15 +1510,15 @@
             <button
               class="btn btn-sm btn-outline-primary"
               onclick="changePage('${mode}', ${dataState.currentPage + 1})"
-              ${dataState.currentPage === totalPages ? "disabled" : ""}
+              ${dataState.currentPage === totalPages ? 'disabled' : ''}
             >
                 Next
             </button>
         `;
 
-      $("#pagination" + mode).html(buttons);
+      $('#pagination' + mode).html(buttons);
 
-      $("#info" + mode).html(`
+      $('#info' + mode).html(`
             Showing
             ${Math.min(
               (dataState.currentPage - 1) * rowsPerPage + 1,
