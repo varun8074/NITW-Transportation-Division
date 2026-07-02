@@ -1051,13 +1051,15 @@
 
     function buildRsDetails(row) {
       const hiddenFields = [
-        "photo",
-        "year",
-        "batch",
-        "name of the scholar",
-        "name",
-        "scholar name",
-      ];
+    "photo",
+    "year",
+    "batch",
+    "name of the scholar",
+    "name",
+    "scholar name",
+    "thesis abstract",
+    "abstract"
+];
       const rows = Object.keys(row)
         .filter((key) => {
           const normalizedKey = key.toLowerCase().trim();
@@ -1065,12 +1067,38 @@
 
           return value && !hiddenFields.includes(normalizedKey);
         })
-        .map(
-          (key) => `
+        .map((key) => {
+
+    const value = row[key];
+
+    // Make Thesis Title clickable
+    if (key.toLowerCase().includes("thesis title")) {
+
+        const abstract =
+            row["Thesis Abstract"] ||
+            row["THESIS ABSTRACT"] ||
+            row["thesis abstract"] ||
+            row["Abstract"] ||
+            "";
+
+        return `
             <dt class="col-sm-4">${escapeHtml(key)}</dt>
-            <dd class="col-sm-8">${escapeHtml(row[key])}</dd>
-          `,
-        )
+            <dd class="col-sm-8">
+                <a href="javascript:void(0)"
+                   class="thesis-link text-primary text-decoration-none fw-bold"
+                   data-title="${escapeHtml(value)}"
+                   data-abstract="${escapeHtml(abstract)}">
+                    ${escapeHtml(value)}
+                </a>
+            </dd>
+        `;
+    }
+
+    return `
+        <dt class="col-sm-4">${escapeHtml(key)}</dt>
+        <dd class="col-sm-8">${escapeHtml(value)}</dd>
+    `;
+})
         .join("");
 
       return `
@@ -1092,10 +1120,20 @@
       $("#abstractTitle").text(title);
       $("#abstractContent").html(content);
 
-      const modal = new bootstrap.Modal(modalElement);
+      const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
 
-      modal.show();
+      if (!modalElement.classList.contains("show")) {
+        modal.show();
+      }
     }
+
+    $("#abstractModal").on("hidden.bs.modal", function () {
+      $(".modal-backdrop").remove();
+      $("body").removeClass("modal-open").css({
+        overflow: "",
+        paddingRight: "",
+      });
+    });
 
     // ================= LOAD EXCEL =================
 
