@@ -39,140 +39,250 @@
   .batch-btn {
     transition: all 0.3s ease;
     margin: 5px;
-}
+  }
 
-.batch-btn:hover {
+  .batch-btn:hover {
     background-color: rgba(22, 180, 219, 0.671) !important;
     color: #0a0404 !important;
     border-color: rgb(194, 3, 21) !important;
-}
-.batch-btn.btn-info {
+  }
+  .batch-btn.btn-info {
     background-color: #dc3545 !important; /* Red when selected */
     border-color: #050505 !important;
     color: white !important;
-}
+  }
 
-#aluminirsPane .rs-timeline {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(110px, 1fr));
-  gap: 16px;
-  margin: 24px 0 10px;
-}
-
-#aluminirsPane .rs-timeline::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 8%;
-  right: 8%;
-  height: 2px;
-  background: #0dcaf0;
-  opacity: 0.35;
-  transform: translateY(-50%);
-}
-
-#aluminirsPane .rs-timeline .col {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-}
-
-#aluminirsPane .rs-timeline .batch-btn {
-  width: 100%;
-  background: #fff;
-}
-
-#aluminirsPane .rs-alumni-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 420px);
-  justify-content: center;
-  gap: 20px;
-  max-width: 1320px;
-  margin: 0 auto;
-}
-
-#aluminirsPane .rs-alumni-card {
-  width: 420px;
-  height: 180px;
-  display: flex;
-  flex-direction: row;
-  border: 1px solid rgba(0, 0, 0, 0.14);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-#currentrsPane #contentCRS .card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-#currentrsPane #contentCRS .card:hover,
-#aluminirsPane .rs-alumni-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.18) !important;
-  z-index: 2;
-}
-
-#aluminirsPane .rs-alumni-photo {
-  width: 135px;
-  height: 100%;
-  flex: 0 0 135px;
-  object-fit: cover;
-  background: #f5f7f8;
-}
-
-#aluminirsPane .rs-alumni-name {
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 8px;
-  text-align: left;
-}
-
-#aluminirsPane .rs-alumni-year {
-  align-self: flex-start;
-  margin-bottom: 12px;
-}
-
-#aluminirsPane .rs-alumni-card .card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.rs-details-list dt,
-.rs-details-list dd {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #e9ecef;
-}
-
-@media (max-width: 768px) {
   #aluminirsPane .rs-timeline {
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(110px, 1fr));
+    gap: 16px;
+    margin: 24px 0 10px;
   }
 
   #aluminirsPane .rs-timeline::before {
-    display: none;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    right: 8%;
+    height: 2px;
+    background: #0dcaf0;
+    opacity: 0.35;
+    transform: translateY(-50%);
+  }
+
+  #aluminirsPane .rs-timeline .col {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  #aluminirsPane .rs-timeline .batch-btn {
+    width: 100%;
+    background: #fff;
   }
 
   #aluminirsPane .rs-alumni-grid {
-    grid-template-columns: minmax(260px, 1fr);
-    max-width: 420px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 420px);
+    justify-content: center;
+    gap: 20px;
+    max-width: 1320px;
+    margin: 0 auto;
   }
 
   #aluminirsPane .rs-alumni-card {
-    width: 100%;
-    height: 170px;
+    width: 420px;
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    border-radius: 8px;
+    overflow: hidden;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  #currentrsPane #contentCRS .card {
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  #currentrsPane #contentCRS .card:hover,
+  #aluminirsPane .rs-alumni-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.18) !important;
+    z-index: 2;
   }
 
   #aluminirsPane .rs-alumni-photo {
-    width: 120px;
-    flex-basis: 120px;
+    width: 135px;
+    height: 100%;
+    flex: 0 0 135px;
+    object-fit: cover;
+    background: #f5f7f8;
   }
-}
+
+  #aluminirsPane .rs-alumni-name {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  #aluminirsPane .rs-alumni-year {
+    align-self: flex-start;
+    margin-bottom: 12px;
+  }
+
+  #aluminirsPane .rs-alumni-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .rs-details-list dt,
+  .rs-details-list dd {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  /* ================= M.TECH ALUMNI ================= */
+
+  #aluminimPane .mtech-alumni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 420px);
+    justify-content: center;
+    gap: 20px;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  #aluminimPane .mtech-alumni-card {
+    width: 420px;
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: 0.25s;
+  }
+
+  #aluminimPane .mtech-alumni-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.18);
+  }
+
+  #aluminimPane .mtech-alumni-photo {
+    width: 135px;
+    flex: 0 0 135px;
+    object-fit: cover;
+    background: #f5f7f8;
+  }
+
+  #aluminimPane .mtech-alumni-name {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  /* ================= ROLL OF HONOURS ================= */
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .award-card {
+    position: relative;
+    overflow: hidden;
+    border: none;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+  }
+
+  .award-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  .award-header {
+    background: linear-gradient(135deg, #0d6efd, #00bcd4);
+    color: #fff;
+    padding: 18px;
+    text-align: center;
+  }
+
+  .award-year {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .award-body {
+    padding: 20px;
+  }
+
+  .award-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .award-title {
+    color: #6c757d;
+    font-size: 15px;
+    margin-top: 8px;
+  }
+
+  .award-icon {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+
+  .award-card::after {
+    content: "🏆";
+    position: absolute;
+    right: -10px;
+    bottom: -20px;
+    font-size: 90px;
+    opacity: 0.08;
+  }
+  @media (max-width: 768px) {
+    #aluminirsPane .rs-timeline {
+      grid-template-columns: repeat(2, minmax(120px, 1fr));
+    }
+
+    #aluminirsPane .rs-timeline::before {
+      display: none;
+    }
+
+    #aluminirsPane .rs-alumni-grid {
+      grid-template-columns: minmax(260px, 1fr);
+      max-width: 420px;
+    }
+
+    #aluminirsPane .rs-alumni-card {
+      width: 100%;
+      height: 170px;
+    }
+
+    #aluminirsPane .rs-alumni-photo {
+      width: 120px;
+      flex-basis: 120px;
+    }
+  }
 </style>
 <ul
   class="nav nav-pills-rounded nav-justified mb-3"
@@ -905,7 +1015,7 @@
                   </button>
                 </div>
               </div>
-               <div class="row">
+              <div class="row">
                 <div class="col">
                   <button
                     type="button"
@@ -915,7 +1025,7 @@
                     2023-25
                   </button>
                 </div>
-               </div>
+              </div>
             </div>
             <div id="msOutput" class="mt-3"></div>
           </div>
@@ -1051,15 +1161,15 @@
 
     function buildRsDetails(row) {
       const hiddenFields = [
-    "photo",
-    "year",
-    "batch",
-    "name of the scholar",
-    "name",
-    "scholar name",
-    "thesis abstract",
-    "abstract"
-];
+        "photo",
+        "year",
+        "batch",
+        "name of the scholar",
+        "name",
+        "scholar name",
+        "thesis abstract",
+        "abstract",
+      ];
       const rows = Object.keys(row)
         .filter((key) => {
           const normalizedKey = key.toLowerCase().trim();
@@ -1068,20 +1178,18 @@
           return value && !hiddenFields.includes(normalizedKey);
         })
         .map((key) => {
+          const value = row[key];
 
-    const value = row[key];
+          // Make Thesis Title clickable
+          if (key.toLowerCase().includes("thesis title")) {
+            const abstract =
+              row["Thesis Abstract"] ||
+              row["THESIS ABSTRACT"] ||
+              row["thesis abstract"] ||
+              row["Abstract"] ||
+              "";
 
-    // Make Thesis Title clickable
-    if (key.toLowerCase().includes("thesis title")) {
-
-        const abstract =
-            row["Thesis Abstract"] ||
-            row["THESIS ABSTRACT"] ||
-            row["thesis abstract"] ||
-            row["Abstract"] ||
-            "";
-
-        return `
+            return `
             <dt class="col-sm-4">${escapeHtml(key)}</dt>
             <dd class="col-sm-8">
                 <a href="javascript:void(0)"
@@ -1092,18 +1200,18 @@
                 </a>
             </dd>
         `;
-    }
+          }
 
-    return `
+          return `
         <dt class="col-sm-4">${escapeHtml(key)}</dt>
         <dd class="col-sm-8">${escapeHtml(value)}</dd>
     `;
-})
+        })
         .join("");
 
       return `
         <dl class="row rs-details-list mb-0">
-          ${rows || "<dd class=\"col-12 mb-0\">No additional details available.</dd>"}
+          ${rows || '<dd class="col-12 mb-0">No additional details available.</dd>'}
         </dl>
       `;
     }
@@ -1393,7 +1501,7 @@
       const row = rsDetailsCache[detailsId];
 
       showDetailsModal(
-        `${$(this).data("name")} - PhD Details`,
+        `${$(this).data("name")} - ${$(this).text()}`,
         row ? buildRsDetails(row) : "No additional details available.",
       );
     });
@@ -1565,95 +1673,187 @@
 
         $("#content" + mode).html(html);
       } // ================= TABLE VIEW =================
-      else {
-        let html = `
-        <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-        <tr>
-    `;
+      else if (mode === "MS") {
+        let html = `<div class="mtech-alumni-grid">`;
 
-        const hasAbstractPopup = mode === "MS" || mode === "CMS";
+        pageData.forEach((s, index) => {
+          const name =
+            s["Name"] || s["Student Name"] || s["Name of Student"] || "-";
 
-        // TABLE HEADERS
-        Object.keys(pageData[0]).forEach((col) => {
-          // Hide Thesis Abstract column
-          if (hasAbstractPopup && col.toLowerCase().includes("abstract")) {
-            return;
-          }
+          const year = s["Batch"] || s["Year"] || "-";
 
-          html += `<th>${col}</th>`;
+          const detailsId = `ms-${start + index}`;
+
+          rsDetailsCache[detailsId] = s;
+
+          html += `
+              <div class="card mtech-alumni-card shadow-sm">
+
+                  <img
+                      class="mtech-alumni-photo"
+                      src="${getImagePath(s.Photo)}"
+                      onerror="this.src='images/placeholder.jpg'"
+                  >
+
+                  <div class="card-body p-3">
+
+                      <h6 class="mtech-alumni-name">
+                          Name: ${escapeHtml(name)}
+                      </h6>
+
+                      <span class="text-muted mb-2">
+                          Batch: ${escapeHtml(year)}
+                      </span>
+
+                      <button
+                          class="btn btn-outline-primary btn-sm rs-details-btn"
+                          data-name="${escapeHtml(name)}"
+                          data-details-id="${detailsId}">
+                          M.Tech Details
+                      </button>
+
+                  </div>
+
+              </div>
+              `;
         });
 
-        html += "</tr></thead><tbody>";
-
-        // TABLE ROWS
-        pageData.forEach((row) => {
-          html += "<tr>";
-
-          Object.keys(row).forEach((col) => {
-            // Hide Thesis Abstract column
-            if (hasAbstractPopup && col.toLowerCase().includes("abstract")) {
-              return;
-            }
-
-            // PHOTO COLUMN
-            if (col.toLowerCase().includes("photo")) {
-              html += `
-                    <td>
-                        <img
-                            src="${getImagePath(row[col])}"
-                            width="60"
-                            height="80"
-                            style="object-fit:cover"
-                            onerror="this.src='images/placeholder.jpg'"
-                        >
-                    </td>
-                `;
-            }
-
-            // THESIS TITLE COLUMN
-            else if (hasAbstractPopup && col.toLowerCase().includes("thesis")) {
-              const abstract =
-                row["Thesis Abstract"] ||
-                row["THESIS ABSTRACT"] ||
-                row["thesis abstract"] ||
-                row["Abstract"] ||
-                "";
-
-              html += `
-                    <td>
-                        <a
-                            href="javascript:void(0)"
-                            class="thesis-link text-primary fw-bold text-decoration-none"
-                            data-title="${String(row[col]).replace(/"/g, "&quot;")}"
-                            data-abstract="${String(abstract).replace(/"/g, "&quot;")}"
-                        >
-                            ${row[col] || "-"}
-                        </a>
-                    </td>
-                `;
-            }
-
-            // NORMAL COLUMN
-            else {
-              html += `
-                    <td>${row[col] || "-"}</td>
-                `;
-            }
-          });
-
-          html += "</tr>";
-        });
-
-        html += `
-        </tbody>
-        </table>
-        </div>
-    `;
+        html += "</div>";
 
         $("#content" + mode).html(html);
+
+        renderPagination(mode);
+      } else if (mode === "CMS") {
+        let html = `<div class="row">`;
+
+        pageData.forEach((s) => {
+          html += `
+        <div class="col-md-3 mb-3">
+
+            <div class="card text-center p-2 shadow-sm">
+
+                <div class="img-hover-box">
+
+                    <img
+                        src="${getImagePath(s.Photo)}"
+                        onerror="this.src='images/placeholder.jpg'"
+                    >
+
+                    <div class="hover-text">
+                        ${s["M.Tech Thesis Title"] || "-"}
+                    </div>
+
+                </div>
+
+                <h6 class="mt-2">
+                    ${s.Name || s["Student Name"] || "-"}
+                </h6>
+
+                <small>
+                    ${s["Roll Number"] || s["Reg No."] || "-"}
+                </small>
+
+                <span class="${getBadgeColor(s["Study Mode"] || s["Mode"])}">
+                    ${s["Study Mode"] || s["Mode"] || "Full Time"}
+                </span>
+
+            </div>
+
+        </div>
+        `;
+        });
+
+        html += "</div>";
+
+        $("#content" + mode).html(html);
+
+        renderPagination(mode);
       }
+
+      else if (mode === "AWARDS1") {
+
+    let html = `<div class="awards-grid">`;
+
+    pageData.forEach(row=>{
+
+        html += `
+        <div class="award-card">
+
+            <div class="award-header">
+
+                <div class="award-icon">🏆</div>
+
+                <h2 class="award-year">
+                    ${row.Year}
+                </h2>
+
+            </div>
+
+            <div class="award-body">
+
+                <div class="award-name">
+                    ${row["Name of the Topper"]}
+                </div>
+
+                <div class="award-title">
+                    Roll of Honours
+                </div>
+
+            </div>
+
+        </div>
+        `;
+    });
+
+    html += "</div>";
+
+    $("#content"+mode).html(html);
+
+    renderPagination(mode);
+}
+
+else if(mode==="AWARDS2"){
+
+    let html=`<div class="awards-grid">`;
+
+    pageData.forEach(row=>{
+
+        html+=`
+        <div class="award-card">
+
+            <div class="award-header">
+
+                <div class="award-icon">🥇</div>
+
+                <h2 class="award-year">
+                    ${row.Year}
+                </h2>
+
+            </div>
+
+            <div class="award-body">
+
+                <div class="award-name">
+                    ${row["Recipiant"]}
+                </div>
+
+                <div class="award-title">
+                    ${row["Gold medal/Cash prize"]}
+                </div>
+
+            </div>
+
+        </div>
+        `;
+    });
+
+    html+="</div>";
+
+    $("#content"+mode).html(html);
+
+    renderPagination(mode);
+}
+
 
       if (mode === "RS") {
         $("#pagination" + mode).html("");
