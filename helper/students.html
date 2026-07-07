@@ -194,70 +194,173 @@
     margin-bottom: 8px;
   }
 
-  /* ================= ROLL OF HONOURS ================= */
+  /* ================= ROLL OF HONOURS TIMELINE ================= */
 
-  .awards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(320px, 1fr));
-    gap: 20px;
+  .honours-list {
+    max-width: 900px;
+    margin: 30px auto;
+    position: relative;
   }
 
-  .award-card {
+  .honours-list::before {
+    content: "";
+    position: absolute;
+    left: 70px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #0d6efd, #17a2b8, #198754);
+    border-radius: 10px;
+  }
+
+  .honour-item {
     position: relative;
-    overflow: hidden;
-    border: none;
-    border-radius: 15px;
+    display: flex;
+    align-items: center;
     background: #fff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    margin: 18px 0;
+    padding: 18px 25px;
+    margin-left: 100px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
     transition: 0.3s;
   }
 
-  .award-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  .honour-item:hover {
+    transform: translateX(8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   }
 
-  .award-header {
-    background: linear-gradient(135deg, #0d6efd, #00bcd4);
-    color: #fff;
-    padding: 18px;
-    text-align: center;
-  }
-
-  .award-year {
-    font-size: 28px;
-    font-weight: 700;
-    margin: 0;
-  }
-
-  .award-body {
-    padding: 20px;
-  }
-
-  .award-name {
-    font-size: 20px;
-    font-weight: 600;
-    color: #333;
-  }
-
-  .award-title {
-    color: #6c757d;
-    font-size: 15px;
-    margin-top: 8px;
-  }
-
-  .award-icon {
-    font-size: 42px;
-    margin-bottom: 10px;
-  }
-
-  .award-card::after {
+  .honour-item::before {
     content: "🏆";
     position: absolute;
-    right: -10px;
-    bottom: -20px;
-    font-size: 90px;
+    left: -52px;
+    width: 42px;
+    height: 42px;
+    background: #fff;
+    border: 4px solid #0d6efd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+  }
+
+  .honour-year {
+    min-width: 90px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #0d6efd;
+  }
+
+  .honour-divider {
+    width: 2px;
+    height: 45px;
+    background: #dee2e6;
+    margin: 0 20px;
+  }
+
+  .honour-name {
+    flex: 1;
+    font-size: 20px;
+    font-weight: 600;
+    color: #343a40;
+  }
+
+  .honour-rank {
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 5px;
+  }
+
+  /* ================= MEDALS & AWARDS ================= */
+
+  .medals-list {
+    max-width: 1000px;
+    margin: 30px auto;
+  }
+
+  .medal-item {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: #fff;
+    border-left: 6px solid #ffc107;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .medal-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  }
+
+  .medal-item::after {
+    content: "🏅";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 55px;
     opacity: 0.08;
+  }
+
+  .medal-year {
+    min-width: 90px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #0d6efd;
+  }
+
+  .medal-divider {
+    width: 2px;
+    align-self: stretch;
+    background: #dee2e6;
+  }
+
+  .medal-details {
+    flex: 1;
+  }
+
+  .medal-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #212529;
+  }
+
+  .medal-recipient {
+    margin-top: 8px;
+    font-size: 17px;
+    color: #495057;
+  }
+
+  .medal-recipient span {
+    font-weight: 600;
+    color: #198754;
+  }
+
+  @media (max-width: 768px) {
+    .medal-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .medal-divider {
+      display: none;
+    }
+
+    .medal-year {
+      margin-bottom: 8px;
+    }
+
+    .medal-item::after {
+      display: none;
+    }
   }
   @media (max-width: 768px) {
     #aluminirsPane .rs-timeline {
@@ -281,6 +384,27 @@
     #aluminirsPane .rs-alumni-photo {
       width: 120px;
       flex-basis: 120px;
+    }
+    .honours-list::before {
+      left: 25px;
+    }
+
+    .honour-item {
+      margin-left: 50px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .honour-item::before {
+      left: -35px;
+    }
+
+    .honour-divider {
+      display: none;
+    }
+
+    .honour-year {
+      margin-bottom: 10px;
     }
   }
 </style>
@@ -1559,7 +1683,7 @@
         mode === "RS" ? 0 : (dataState.currentPage - 1) * rowsPerPage;
 
       const pageData =
-        mode === "RS"
+        mode === "RS" || mode === "AWARDS1" || mode === "AWARDS2"
           ? dataState.filteredData
           : dataState.filteredData.slice(start, start + rowsPerPage);
 
@@ -1768,94 +1892,77 @@
         $("#content" + mode).html(html);
 
         renderPagination(mode);
+      } else if (mode === "AWARDS1") {
+        let html = `<div class="honours-list">`;
+
+        pageData.forEach((row) => {
+          html += `
+    <div class="honour-item">
+
+        <div class="honour-year">
+            ${row.Year}
+        </div>
+
+        <div class="honour-divider"></div>
+
+        <div>
+
+            <div class="honour-name">
+                ${row["Name of the Topper"]}
+            </div>
+
+            <div class="honour-rank">
+                Roll of Honours
+            </div>
+
+        </div>
+
+    </div>
+    `;
+        });
+
+        html += `</div>`;
+
+        $("#content" + mode).html(html);
+      } else if (mode === "AWARDS2") {
+        let html = `<div class="medals-list">`;
+
+        pageData.forEach((row) => {
+          html += `
+
+        <div class="medal-item">
+
+            <div class="medal-year">
+                ${row.Year}
+            </div>
+
+            <div class="medal-divider"></div>
+
+            <div class="medal-details">
+
+                <div class="medal-title">
+                    🏅 ${row["Gold medal/Cash prize"]}
+                </div>
+
+                <div class="medal-recipient">
+                    Awarded to <span>${row["Recipiant"]}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+        });
+
+        html += "</div>";
+
+        $("#content" + mode).html(html);
+
+        renderPagination(mode);
       }
 
-      else if (mode === "AWARDS1") {
-
-    let html = `<div class="awards-grid">`;
-
-    pageData.forEach(row=>{
-
-        html += `
-        <div class="award-card">
-
-            <div class="award-header">
-
-                <div class="award-icon">🏆</div>
-
-                <h2 class="award-year">
-                    ${row.Year}
-                </h2>
-
-            </div>
-
-            <div class="award-body">
-
-                <div class="award-name">
-                    ${row["Name of the Topper"]}
-                </div>
-
-                <div class="award-title">
-                    Roll of Honours
-                </div>
-
-            </div>
-
-        </div>
-        `;
-    });
-
-    html += "</div>";
-
-    $("#content"+mode).html(html);
-
-    renderPagination(mode);
-}
-
-else if(mode==="AWARDS2"){
-
-    let html=`<div class="awards-grid">`;
-
-    pageData.forEach(row=>{
-
-        html+=`
-        <div class="award-card">
-
-            <div class="award-header">
-
-                <div class="award-icon">🥇</div>
-
-                <h2 class="award-year">
-                    ${row.Year}
-                </h2>
-
-            </div>
-
-            <div class="award-body">
-
-                <div class="award-name">
-                    ${row["Recipiant"]}
-                </div>
-
-                <div class="award-title">
-                    ${row["Gold medal/Cash prize"]}
-                </div>
-
-            </div>
-
-        </div>
-        `;
-    });
-
-    html+="</div>";
-
-    $("#content"+mode).html(html);
-
-    renderPagination(mode);
-}
-
-
-      if (mode === "RS") {
+      if (mode === "RS" || mode === "AWARDS1" || mode === "AWARDS2") {
         $("#pagination" + mode).html("");
         $("#info" + mode).html(`${dataState.filteredData.length} results`);
       } else {
