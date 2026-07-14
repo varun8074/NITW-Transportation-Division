@@ -1296,13 +1296,16 @@
       ];
       const rows = Object.keys(row)
         .filter((key) => {
-          const normalizedKey = key.toLowerCase().trim();
-          const value = String(row[key] || "").trim();
-
-          return value && !hiddenFields.includes(normalizedKey);
-        })
+    const normalizedKey = key.toLowerCase().trim();
+    return !hiddenFields.includes(normalizedKey);
+})
         .map((key) => {
-          const value = row[key];
+          const value =
+    row[key] === undefined ||
+    row[key] === null ||
+    String(row[key]).trim() === ""
+        ? "Data not available"
+        : row[key];
 
           // Make Thesis Title clickable
           if (key.toLowerCase().includes("thesis title")) {
