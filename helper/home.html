@@ -3,155 +3,296 @@
     max-height: 200px;
     overflow-y: auto;
   }
-  .faculty-card{
+  .faculty-card {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
     background: #fff;
-    border: 1px solid rgba(0,0,0,.08);
-    box-shadow: 0 10px 30px rgba(0,0,0,.12);
-    transition: all .35s ease;
-}
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    transition: all 0.35s ease;
+  }
 
-/* Animated top border */
-.faculty-card::before{
+  /* Animated top border */
+  .faculty-card::before {
     content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 5px;
-    background: linear-gradient(90deg,#0d6efd,#20c997,#ffc107,#dc3545);
-    transition: left .6s ease;
-}
+    background: linear-gradient(90deg, #0d6efd, #20c997, #ffc107, #dc3545);
+    transition: left 0.6s ease;
+  }
 
-/* Hover Effect */
-.faculty-card:hover{
+  /* Hover Effect */
+  .faculty-card:hover {
     transform: translateY(-5px);
     box-shadow:
-        0 18px 45px rgba(13,110,253,.18),
-        0 8px 20px rgba(0,0,0,.15);
-    border-color: rgba(13,110,253,.25);
-}
+      0 18px 45px rgba(13, 110, 253, 0.18),
+      0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: rgba(13, 110, 253, 0.25);
+  }
 
-.faculty-card:hover::before{
+  .faculty-card:hover::before {
     left: 0;
-}
-.faculty-img{
-    width:190px;
-    height:190px;
-    object-fit:cover;
-    border-radius:50%;
-    border:6px solid #fff;
+  }
+  .faculty-img {
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid #fff;
     box-shadow:
-        0 0 0 4px #ffc107,
-        0 12px 30px rgba(0,0,0,.18);
-    transition:.35s ease;
-}
+      0 0 0 4px #ffc107,
+      0 12px 30px rgba(0, 0, 0, 0.18);
+    transition: 0.35s ease;
+  }
 
-.faculty-card:hover .faculty-img{
-    transform:scale(1.05);
+  .faculty-card:hover .faculty-img {
+    transform: scale(1.05);
     box-shadow:
-        0 0 0 5px #0d6efd,
-        0 15px 35px rgba(13,110,253,.25);
+      0 0 0 5px #0d6efd,
+      0 15px 35px rgba(13, 110, 253, 0.25);
+  }
+
+  .card-body-home {
+    background: linear-gradient(135deg, #ffffff, #f7fbff);
+  }
+
+  hr {
+    opacity: 0.15;
+  }
+
+  .badge {
+    font-size: 0.9rem;
+    border-radius: 50px;
+  }
+
+  .stats-container {
+  padding: 40px;
+  border-radius: 25px;
+
+  background: linear-gradient(
+    135deg,
+    #7ca1e660,
+    #b667eb63,
+    #e066664b
+  );
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+  .stats-box {
+  position: relative;
+  overflow: hidden;
+
+  height: 180px;
+  padding: 25px 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  border-radius: 18px;
+  border: none;
+
+  color: white;
+
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  transition: all 0.35s ease;
 }
 
-.card-body-home{
-    background:linear-gradient(135deg,#ffffff,#f7fbff);
+/* Different colors for each tab */
+.col-md-4:nth-child(1) .stats-box {
+  background: linear-gradient(135deg, #ff512f, #dd2476);
+}
+
+.col-md-4:nth-child(2) .stats-box {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+.col-md-4:nth-child(3) .stats-box {
+  background: linear-gradient(135deg, #396afc, #2948ff);
+}
+
+.col-md-4:nth-child(4) .stats-box {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+}
+
+.col-md-4:nth-child(5) .stats-box {
+  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+}
+
+.col-md-4:nth-child(6) .stats-box {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
 }
 
 
+/* Number */
+.stats-number {
+  margin: 0 0 10px 0;
 
-hr{
-    opacity:.15;
+  font-size: 48px;
+  font-weight: 700;
+
+  color: white;
+
+  transition: all 0.3s ease;
 }
 
-.badge{
-    font-size:.9rem;
-    border-radius:50px;
+
+/* Title */
+.stats-title {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  color: white;
+
+  transition: all 0.3s ease;
+}
+
+
+/* Hover */
+.stats-box:hover {
+  transform: translateY(-8px) scale(1.03);
+
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.25),
+    0 0 25px rgba(255, 255, 255, 0.35);
+}
+
+
+/* Number animation */
+.stats-box:hover .stats-number {
+  transform: scale(1.15);
+}
+
+
+/* Flash / Shine */
+.stats-box::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 70%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.973),
+    transparent
+  );
+
+  transform: skewX(-25deg);
+}
+
+
+/* Run shine animation */
+.stats-box:hover::after {
+  animation: flash 0.8s ease;
+}
+
+
+@keyframes flash {
+  0% {
+    left: -120%;
+  }
+
+  100% {
+    left: 150%;
+  }
 }
 </style>
 
 <div class="container text-center">
-  <div class="card faculty-card border-0 mb-4 mx-auto" style="max-width:1200px;">
+  <div
+    class="card faculty-card border-0 mb-4 mx-auto"
+    style="max-width: 1200px"
+  >
     <div class="row g-0 align-items-center">
+      <!-- Image -->
+      <div class="col-md-3 text-center p-4">
+        <img
+          src="images/Previous Faculty/S.Raghava Chari.jpg"
+          class="faculty-img"
+          alt="S. Raghava Chari"
+        />
+      </div>
 
-        <!-- Image -->
-        <div class="col-md-3 text-center p-4">
-            <img src="images/Previous Faculty/S.Raghava Chari.jpg"
-                class="faculty-img"
-                alt="S. Raghava Chari">
-        </div>
+      <!-- Content -->
+      <div class="col-md-9">
+        <div class="card-body-home p-4">
+          <h3 class="fw-bold text-primary mb-3">S. Raghava Chari</h3>
 
-        <!-- Content -->
-        <div class="col-md-9">
-            <div class="card-body-home p-4">
+          <h6 class="text-secondary mb-3">Former Faculty</h6>
 
-                <h3 class="fw-bold text-primary mb-3">
-                    S. Raghava Chari
-                </h3>
+          <p class="text-muted">
+            This is a wider card with supporting text below as a natural lead-in
+            to additional content. This content is a little longer and describes
+            the faculty member's achievements, research interests, and
+            contributions.
+          </p>
 
-                <h6 class="text-secondary mb-3">
-                    Former Faculty
-                </h6>
+          <hr />
 
-                <p class="text-muted">
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little longer
-                    and describes the faculty member's achievements, research
-                    interests, and contributions.
-                </p>
-
-                <hr>
-
-                <div class="row text-center justify-content-center">
-                    <div class="col-md-4">
-                        <h6 class="fw-bold mb-1">Specialization</h6>
-                        <span class="text-muted">Transportation Engineering</span>
-                    </div>
-
-                </div>
-
+          <div class="row text-center justify-content-center">
+            <div class="col-md-4">
+              <h6 class="fw-bold mb-1">Specialization</h6>
+              <span class="text-muted">Transportation Engineering</span>
             </div>
+          </div>
         </div>
-
+      </div>
     </div>
-</div>
+  </div>
   <div class="row align-items-start">
     <div class="col">
       <p class="text lh-lg" style="text-align: justify">
-        Transportation Engineering Discipline was introduced in the Department
-        of Civil Engineering, National Institute of Technology, Warangal, in
-        1968 under the aegis of UNESCO-UNDP and the Government of India, in the
-        realization of the emerging area and the urgent need to train
-        Engineers/Planners in this discipline. This is the first Institution in
-        India to have started a full-fledged M.Tech Degree Programme in
-        Transportation Engineering. Under the able guidance of Prof. Martin Ekse
-        of Washington State University, USA, Prof. V.V. Sylyanov of Moscow
-        Automobile and Road Construction Institute, USSR, and other
-        distinguished experts in India, the Transportation Engineering
-        discipline has not only emerged as a forerunner in the country but also
-        created competent Transportation Engineering cadre in the country, who
-        are now serving in various National and International bodies. With the
-        support of UNESCO-UNDP and the Government of India, basic infrastructure
-        in the emerging area of Transportation Engineering has been created for
-        over three decades. This includes computational facilities in the form
-        of Personal Computers, Video equipment, Pavement and Material testing
-        equipment, and a Traffic data acquisition system. In realization of the
-        excellent work done by the group in training the students for the M.Tech
-        and Doctoral degrees in Transportation Engineering, in-service training
-        under continuing Education Programmes, Research and Development
-        activities and Consultation jobs, the Ministry of Education (MoE)
-        erstwhile Ministry of Human Resources Development (MHRD), Government of
-        India has established a "Centre for Transportation Engineering" and
-        provided additional inputs for the modernization of laboratories and
-        other infrastructure facilities. It now has, Automatic Traffic Analysers
-        and Pavement Testing Equipment apart from all traditional testing
-        facilities. The Transportation Engineering Division is now identified as
-        one of the Canters of Excellence in Urban Transport by the Ministry of
-        Urban Development under the 11th Five Year Plan. NRRDA has recognized
-        the Transportation Division, Ministry of Rural Development, GOI as one
-        of the State Technical Agency (STA) and Principal Technical Agency (PTA)
+        Transportation Engineering Programe(Regional Engineering College) was
+        introduced in the Department of Civil Engineering, National Institute of
+        Technology, Warangal, in 1968 under the aegis of UNESCO-UNDP and the
+        Government of India, in the realization of the emerging area and the
+        urgent need to train Engineers/Planners in this Transportation
+        Engineering. This is the first Institution in India to have started a
+        full-fledged M.Tech Degree Programme in Transportation Engineering.
+        Under the able guidance of Prof. Martin Ekse of Washington State
+        University, USA, Prof. V.V. Sylyanov of Moscow Automobile and Road
+        Construction Institute, USSR, and other distinguished experts in India,
+        the Transportation Engineering programe has not only emerged as a
+        forerunner in the country but also created competent Transportation
+        Engineering cadre in the country, who are now serving in various
+        National and International bodies. With the support of UNESCO-UNDP and
+        the Government of India, basic infrastructure in the emerging area of
+        Transportation Engineering has been created for over three decades. This
+        includes computational facilities in the form of Personal Computers,
+        Video equipment, Pavement and Material testing equipment, and a Traffic
+        data acquisition system. In realization of the excellent work done by
+        the group in training the students for the M.Tech and Doctoral degrees
+        in Transportation Engineering, in-service training under continuing
+        Education Programmes, Research and Development activities and
+        Consultation jobs, the Ministry of Education (MoE) erstwhile Ministry of
+        Human Resources Development (MHRD), Government of India has established
+        a "Centre for Transportation Engineering" and provided additional inputs
+        for the modernization of laboratories and other infrastructure
+        facilities. It now has, Automatic Traffic Analysers and Pavement Testing
+        Equipment apart from all traditional testing facilities. The
+        Transportation Engineering Division is now identified as one of the
+        Canters of Excellence in Urban Transport by the Ministry of Urban
+        Development under the 11th Five Year Plan. NRRDA has recognized the
+        Transportation Division, Ministry of Rural Development, GOI as one of
+        the State Technical Agency (STA) and Principal Technical Agency (PTA)
         for the state of Telangana and three districts in Andhra Pradesh to
         provide technical advice to and to train the Panchayat Raj Engineers on
         planning, design, construction and maintenance of rural roads under
@@ -164,38 +305,62 @@ hr{
         areas: Traffic Engineering, Transportation Planning, and Pavement
         Engineering.
       </p>
-      <div class="w-100"></div>
-      <div class="row">
-        <div class="col">
-          <p class="fs-1" style="color: brown">7</p>
-        </div>
-        <div class="col">
-          <p class="fs-1" style="color: brown">3</p>
-        </div>
-        <div class="col">
-          <p class="fs-1" style="color: brown">17</p>
-        </div>
-        <div class="col">
-          <p class="fs-1" style="color: brown">11</p>
-        </div>
-        <div class="col">
-          <p class="fs-1" style="color: brown">43</p>
-        </div>
-        <div class="col">
-          <p class="fs-1" style="color: brown">818</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">Faculty</div>
-        <div class="col">Staff</div>
-        <div class="col">FullTime PhD Research Scholars</div>
-        <div class="col">PartTime PhD Research Scholars</div>
-        <div class="col">Postgraduate Students</div>
-        <div class="col">Publications</div>
-      </div>
     </div>
 
-    <div class="col-4 p-3 mb-2">
+    <div class="col-5 p-3 mb-2">
+      <div class="stats-container mb-4">
+        <div class="row g-4">
+          <!-- Faculty -->
+          <div class="col-md-4">
+            <div class="stats-box">
+              <p class="stats-number">7</p>
+              <p class="stats-title">Faculty</p>
+            </div>
+          </div>
+
+          <!-- Staff -->
+          <div class="col-md-4">
+            <div class="stats-box">
+              <p class="stats-number">3</p>
+              <p class="stats-title">Staff</p>
+            </div>
+          </div>
+          <!-- Publications -->
+          <div class="col-md-4">
+            <div class="stats-box">
+              <p class="stats-number">279</p>
+              <p class="stats-title">Publications</p>
+            </div>
+          </div>
+
+          <!-- FullTime PhD -->
+          <div class="col-md-4">
+            <div class="stats-box">
+              <p class="stats-number">17</p>
+              <p class="stats-title">FullTime PhD Research Scholars</p>
+            </div>
+          </div>
+
+          <!-- PartTime PhD -->
+          <div class="col-md-4">
+            <div class="stats-box">
+              <p class="stats-number">11</p>
+              <p class="stats-title">PartTime PhD Research Scholars</p>
+            </div>
+          </div>
+
+          <!-- Postgraduate -->
+          <div class="col-md-4">
+            <div class="stats-box">
+              <p class="stats-number">43</p>
+              <p class="stats-title">Postgraduate Students</p>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+      
       <h1 class="display-6 text-bg-info p-2">Events</h1>
       <!-- Update the Events Here -->
       <div class="container mt-3">
