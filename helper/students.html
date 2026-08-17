@@ -61,7 +61,7 @@
   }
 
   #aluminirsPane .rs-timeline::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 8%;
@@ -203,7 +203,7 @@
   }
 
   .honours-list::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 70px;
     top: 0;
@@ -232,7 +232,7 @@
   }
 
   .honour-item::before {
-    content: "🏆";
+    content: '🏆';
     position: absolute;
     left: -52px;
     width: 42px;
@@ -301,7 +301,7 @@
   }
 
   .medal-item::after {
-    content: "🏅";
+    content: '🏅';
     position: absolute;
     right: 20px;
     top: 50%;
@@ -1239,7 +1239,7 @@
     // ================= IMAGE PATH =================
 
     function getImagePath(photoValue) {
-      const DUMMY_IMAGE = "images/placeholder.jpg";
+      const DUMMY_IMAGE = 'images/placeholder.jpg';
 
       if (!photoValue) return DUMMY_IMAGE;
 
@@ -1247,7 +1247,7 @@
 
       if (!value) return DUMMY_IMAGE;
 
-      if (value.startsWith("http")) return value;
+      if (value.startsWith('http')) return value;
 
       return `images/${value}.jpg`;
     }
@@ -1255,24 +1255,24 @@
     // ================= BADGE COLOR =================
 
     function getBadgeColor(mode) {
-      if (!mode) return "badge bg-secondary";
+      if (!mode) return 'badge bg-secondary';
 
       const val = String(mode).toLowerCase().trim();
 
-      if (val.includes("full")) return "badge bg-success";
+      if (val.includes('full')) return 'badge bg-success';
 
-      if (val.includes("part")) return "badge bg-warning text-dark";
+      if (val.includes('part')) return 'badge bg-warning text-dark';
 
-      return "badge bg-secondary";
+      return 'badge bg-secondary';
     }
 
     function escapeHtml(value) {
-      return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
 
     function getFirstValue(row, keys) {
@@ -1280,41 +1280,41 @@
         if (row[key]) return row[key];
       }
 
-      return "";
+      return '';
     }
 
     function buildRsDetails(row) {
       const hiddenFields = [
-        "photo",
-        "year",
-        "batch",
-        "name of the scholar",
-        "name",
-        "scholar name",
-        "thesis abstract",
-        "abstract",
+        'photo',
+        'year',
+        'batch',
+        'name of the scholar',
+        'name',
+        'scholar name',
+        'thesis abstract',
+        'abstract',
       ];
       const rows = Object.keys(row)
         .filter((key) => {
-    const normalizedKey = key.toLowerCase().trim();
-    return !hiddenFields.includes(normalizedKey);
-})
+          const normalizedKey = key.toLowerCase().trim();
+          return !hiddenFields.includes(normalizedKey);
+        })
         .map((key) => {
           const value =
-    row[key] === undefined ||
-    row[key] === null ||
-    String(row[key]).trim() === ""
-        ? "Data not available"
-        : row[key];
+            row[key] === undefined ||
+            row[key] === null ||
+            String(row[key]).trim() === ''
+              ? 'Data not available'
+              : row[key];
 
           // Make Thesis Title clickable
-          if (key.toLowerCase().includes("thesis title")) {
+          if (key.toLowerCase().includes('thesis title')) {
             const abstract =
-              row["Thesis Abstract"] ||
-              row["THESIS ABSTRACT"] ||
-              row["thesis abstract"] ||
-              row["Abstract"] ||
-              "";
+              row['Thesis Abstract'] ||
+              row['THESIS ABSTRACT'] ||
+              row['thesis abstract'] ||
+              row['Abstract'] ||
+              '';
 
             return `
             <dt class="col-sm-4">${escapeHtml(key)}</dt>
@@ -1334,7 +1334,7 @@
         <dd class="col-sm-8">${escapeHtml(value)}</dd>
     `;
         })
-        .join("");
+        .join('');
 
       return `
         <dl class="row rs-details-list mb-0">
@@ -1344,7 +1344,7 @@
     }
 
     function showDetailsModal(title, content) {
-      const modalElement = document.getElementById("abstractModal");
+      const modalElement = document.getElementById('abstractModal');
 
       if (!modalElement) return;
 
@@ -1352,21 +1352,21 @@
         document.body.appendChild(modalElement);
       }
 
-      $("#abstractTitle").text(title);
-      $("#abstractContent").html(content);
+      $('#abstractTitle').text(title);
+      $('#abstractContent').html(content);
 
       const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
 
-      if (!modalElement.classList.contains("show")) {
+      if (!modalElement.classList.contains('show')) {
         modal.show();
       }
     }
 
-    $("#abstractModal").on("hidden.bs.modal", function () {
-      $(".modal-backdrop").remove();
-      $("body").removeClass("modal-open").css({
-        overflow: "",
-        paddingRight: "",
+    $('#abstractModal').on('hidden.bs.modal', function () {
+      $('.modal-backdrop').remove();
+      $('body').removeClass('modal-open').css({
+        overflow: '',
+        paddingRight: '',
       });
     });
 
@@ -1381,7 +1381,7 @@
         const data = await response.arrayBuffer();
 
         const workbook = XLSX.read(data, {
-          type: "array",
+          type: 'array',
         });
 
         let sheetName;
@@ -1399,7 +1399,7 @@
         const sheet = workbook.Sheets[sheetName];
 
         let excelData = XLSX.utils.sheet_to_json(sheet, {
-          defval: "",
+          defval: '',
         });
 
         excelData = excelData.map((row) => {
@@ -1442,11 +1442,11 @@
         const data = await response.arrayBuffer();
 
         const workbook = XLSX.read(data, {
-          type: "array",
+          type: 'array',
         });
 
         const [startBatch, endBatch] = range
-          .split("-")
+          .split('-')
           .map((value) => Number(value.trim()));
 
         const matchingSheets = workbook.SheetNames.filter((sheetName) => {
@@ -1461,7 +1461,7 @@
           const sheet = workbook.Sheets[sheetName];
 
           const rows = XLSX.utils.sheet_to_json(sheet, {
-            defval: "",
+            defval: '',
           });
 
           rows.forEach((row) => {
@@ -1471,7 +1471,7 @@
               cleaned[key.trim()] = row[key];
             });
 
-            if (!Object.prototype.hasOwnProperty.call(cleaned, "Batch")) {
+            if (!Object.prototype.hasOwnProperty.call(cleaned, 'Batch')) {
               cleaned.Batch = sheetName;
             }
 
@@ -1511,14 +1511,14 @@
         const data = await response.arrayBuffer();
 
         const workbook = XLSX.read(data, {
-          type: "array",
+          type: 'array',
         });
 
         for (let i = 0; i < Math.min(2, workbook.SheetNames.length); i++) {
           const sheet = workbook.Sheets[workbook.SheetNames[i]];
 
           let excelData = XLSX.utils.sheet_to_json(sheet, {
-            defval: "",
+            defval: '',
           });
 
           excelData = excelData.map((row) => {
@@ -1550,52 +1550,52 @@
 
     // ================= INITIAL LOAD =================
 
-    loadExcel("excels/Phd_Current.xlsx", "CRS", "#crsOutput");
+    loadExcel('excels/Phd_Current.xlsx', 'CRS', '#crsOutput');
 
-    loadExcelAllSheets("excels/awards and honours.xlsx");
+    loadExcelAllSheets('excels/awards and honours.xlsx');
 
     // ================= BATCH BUTTON =================
-    $(document).on("click", ".batch-btn", function () {
+    $(document).on('click', '.batch-btn', function () {
       // Highlight selected button
-      const parentContainer = $(this).closest(".card-body");
+      const parentContainer = $(this).closest('.card-body');
 
       parentContainer
-        .find(".batch-btn")
-        .removeClass("btn-info")
-        .addClass("btn-outline-info");
+        .find('.batch-btn')
+        .removeClass('btn-info')
+        .addClass('btn-outline-info');
 
-      $(this).removeClass("btn-outline-info").addClass("btn-info");
+      $(this).removeClass('btn-outline-info').addClass('btn-info');
 
-      if ($(this).closest("#aluminirsPane").length) {
-        const range = $(this).data("batch-range");
+      if ($(this).closest('#aluminirsPane').length) {
+        const range = $(this).data('batch-range');
 
         if (range) {
           loadExcelBatchRange(
-            "excels/Phd_Alumini.xlsx",
-            "RS",
-            "#rsOutput",
+            'excels/Phd_Alumini.xlsx',
+            'RS',
+            '#rsOutput',
             range,
           );
         } else {
-          const batch = $(this).data("batch").toString().trim();
+          const batch = $(this).data('batch').toString().trim();
 
-          loadExcel("excels/Phd_Alumini.xlsx", "RS", "#rsOutput", batch);
+          loadExcel('excels/Phd_Alumini.xlsx', 'RS', '#rsOutput', batch);
         }
-      } else if ($(this).closest("#currentmPane").length) {
-        const batch = $(this).data("batch").toString().trim();
+      } else if ($(this).closest('#currentmPane').length) {
+        const batch = $(this).data('batch').toString().trim();
 
-        loadExcel("excels/Current_Mtech.xlsx", "CMS", "#cmsOutput", batch);
+        loadExcel('excels/Current_Mtech.xlsx', 'CMS', '#cmsOutput', batch);
       } else {
-        const batch = $(this).data("batch").toString().trim();
+        const batch = $(this).data('batch').toString().trim();
 
-        loadExcel("excels/M-Tech_Alumini.xlsx", "MS", "#msOutput", batch);
+        loadExcel('excels/M-Tech_Alumini.xlsx', 'MS', '#msOutput', batch);
       }
     });
 
     // ================= SEARCH =================
 
-    $(document).on("input", "[id^='search']", function () {
-      const mode = this.id.replace("search", "");
+    $(document).on('input', "[id^='search']", function () {
+      const mode = this.id.replace('search', '');
 
       const searchText = $(this).val().trim().toLowerCase();
 
@@ -1603,7 +1603,7 @@
 
       state[mode].filteredData = state[mode].fullData.filter((row) => {
         return Object.values(row).some((value) => {
-          return String(value || "")
+          return String(value || '')
             .toLowerCase()
             .includes(searchText);
         });
@@ -1614,22 +1614,22 @@
       renderData(mode);
     });
     // ========click event for popup=============
-    $(document).on("click", ".thesis-link", function (e) {
+    $(document).on('click', '.thesis-link', function (e) {
       e.preventDefault();
 
       showDetailsModal(
-        $(this).data("title"),
-        $(this).data("abstract") || "Abstract not available.",
+        $(this).data('title'),
+        $(this).data('abstract') || 'Abstract not available.',
       );
     });
 
-    $(document).on("click", ".rs-details-btn", function () {
-      const detailsId = $(this).data("details-id");
+    $(document).on('click', '.rs-details-btn', function () {
+      const detailsId = $(this).data('details-id');
       const row = rsDetailsCache[detailsId];
 
       showDetailsModal(
-        `${$(this).data("name")} - ${$(this).text()}`,
-        row ? buildRsDetails(row) : "No additional details available.",
+        `${$(this).data('name')} - ${$(this).text()}`,
+        row ? buildRsDetails(row) : 'No additional details available.',
       );
     });
 
@@ -1640,7 +1640,7 @@
 
       $(data.outputDiv).html(`
 
-            ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ""}
+            ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ''}
 
             <input
                 type="text"
@@ -1669,28 +1669,28 @@
       if (!dataState) return;
 
       if (!dataState.filteredData.length) {
-        $("#content" + mode).html(`
+        $('#content' + mode).html(`
                 <div class="alert alert-warning">
                     No matching records found
                 </div>
             `);
 
-        $("#pagination" + mode).html("");
+        $('#pagination' + mode).html('');
 
-        $("#info" + mode).html("0 results");
+        $('#info' + mode).html('0 results');
 
         return;
       }
 
       const start =
-        mode === "RS" ? 0 : (dataState.currentPage - 1) * rowsPerPage;
+        mode === 'RS' ? 0 : (dataState.currentPage - 1) * rowsPerPage;
 
       const pageData =
-        mode === "RS" || mode === "AWARDS1" || mode === "AWARDS2"
+        mode === 'RS' || mode === 'AWARDS1' || mode === 'AWARDS2'
           ? dataState.filteredData
           : dataState.filteredData.slice(start, start + rowsPerPage);
 
-      if (mode === "CRS") {
+      if (mode === 'CRS') {
         let html = `<div class="row">`;
 
         pageData.forEach((s) => {
@@ -1707,40 +1707,46 @@
                                 >
 
                                 <div class="hover-text">
-                                    ${s["Research Area"] || "-"}
+                                    ${s['Research Area'] || '-'}
                                 </div>
 
                             </div>
 
                             <h6 class="mt-2">
-                                ${s.Name || "-"}
+                                ${s.Name || '-'}
                             </h6>
 
                             <small>
-                                ${s["Reg No."] || "-"}
+                                ${s['Reg No.'] || '-'}
                             </small>
 
                             <br>
 
                             <small>
-                                📞 ${s["Phone Number"] || "-"}
+                                📞 ${s['Phone Number'] || '-'}
                             </small>
 
                             <br>
 
                             <small>
-                                ✉ ${s["Email Id"] || "-"}
+                                ✉ ${s['Email Id'] || '-'}
                             </small>
 
                             <br>
 
+                        
+                            <h6 class="mt-2">
+                                👨‍🏫 <strong>Supervisor and Co-Supervisor:</strong> ${s['Supervisor and Co-Supervisor'] || '-'}
+                            </h6>
+
+                            <br>
                             <span class="${getBadgeColor(
-                              s["Study Mode"] || s["Mode of Study"],
+                              s['Study Mode'] || s['Mode of Study'],
                             )}">
                                 ${
-                                  s["Study Mode"] ||
-                                  s["Mode of Study"] ||
-                                  "Unknown"
+                                  s['Study Mode'] ||
+                                  s['Mode of Study'] ||
+                                  'Unknown'
                                 }
                             </span>
 
@@ -1750,17 +1756,17 @@
                 `;
         });
 
-        html += "</div>";
+        html += '</div>';
 
-        $("#content" + mode).html(html);
-      } else if (mode === "RS") {
+        $('#content' + mode).html(html);
+      } else if (mode === 'RS') {
         let html = `<div class="rs-alumni-grid">`;
 
         pageData.forEach((s, index) => {
           const name =
-            getFirstValue(s, ["Name of the Scholar", "Name", "Scholar Name"]) ||
-            "-";
-          const year = getFirstValue(s, ["Year", "Batch"]) || "-";
+            getFirstValue(s, ['Name of the Scholar', 'Name', 'Scholar Name']) ||
+            '-';
+          const year = getFirstValue(s, ['Year', 'Batch']) || '-';
           const detailsId = `rs-${start + index}`;
 
           rsDetailsCache[detailsId] = s;
@@ -1796,18 +1802,18 @@
                 `;
         });
 
-        html += "</div>";
+        html += '</div>';
 
-        $("#content" + mode).html(html);
+        $('#content' + mode).html(html);
       } // ================= TABLE VIEW =================
-      else if (mode === "MS") {
+      else if (mode === 'MS') {
         let html = `<div class="mtech-alumni-grid">`;
 
         pageData.forEach((s, index) => {
           const name =
-            s["Name"] || s["Student Name"] || s["Name of Student"] || "-";
+            s['Name'] || s['Student Name'] || s['Name of Student'] || '-';
 
-          const year = s["Batch"] || s["Year"] || "-";
+          const year = s['Batch'] || s['Year'] || '-';
 
           const detailsId = `ms-${start + index}`;
 
@@ -1845,12 +1851,12 @@
               `;
         });
 
-        html += "</div>";
+        html += '</div>';
 
-        $("#content" + mode).html(html);
+        $('#content' + mode).html(html);
 
         renderPagination(mode);
-      } else if (mode === "CMS") {
+      } else if (mode === 'CMS') {
         let html = `<div class="row">`;
 
         pageData.forEach((s) => {
@@ -1867,21 +1873,21 @@
                     >
 
                     <div class="hover-text">
-                        ${s["M.Tech Thesis Title"] || "-"}
+                        ${s['M.Tech Thesis Title'] || '-'}
                     </div>
 
                 </div>
 
                 <h6 class="mt-2">
-                    ${s.Name || s["Student Name"] || "-"}
+                    ${s.Name || s['Student Name'] || '-'}
                 </h6>
 
                 <small>
-                    ${s["Roll Number"] || s["Reg No."] || "-"}
+                    ${s['Roll Number'] || s['Reg No.'] || '-'}
                 </small>
 
-                <span class="${getBadgeColor(s["Study Mode"] || s["Mode"])}">
-                    ${s["Study Mode"] || s["Mode"] || "Full Time"}
+                <span class="${getBadgeColor(s['Study Mode'] || s['Mode'])}">
+                    ${s['Study Mode'] || s['Mode'] || 'Full Time'}
                 </span>
 
             </div>
@@ -1890,12 +1896,12 @@
         `;
         });
 
-        html += "</div>";
+        html += '</div>';
 
-        $("#content" + mode).html(html);
+        $('#content' + mode).html(html);
 
         renderPagination(mode);
-      } else if (mode === "AWARDS1") {
+      } else if (mode === 'AWARDS1') {
         let html = `<div class="honours-list">`;
 
         pageData.forEach((row) => {
@@ -1911,7 +1917,7 @@
         <div>
 
             <div class="honour-name">
-                ${row["Name of the Topper"]}
+                ${row['Name of the Topper']}
             </div>
 
             <div class="honour-rank">
@@ -1926,8 +1932,8 @@
 
         html += `</div>`;
 
-        $("#content" + mode).html(html);
-      } else if (mode === "AWARDS2") {
+        $('#content' + mode).html(html);
+      } else if (mode === 'AWARDS2') {
         let html = `<div class="medals-list">`;
 
         pageData.forEach((row) => {
@@ -1944,11 +1950,11 @@
             <div class="medal-details">
 
                 <div class="medal-title">
-                    🏅 ${row["Gold medal/Cash prize"]}
+                    🏅 ${row['Gold medal/Cash prize']}
                 </div>
 
                 <div class="medal-recipient">
-                    Awarded to <span>${row["Recipiant"]}</span>
+                    Awarded to <span>${row['Recipiant']}</span>
                 </div>
 
             </div>
@@ -1958,16 +1964,16 @@
         `;
         });
 
-        html += "</div>";
+        html += '</div>';
 
-        $("#content" + mode).html(html);
+        $('#content' + mode).html(html);
 
         renderPagination(mode);
       }
 
-      if (mode === "RS" || mode === "AWARDS1" || mode === "AWARDS2") {
-        $("#pagination" + mode).html("");
-        $("#info" + mode).html(`${dataState.filteredData.length} results`);
+      if (mode === 'RS' || mode === 'AWARDS1' || mode === 'AWARDS2') {
+        $('#pagination' + mode).html('');
+        $('#info' + mode).html(`${dataState.filteredData.length} results`);
       } else {
         renderPagination(mode);
       }
@@ -1983,13 +1989,13 @@
         Math.ceil(dataState.filteredData.length / rowsPerPage),
       );
 
-      let buttons = "";
+      let buttons = '';
 
       buttons += `
             <button
               class="btn btn-sm btn-outline-primary me-1"
               onclick="changePage('${mode}', ${dataState.currentPage - 1})"
-              ${dataState.currentPage === 1 ? "disabled" : ""}
+              ${dataState.currentPage === 1 ? 'disabled' : ''}
             >
                 Prev
             </button>
@@ -2000,8 +2006,8 @@
                 <button
                     class="btn btn-sm ${
                       i === dataState.currentPage
-                        ? "btn-primary"
-                        : "btn-outline-primary"
+                        ? 'btn-primary'
+                        : 'btn-outline-primary'
                     } me-1"
                     onclick="changePage('${mode}', ${i})"
                 >
@@ -2014,15 +2020,15 @@
             <button
               class="btn btn-sm btn-outline-primary"
               onclick="changePage('${mode}', ${dataState.currentPage + 1})"
-              ${dataState.currentPage === totalPages ? "disabled" : ""}
+              ${dataState.currentPage === totalPages ? 'disabled' : ''}
             >
                 Next
             </button>
         `;
 
-      $("#pagination" + mode).html(buttons);
+      $('#pagination' + mode).html(buttons);
 
-      $("#info" + mode).html(`
+      $('#info' + mode).html(`
             Showing
             ${Math.min(
               (dataState.currentPage - 1) * rowsPerPage + 1,

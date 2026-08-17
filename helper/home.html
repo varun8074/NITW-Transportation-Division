@@ -70,150 +70,217 @@
   }
 
   .stats-container {
-  padding: 40px;
-  border-radius: 25px;
+    padding: 40px;
+    border-radius: 25px;
 
-  background: linear-gradient(
-    135deg,
-    #7ca1e660,
-    #b667eb63,
-    #e066664b
-  );
+    background: linear-gradient(135deg, #7ca1e660, #b667eb63, #e066664b);
 
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-}
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
   .stats-box {
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 
-  height: 180px;
-  padding: 25px 15px;
+    height: 180px;
+    padding: 25px 15px;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  text-align: center;
+    text-align: center;
 
-  border-radius: 18px;
-  border: none;
+    border-radius: 18px;
+    border: none;
 
-  color: white;
+    color: white;
 
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
 
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 
-  transition: all 0.35s ease;
-}
+    transition: all 0.35s ease;
+  }
 
-/* Different colors for each tab */
-.col-md-4:nth-child(1) .stats-box {
-  background: linear-gradient(135deg, #ff512f, #dd2476);
-}
+  /* Different colors for each tab */
+  .col-md-4:nth-child(1) .stats-box {
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+  }
 
-.col-md-4:nth-child(2) .stats-box {
-  background: linear-gradient(135deg, #11998e, #38ef7d);
-}
+  .col-md-4:nth-child(2) .stats-box {
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+  }
 
-.col-md-4:nth-child(3) .stats-box {
-  background: linear-gradient(135deg, #396afc, #2948ff);
-}
+  .col-md-4:nth-child(3) .stats-box {
+    background: linear-gradient(135deg, #396afc, #2948ff);
+  }
 
-.col-md-4:nth-child(4) .stats-box {
-  background: linear-gradient(135deg, #f7971e, #ffd200);
-}
+  .col-md-4:nth-child(4) .stats-box {
+    background: linear-gradient(135deg, #f7971e, #ffd200);
+  }
 
-.col-md-4:nth-child(5) .stats-box {
-  background: linear-gradient(135deg, #8e2de2, #4a00e0);
-}
+  .col-md-4:nth-child(5) .stats-box {
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+  }
 
-.col-md-4:nth-child(6) .stats-box {
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-}
+  .col-md-4:nth-child(6) .stats-box {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+  }
 
+  /* Number */
+  .stats-number {
+    margin: 0 0 10px 0;
 
-/* Number */
-.stats-number {
-  margin: 0 0 10px 0;
+    font-size: 48px;
+    font-weight: 700;
 
-  font-size: 48px;
-  font-weight: 700;
+    color: white;
 
-  color: white;
+    transition: all 0.3s ease;
+  }
 
-  transition: all 0.3s ease; 
-}
+  /* Title */
+  .stats-title {
+    margin: 0;
 
+    font-size: 18px;
+    font-weight: 500;
 
-/* Title */
-.stats-title {
-  margin: 0;
+    color: white;
 
-  font-size: 18px;
-  font-weight: 500;
+    transition: all 0.3s ease;
+  }
 
-  color: white;
+  /* Hover */
+  .stats-box:hover {
+    transform: translateY(-8px) scale(1.03);
 
-  transition: all 0.3s ease;
-}
+    box-shadow:
+      0 15px 30px rgba(0, 0, 0, 0.25),
+      0 0 25px rgba(255, 255, 255, 0.35);
+  }
 
+  /* Number animation */
+  .stats-box:hover .stats-number {
+    transform: scale(1.15);
+  }
 
-/* Hover */
-.stats-box:hover {
-  transform: translateY(-8px) scale(1.03);
+  /* Flash / Shine */
+  .stats-box::after {
+    content: "";
 
-  box-shadow:
-    0 15px 30px rgba(0, 0, 0, 0.25),
-    0 0 25px rgba(255, 255, 255, 0.35);
-}
+    position: absolute;
 
-
-/* Number animation */
-.stats-box:hover .stats-number {
-  transform: scale(1.15);
-}
-
-
-/* Flash / Shine */
-.stats-box::after {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: -120%;
-
-  width: 70%;
-  height: 100%;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.973),
-    transparent
-  );
-
-  transform: skewX(-25deg);
-}
-
-
-/* Run shine animation */
-.stats-box:hover::after {
-  animation: flash 0.8s ease;
-}
-
-
-@keyframes flash {
-  0% {
+    top: 0;
     left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.973),
+      transparent
+    );
+
+    transform: skewX(-25deg);
   }
 
-  100% {
-    left: 150%;
+  /* Run shine animation */
+  .stats-box:hover::after {
+    animation: flash 0.8s ease;
   }
-}
+
+  @keyframes flash {
+    0% {
+      left: -120%;
+    }
+
+    100% {
+      left: 150%;
+    }
+  }
+
+  /* ==============================
+   PLACEMENT GRAPH
+   ============================== */
+
+  .placement-graph {
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 20px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .placement-title {
+    text-align: center;
+
+    color: #09c209;
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    margin-bottom: 25px;
+  }
+
+  .placement-chart {
+    height: 300px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+
+    gap: 20px;
+
+    padding: 20px 20px 0;
+
+    border-bottom: 2px solid #777;
+  }
+
+  .placement-number {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+
+    margin-bottom: 5px;
+  }
+
+  .placement-number {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+
+    margin-bottom: 5px;
+
+    /* Start from zero/hidden */
+    opacity: 0;
+    transform: translateY(10px);
+
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  }
+
+  .placement-number.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .placement-year {
+    margin-top: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #555;
+  }
 </style>
 
 <div class="container text-center">
@@ -356,11 +423,18 @@
               <p class="stats-title">Postgraduate Students</p>
             </div>
           </div>
-
-          
         </div>
       </div>
-      
+
+      <div class="placement-graph">
+        <div class="placement-title">Student Placement Statistics</div>
+
+        <div style="height: 350px">
+          <canvas id="placementChart"></canvas>
+        </div>
+      </div>
+
+      <!-- EVENTS -->
       <h1 class="display-6 text-bg-info p-2">Events</h1>
       <!-- Update the Events Here -->
       <div class="container mt-3">
@@ -406,3 +480,150 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function () {
+    const excelFile = "excels/placements.xlsx";
+
+    $.ajax({
+      url: excelFile,
+
+      type: "GET",
+
+      xhrFields: {
+        responseType: "arraybuffer",
+      },
+
+      success: function (data) {
+        // =========================
+        // READ EXCEL
+        // =========================
+
+        const workbook = XLSX.read(data, {
+          type: "array",
+        });
+
+        // Get first sheet
+        const sheetName = workbook.SheetNames[0];
+
+        const worksheet = workbook.Sheets[sheetName];
+
+        // Convert Excel to JSON
+        const placementData = XLSX.utils.sheet_to_json(worksheet);
+
+        // =========================
+        // GET DATA
+        // =========================
+
+        let years = [];
+
+        let students = [];
+
+        $.each(placementData, function (index, row) {
+          years.push(row["Year"]);
+
+          students.push(Number(row["Students Placed"]));
+        });
+
+        // =========================
+        // CREATE LINE GRAPH
+        // =========================
+
+        const ctx = document.getElementById("placementChart");
+
+        new Chart(ctx, {
+          type: "line",
+
+          data: {
+            labels: years,
+
+            datasets: [
+              {
+                label: "Students Placed",
+
+                data: students,
+
+                borderWidth: 4,
+
+                tension: 0.4,
+
+                fill: true,
+
+                pointRadius: 6,
+
+                pointHoverRadius: 9,
+
+                backgroundColor: "rgba(57, 106, 252, 0.15)",
+
+                borderColor: "#396afc",
+
+                pointBackgroundColor: "#2948ff",
+
+                pointBorderColor: "#ffffff",
+
+                pointBorderWidth: 3,
+              },
+            ],
+          },
+
+          options: {
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            animation: {
+              duration: 2000,
+
+              easing: "easeOutQuart",
+            },
+
+            plugins: {
+              legend: {
+                display: true,
+
+                position: "top",
+              },
+
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return " Students Placed: " + context.raw;
+                  },
+                },
+              },
+            },
+
+            scales: {
+              y: {
+                beginAtZero: true,
+
+                title: {
+                  display: true,
+
+                  text: "Number of Students",
+                },
+              },
+
+              x: {
+                title: {
+                  display: true,
+
+                  text: "Academic Year",
+                },
+              },
+            },
+          },
+        });
+      },
+
+      error: function () {
+        $("#placementChart").parent().html(`
+                    <p
+                        class="text-danger text-center"
+                    >
+                        Unable to load placement data.
+                    </p>
+                `);
+      },
+    });
+  });
+</script>
