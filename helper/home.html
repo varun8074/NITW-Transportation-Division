@@ -243,44 +243,6 @@
 
     border-bottom: 2px solid #777;
   }
-
-  .placement-number {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-
-    margin-bottom: 5px;
-  }
-
-  .placement-number {
-    font-size: 16px;
-    font-weight: 700;
-    color: #333;
-
-    margin-bottom: 5px;
-
-    /* Start from zero/hidden */
-    opacity: 0;
-    transform: translateY(10px);
-
-    transition:
-      opacity 0.5s ease,
-      transform 0.5s ease;
-  }
-
-  .placement-number.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .placement-year {
-    margin-top: 10px;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    color: #555;
-  }
 </style>
 
 <div class="container text-center">
@@ -530,7 +492,7 @@
 
         const ctx = document.getElementById("placementChart");
 
-        new Chart(ctx, {
+        const placementChart = new Chart(ctx, {
           type: "line",
 
           data: {
@@ -542,25 +504,23 @@
 
                 data: students,
 
-                borderWidth: 4,
-
-                tension: 0.4,
-
-                fill: true,
-
-                pointRadius: 6,
-
-                pointHoverRadius: 9,
-
-                backgroundColor: "rgba(57, 106, 252, 0.15)",
-
+                borderWidth: 3,
                 borderColor: "#396afc",
 
-                pointBackgroundColor: "#2948ff",
+                backgroundColor: "rgba(57, 106, 252, 0.08)",
 
-                pointBorderColor: "#ffffff",
+                tension: 0.35,
+                fill: true,
 
+                pointRadius: 5,
+                pointHoverRadius: 9,
+
+                pointBackgroundColor: "#ffffff",
+                pointBorderColor: "#396afc",
                 pointBorderWidth: 3,
+
+                pointHoverBackgroundColor: "#396afc",
+                pointHoverBorderColor: "#ffffff",
               },
             ],
           },
@@ -570,16 +530,12 @@
 
             maintainAspectRatio: false,
 
-            animation: {
-              duration: 2000,
-
-              easing: "easeOutQuart",
-            },
+            // Start with animation disabled
+            animation: false,
 
             plugins: {
               legend: {
                 display: true,
-
                 position: "top",
               },
 
@@ -598,7 +554,6 @@
 
                 title: {
                   display: true,
-
                   text: "Number of Students",
                 },
               },
@@ -606,13 +561,50 @@
               x: {
                 title: {
                   display: true,
-
                   text: "Academic Year",
                 },
               },
             },
           },
         });
+        // ==========================================
+        // ANIMATE GRAPH WHEN IT BECOMES VISIBLE
+        // ==========================================
+
+        const chartContainer = document.querySelector(".placement-graph");
+
+        const observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                // Animate the line from left to right
+                placementChart.options.animation = {
+                  duration: 1800,
+
+                  easing: "easeInOutQuart",
+
+                  x: {
+                    from: 0,
+                  },
+
+                  y: {
+                    from: 0,
+                  },
+                };
+
+                placementChart.update();
+
+                // Run only once
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.35,
+          },
+        );
+
+        observer.observe(chartContainer);
       },
 
       error: function () {
