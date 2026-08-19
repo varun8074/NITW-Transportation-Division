@@ -123,16 +123,24 @@
    SECTION TITLE
 ========================================= */
 
-  .section-title {
+  .section-title-people {
     font-size: 11px;
-
     font-weight: 700;
-
     letter-spacing: 1.5px;
-
     color: #6d879b;
+    position: relative;
+    display: inline-block;
   }
 
+  .section-title-people::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-top: 5px;
+  background: #396afc;
+  border-radius: 5px;
+}
   /* =========================================
    EXPERTISE
 ========================================= */
@@ -250,11 +258,11 @@
   /* =========================================
    PUBLICATION BOX
 ========================================= */
-.publication-stats {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-}
+  .publication-stats {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+  }
   .publication-box {
     background: #122e4dbd;
 
@@ -562,13 +570,13 @@
 
               <!-- Bio Sketch -->
               <div class="bio-box">
-                <div class="section-title">BIO SKETCH</div>
+                <div class="section-title-people">BIO SKETCH</div>
                 <p>${f["bio sketch"] || "Bio sketch not available."}</p>
               </div>
 
               <!-- Research / Expertise -->
               <div class="expertise-section">
-                <div class="section-title">AREAS OF EXPERTISE</div>
+                <div class="section-title-people">AREAS OF EXPERTISE</div>
                 <p>${f.Research || "Research information not available."}</p>
               </div>
 
