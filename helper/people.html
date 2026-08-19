@@ -32,6 +32,370 @@
   .image-container:hover .hover-text {
     opacity: 1;
   }
+  /* =========================================
+   FACULTY PROFILE CARD
+========================================= */
+
+  .faculty-profile-card {
+    display: grid;
+    grid-template-columns: 32% 36% 32%;
+    min-height: 550px;
+
+    background: #f8f7f2;
+
+    border: 1px solid #172f4d;
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 30px rgba(15, 39, 68, 0.15);
+
+    font-family: Arial, sans-serif;
+  }
+
+  /* =========================================
+   LEFT PANEL
+========================================= */
+
+  .faculty-left {
+    background: #122e4d;
+    padding: 32px;
+    color: white;
+  }
+
+  /* IMAGE */
+
+  .faculty-image-box {
+    width: 250px;
+    height: 320px;
+
+    background: #c9d5df;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    margin-bottom: 22px;
+  }
+
+  .faculty-image-box img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.4s ease;
+  }
+
+  .faculty-image-box:hover img {
+    transform: scale(1.05);
+  }
+
+  /* =========================================
+   BIO BOX
+========================================= */
+
+  .bio-box {
+    background: #eef2f4;
+
+    color: #29435d;
+
+    padding: 16px;
+
+    border-radius: 11px;
+
+    margin-bottom: 20px;
+  }
+
+  .bio-box p {
+    margin: 8px 0 0;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+  }
+
+  /* =========================================
+   SECTION TITLE
+========================================= */
+
+  .section-title {
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    color: #6d879b;
+  }
+
+  /* =========================================
+   EXPERTISE
+========================================= */
+
+  .expertise-section {
+    margin-top: 12px;
+  }
+
+  .expertise-section p {
+    margin-top: 8px;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    font-weight: 600;
+  }
+
+  /* =========================================
+   MIDDLE PANEL
+========================================= */
+
+  .faculty-middle {
+    padding: 34px 30px;
+
+    background: #f8f7f2;
+  }
+
+  .faculty-middle h1 {
+    margin: 0;
+
+    color: #122e4d;
+
+    font-family: Georgia, serif;
+
+    font-size: 46px;
+
+    line-height: 1.05;
+
+    font-weight: 700;
+  }
+
+  .faculty-middle h4 {
+    margin-top: 10px;
+
+    color: #3f7198;
+
+    font-size: 16px;
+
+    font-weight: 600;
+  }
+
+  /* PROFILE LABEL */
+
+  .profile-label {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    background: #e7eef3;
+
+    color: #315d7d;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+  }
+
+  /* =========================================
+   CONTACT
+========================================= */
+
+  .contact-info {
+    margin-top: 28px;
+
+    color: #3d5368;
+
+    font-size: 15px;
+  }
+
+  .contact-info div {
+    margin-bottom: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+  }
+
+  .contact-icon {
+    font-size: 21px;
+
+    color: #8fc7e9;
+
+    width: 20px;
+  }
+
+  /* =========================================
+   RIGHT PANEL
+========================================= */
+
+  .faculty-right {
+    padding: 32px;
+
+    background: #f8f7f2;
+  }
+
+  /* =========================================
+   PUBLICATION BOX
+========================================= */
+.publication-stats {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+  .publication-box {
+    background: #122e4dbd;
+
+    color: white;
+
+    border-radius: 11px;
+
+    padding: 17px;
+
+    min-height: 118px;
+  }
+
+  .publication-icon {
+    font-size: 20px;
+
+    color: #a6d4ef;
+  }
+
+  .publication-count {
+    margin-top: 5px;
+
+    font-family: Georgia, serif;
+
+    font-size: 32px;
+
+    font-weight: bold;
+  }
+
+  .publication-label {
+    font-size: 12px;
+
+    color: #d5dfeb;
+  }
+
+  /* =========================================
+   IDENTIFIERS
+========================================= */
+
+  .identifier-title {
+    margin-top: 20px;
+
+    margin-bottom: 9px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    color: #607b91;
+  }
+
+  .identifier-box {
+    border: 1px solid #ccd7df;
+
+    border-radius: 11px;
+
+    overflow: hidden;
+
+    background: white;
+  }
+
+  .identifier-item {
+    padding: 13px 15px;
+
+    border-bottom: 1px solid #e2e7eb;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
+  .identifier-item:last-child {
+    border-bottom: none;
+  }
+
+  .identifier-item strong {
+    color: #344c61;
+
+    font-size: 14px;
+  }
+
+  .identifier-item span {
+    color: #66849b;
+
+    font-size: 13px;
+  }
+
+  /* =========================================
+   HOVER EFFECT
+========================================= */
+
+  .faculty-profile-card {
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .faculty-profile-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 18px 40px rgba(15, 39, 68, 0.22);
+  }
+
+  /* =========================================
+   RESPONSIVE
+========================================= */
+
+  @media (max-width: 992px) {
+    .faculty-profile-card {
+      grid-template-columns: 1fr;
+    }
+
+    .faculty-left {
+      padding: 25px;
+    }
+
+    .faculty-middle {
+      padding: 25px;
+    }
+
+    .faculty-right {
+      padding: 25px;
+    }
+
+    .faculty-middle h1 {
+      font-size: 38px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .faculty-middle h1 {
+      font-size: 32px;
+    }
+
+    .faculty-image-box {
+      height: 250px;
+    }
+  }
 </style>
 <!-- ================= MAIN TABS ================= -->
 <ul class="nav nav-pills-rounded nav-justified mb-3" style="min-width: 1000px">
@@ -182,20 +546,151 @@
 
         $.each(coreData, function (i, f) {
           coreHTML += `
-          <div class="card mb-3 p-3 bg-info bg-opacity-10 border border-info rounded">
-            <div class="row g-0">
-              <div class="col-md-4 text-center">
-                <img src="${getImageWithFallback(f.Image)}" class="img-fluid border border-5 border-warning" width="150px" height="175px" onerror="this.src='images/placeholder.jpg'">
+            <div class="faculty-profile-card mb-2">
+
+              <!-- LEFT SECTION -->
+              <div class="faculty-left">
+
+              <!-- Faculty Image -->
+              <div class="faculty-image-box">
+                <img
+                  src="${getImageWithFallback(f.Image)}"
+                  alt="${f.Name}"
+                  onerror="this.src='images/placeholder.jpg'"
+                >
               </div>
-              <div class="col-md-8">
-                <h5>${f.Name}</h5>
-                <h6 class="text-muted">${f.Designation}</h6>
-                <p>📞 ${f.Mobile}</p>
-                <p>✉ ${f.Mail}</p>
-                <p>${f.Research}</p>
-                <a href="${f.Profile || "#"}" target="_blank" class="btn btn-primary btn-sm">View Profile</a>
+
+              <!-- Bio Sketch -->
+              <div class="bio-box">
+                <div class="section-title">BIO SKETCH</div>
+                <p>${f["bio sketch"] || "Bio sketch not available."}</p>
               </div>
+
+              <!-- Research / Expertise -->
+              <div class="expertise-section">
+                <div class="section-title">AREAS OF EXPERTISE</div>
+                <p>${f.Research || "Research information not available."}</p>
+              </div>
+
             </div>
+
+
+            <!-- MIDDLE SECTION -->
+            <div class="faculty-middle">
+
+              <h1>${f.Name}</h1>
+
+              <h4>${f.Designation}</h4>
+
+              <span class="profile-label">FACULTY PROFILE</span>
+
+              <div class="contact-info">
+
+                <div>
+                  <span class="contact-icon">✉</span>
+                  ${f.Mail}
+                </div>
+
+                <div>
+                  <span class="contact-icon">📞</span>
+                  ${f.Mobile}
+                </div>
+
+              </div>
+              <a href="${f.Profile || "#"}" target="_blank" class="btn btn-primary btn-sm">View Profile</a>
+
+            </div>
+
+
+            <!-- RIGHT SECTION -->
+            <div class="faculty-right">
+
+              <!-- Publications -->
+              <div class="publication-box">
+
+                <div class="publication-stats">
+
+                  <!-- Publications -->
+                  <div class="publication-box">
+                    <div class="publication-icon">📰</div>
+
+                    <div class="publication-count">
+                      ${f.Publications || "0"}
+                    </div>
+
+                    <div class="publication-label">
+                      Publications
+                    </div>
+                  </div>
+
+                  <!-- Doctoral Students -->
+                  <div class="publication-box">
+                    <div class="publication-icon">👨‍🎓</div>
+
+                    <div class="publication-count">
+                      ${f["Doctoral Students"] || "0"}
+                    </div>
+
+                    <div class="publication-label">
+                      Doctoral Students
+                    </div>
+                  </div>
+                  <!-- Projects -->
+                  <div class="publication-box">
+                    <div class="publication-icon">🚀</div>
+
+                    <div class="publication-count">
+                      ${f.PROJECTS || "0"}
+                    </div>
+
+                    <div class="publication-label">
+                      Projects
+                    </div>
+                  </div>
+                  <!-- PATENTS -->
+                  <div class="publication-box">
+                    <div class="publication-icon">®️</div>
+
+                    <div class="publication-count">
+                      ${f["PATENTS"] || "0"}
+                    </div>
+
+                    <div class="publication-label">
+                      Patents
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- Researcher Identifiers -->
+              <div class="identifier-title">
+                RESEARCHER IDENTIFIERS
+              </div>
+
+              <div class="identifier-box">
+
+                <div class="identifier-item">
+                  <strong>Google Scholar</strong>
+                  <span>${f.GoogleScholar || "Not available"}</span>
+                </div>
+
+                <div class="identifier-item">
+                  <strong>Scopus Author ID</strong>
+                  <span>${f.Scopus || "Not available"}</span>
+                </div>
+
+                <div class="identifier-item">
+                  <strong>LinkedIn</strong>
+                  <span>${f.LinkedIn || "Not available"}</span>
+                </div>
+
+              </div>
+
+            </div>
+
           </div>`;
         });
 
