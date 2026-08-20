@@ -133,30 +133,13 @@
   }
 
   .section-title-people::after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 3px;
-  margin-top: 5px;
-  background: #396afc;
-  border-radius: 5px;
-}
-  /* =========================================
-   EXPERTISE
-========================================= */
-
-  .expertise-section {
-    margin-top: 12px;
-  }
-
-  .expertise-section p {
-    margin-top: 8px;
-
-    font-size: 14px;
-
-    line-height: 1.6;
-
-    font-weight: 600;
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    margin-top: 5px;
+    background: #396afc;
+    border-radius: 5px;
   }
 
   /* =========================================
@@ -256,45 +239,95 @@
   }
 
   /* =========================================
-   PUBLICATION BOX
+   FACULTY STATISTICS
 ========================================= */
+
   .publication-stats {
     display: flex;
-    gap: 12px;
     width: 100%;
+    gap: 5px;
+    margin-bottom: 20px;
   }
+
   .publication-box {
-    background: #122e4dbd;
+    flex: 1;
+    min-width: 0;
+    height: 138px;
 
-    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    border-radius: 11px;
+    color: #ffffff;
 
-    padding: 17px;
+    border-radius: 4px;
 
-    min-height: 118px;
+    padding: 15px 8px;
+
+    text-align: center;
+
+    transition: all 0.3s ease;
   }
 
-  .publication-icon {
-    font-size: 20px;
+  /* Individual colors */
 
-    color: #a6d4ef;
+  .publication-box:nth-child(1) {
+    background: #395a7f;
   }
+
+  .publication-box:nth-child(2) {
+    background: #725f7e;
+  }
+
+  .publication-box:nth-child(3) {
+    background: #bd6679;
+  }
+
+  .publication-box:nth-child(4) {
+    background: #eb696f;
+  }
+
+  /* Number */
 
   .publication-count {
-    margin-top: 5px;
+    margin: 0;
 
-    font-family: Georgia, serif;
+    font-family: Arial, sans-serif;
 
-    font-size: 32px;
+    font-size: 34px;
 
-    font-weight: bold;
+    line-height: 1;
+
+    font-weight: 700;
+
+    color: #ffffff;
   }
 
-  .publication-label {
-    font-size: 12px;
+  /* Label */
 
-    color: #d5dfeb;
+  .publication-label {
+    margin-top: 12px;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    color: #ffffff;
+  }
+
+  /* Hover effect */
+
+  .publication-box:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+
+    filter: brightness(1.05);
   }
 
   /* =========================================
@@ -571,14 +604,11 @@
               <!-- Bio Sketch -->
               <div class="bio-box">
                 <div class="section-title-people">BIO SKETCH</div>
-                <p>${f["bio sketch"] || "Bio sketch not available."}</p>
+                <p>
+  ${f.Name} obtained his doctoral degree in Transportation Engineering from ${f["PhD Institute"]}. He completed his Master's degree in Transportation Engineering specialization from ${f["Masters Institute"]}. His area of expertise is in ${f.Research}.
+</p>
               </div>
 
-              <!-- Research / Expertise -->
-              <div class="expertise-section">
-                <div class="section-title-people">AREAS OF EXPERTISE</div>
-                <p>${f.Research || "Research information not available."}</p>
-              </div>
 
             </div>
 
@@ -614,13 +644,12 @@
             <div class="faculty-right">
 
               <!-- Publications -->
-              <div class="publication-box">
+              
 
                 <div class="publication-stats">
 
                   <!-- Publications -->
                   <div class="publication-box">
-                    <div class="publication-icon">📰</div>
 
                     <div class="publication-count">
                       ${f.Publications || "0"}
@@ -633,7 +662,6 @@
 
                   <!-- Doctoral Students -->
                   <div class="publication-box">
-                    <div class="publication-icon">👨‍🎓</div>
 
                     <div class="publication-count">
                       ${f["Doctoral Students"] || "0"}
@@ -645,7 +673,6 @@
                   </div>
                   <!-- Projects -->
                   <div class="publication-box">
-                    <div class="publication-icon">🚀</div>
 
                     <div class="publication-count">
                       ${f.PROJECTS || "0"}
@@ -657,7 +684,6 @@
                   </div>
                   <!-- PATENTS -->
                   <div class="publication-box">
-                    <div class="publication-icon">®️</div>
 
                     <div class="publication-count">
                       ${f["PATENTS"] || "0"}
@@ -667,11 +693,7 @@
                       Patents
                     </div>
                   </div>
-
-                </div>
-
-              </div>
-
+                </div> 
 
               <!-- Researcher Identifiers -->
               <div class="identifier-title">
@@ -691,8 +713,8 @@
                 </div>
 
                 <div class="identifier-item">
-                  <strong>LinkedIn</strong>
-                  <span>${f.LinkedIn || "Not available"}</span>
+                  <strong>ORCID ID</strong>
+                  <span>${f.ORCID || "Not available"}</span>
                 </div>
 
               </div>
