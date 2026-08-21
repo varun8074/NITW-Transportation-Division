@@ -271,7 +271,7 @@
           // ==========================
 
           const columnRules = {
-            ongoingResearch: ["Project_Title", "Research_Domain"],
+            ongoingResearch: ["Project_Title"],
 
             completedResearch: ["Sponsored By"],
 
@@ -399,13 +399,10 @@
       if (state.type === "ongoingResearch") {
         html += `
           <th>Project Title</th>
-          <th>Research Domain</th>
-          <th>Technology Used</th>
+          <th>Funding Amount</th>
+          <th>Funding Agency</th>
           <th>Start Date</th>
-          <th>Status</th>
-          <th>Completion %</th>
-          <th>Team Size</th>
-          <th>Funding Amount (USD)</th>
+          <th>PI & Co-PI</th>
         `;
       }
 
@@ -496,11 +493,11 @@
               </td>
 
               <td>
-                ${row["Research_Domain"] || "-"}
+                ${row["Funding_amount"] || "-"}
               </td>
 
               <td>
-                ${row["Technology_Used"] || "-"}
+                ${row["Funding_agency"] || "-"}
               </td>
 
               <td class="text-center">
@@ -508,20 +505,9 @@
               </td>
 
               <td class="text-center">
-                ${row["Current_Status"] || "-"}
+                ${row["PI&CoPIs"] || "-"}
               </td>
 
-              <td class="text-center">
-                ${row["Completion_Percentage"] || "-"}%
-              </td>
-
-              <td class="text-center">
-                ${row["Team_Size"] || "-"}
-              </td>
-
-              <td class="text-end">
-                ${row["Funding_Amount_USD"] || "-"}
-              </td>
             `;
           }
 

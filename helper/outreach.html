@@ -1,204 +1,340 @@
 <style>
-  .carousel-container {
-    width: 100%;
-    height: 500px;
-    max-width: 1000px;
-    margin: 0 auto;
-    overflow: hidden;
-    border-radius: 5px;
-  }
+    /* =========================
+       SECTION
+    ========================== */
 
-  .carousel-item img {
-    height: 500px;
-    object-fit: cover;
-    animation: zoomEffect 8s linear infinite;
-  }
+    .outreach-section {
+      padding: 70px 7%;
+      background: linear-gradient(135deg, #f8fbff, #eef3ff);
+    }
 
-  @keyframes zoomEffect {
-    from {
-      transform: scale(1);
+    .outreach-header {
+      text-align: center;
+      margin-bottom: 45px;
     }
-    to {
-      transform: scale(1.18);
+
+    .outreach-header .small-title {
+      display: inline-block;
+      padding: 7px 18px;
+      border-radius: 30px;
+      background: rgba(57, 106, 252, 0.1);
+      color: #396afc;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
     }
-  }
+
+    .outreach-header h2 {
+      margin: 0;
+      font-size: 38px;
+      font-weight: 700;
+      color: #172554;
+    }
+
+    .outreach-header h2 span {
+      color: #396afc;
+    }
+
+    .outreach-header p {
+      max-width: 750px;
+      margin: 15px auto 0;
+      color: #64748b;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+
+    /* =========================
+       CARDS GRID
+    ========================== */
+
+    .outreach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+
+    /* =========================
+       CARD
+    ========================== */
+
+    .outreach-card {
+      position: relative;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(57, 106, 252, 0.12);
+      border-radius: 22px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+    }
+
+    .outreach-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(57, 106, 252, 0.35);
+      box-shadow:
+        0 20px 45px rgba(57, 106, 252, 0.15),
+        0 0 25px rgba(57, 106, 252, 0.08);
+    }
+
+
+    /* Decorative glow */
+
+    .outreach-card::before {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      right: -60px;
+      top: -60px;
+      border-radius: 50%;
+      background: rgba(57, 106, 252, 0.08);
+      transition: 0.4s ease;
+    }
+
+    .outreach-card:hover::before {
+      transform: scale(1.5);
+      background: rgba(57, 106, 252, 0.13);
+    }
+
+
+    /* =========================
+       ICON
+    ========================== */
+
+    .outreach-icon {
+      width: 65px;
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+
+      background: linear-gradient(
+        135deg,
+        #396afc,
+        #2948ff
+      );
+
+      color: white;
+      font-size: 28px;
+
+      margin-bottom: 22px;
+
+      box-shadow:
+        0 8px 20px rgba(57, 106, 252, 0.3);
+
+      transition: 0.4s ease;
+    }
+
+    .outreach-card:hover .outreach-icon {
+      transform: rotate(-5deg) scale(1.08);
+
+      box-shadow:
+        0 0 15px rgba(57, 106, 252, 0.5),
+        0 0 35px rgba(57, 106, 252, 0.25);
+    }
+
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    .outreach-card h3 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: #172554;
+    }
+
+    .outreach-card p {
+      margin: 0;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .outreach-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-top: 20px;
+
+      color: #396afc;
+      font-size: 14px;
+      font-weight: 600;
+
+      text-decoration: none;
+
+      transition: 0.3s ease;
+    }
+
+    .outreach-btn i {
+      transition: 0.3s ease;
+    }
+
+    .outreach-btn:hover {
+      color: #2948ff;
+    }
+
+    .outreach-btn:hover i {
+      transform: translateX(6px);
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 992px) {
+
+      .outreach-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .outreach-header h2 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .outreach-section {
+        padding: 50px 20px;
+      }
+
+      .outreach-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .outreach-header h2 {
+        font-size: 28px;
+      }
+    }
+
+  </style>
 </style>
-<div class="container-fluid mt-4">
-  <div class="card border-primary shadow-sm">
-    <div
-      class="card-header bg-primary text-white fw-bold d-flex justify-content-between align-items-center"
-    >
-      <span>📰 Latest News & Announcements</span>
-      <div class="btn-group" role="group" style="gap: 5px">
-        <button
-          type="button"
-          class="btn btn-sm btn-light"
-          id="newsFirst"
-          title="Go to first news"
-        >
-          ⏮️ First
-        </button>
-        <button
-          type="button"
-          class="btn btn-sm btn-light"
-          id="newsPrev"
-          title="Previous news"
-        >
-          ⬆️ Prev
-        </button>
-        <button
-          type="button"
-          class="btn btn-sm btn-light"
-          id="newsNext"
-          title="Next news"
-        >
-          ⬇️ Next
-        </button>
-      </div>
+<section class="outreach-section">
+
+  <div class="outreach-header">
+
+    <div class="small-title">
+      Community Engagement
     </div>
 
-    <div
-      class="card-body p-0"
-      style="height: 250px; overflow-y: auto"
-      id="newsScroller"
-    >
-      <ul class="list-group list-group-flush" id="newsContainer"></ul>
-    </div>
+    <h2>
+      Outreach <span>Activities</span>
+    </h2>
+
+    <p>
+      The Transportation Engineering Division actively engages with
+      students, professionals, industries and the community through
+      various academic, technical and social outreach initiatives.
+    </p>
+
   </div>
+
+
+  <div class="outreach-grid" id="outreachContainer">
+    <!-- Excel data will be loaded here -->
 </div>
-<div
-  id="carouselExampleCaptions"
-  class="carousel slide carousel-fade carousel-container pt-4"
-  data-bs-ride="carousel"
->
-  <div class="carousel-indicators" id="carouselIndicators"></div>
 
-  <div class="carousel-inner" id="carouselInner"></div>
+</section>
 
-  <button
-    class="carousel-control-prev"
-    type="button"
-    data-bs-target="#carouselExampleCaptions"
-    data-bs-slide="prev"
-  >
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <button
-    class="carousel-control-next"
-    type="button"
-    data-bs-target="#carouselExampleCaptions"
-    data-bs-slide="next"
-  >
-    <span class="carousel-control-next-icon"></span>
-  </button>
-</div>
 <script>
-  $(document).ready(function () {
+
+$(document).ready(function () {
+
+    // Excel file path
+    const excelFile = "excels/outreach_activity.xlsx";
+
+    // Read Excel file
     $.ajax({
-      url: "excels/outreach_activity.xlsx",
-      method: "GET",
-      xhrFields: {
-        responseType: "arraybuffer",
-      },
-      success: function (data) {
-        const workbook = XLSX.read(data, {
-          type: "array",
-        });
+        url: excelFile,
+        method: "GET",
+        xhrFields: {
+            responseType: "arraybuffer"
+        },
 
-        const imageData = XLSX.utils.sheet_to_json(
-          workbook.Sheets["faculty_papers_Images"],
-        );
+        success: function (data) {
 
-        let indicators = "";
-        let slides = "";
+            // Convert Excel binary data
+            const workbook = XLSX.read(data, {
+                type: "array"
+            });
 
-        $.each(imageData, function (index, row) {
-          indicators += `
-                    <button
-                        type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="${index}"
-                        class="${index === 0 ? "active" : ""}"
-                        ${index === 0 ? 'aria-current="true"' : ""}
-                        aria-label="Slide ${index + 1}">
-                    </button>
-                `;
+            // Get first sheet
+            const sheetName = workbook.SheetNames[0];
 
-          slides += `
-                <div class="carousel-item ${index === 0 ? "active" : ""}">
-                    <img
-                        src="images/outreach_activity/${row.Image_path}"
-                        class="d-block w-100"
-                        style="height:500px; width: 800px; object-fit:cover;"
-                        alt="${row.Title}">
+            const worksheet = workbook.Sheets[sheetName];
 
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>${row.Title || ""}</h5>
-                        <p>${row.Description || ""}</p>
+            // Convert Excel sheet to JSON
+            const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+            // Clear existing content
+            $("#outreachContainer").empty();
+
+            // Loop through Excel rows
+            $.each(jsonData, function (index, item) {
+
+                const title = item.Title || "";
+                const description = item.Description || "";
+                const icon = item.Icon || "bi-megaphone-fill";
+                const link = item.Link || "#";
+
+                // Create card
+                const card = `
+
+                    <div class="outreach-card">
+
+                        <div class="outreach-icon">
+                            <i class="bi ${icon}"></i>
+                        </div>
+
+                        <h3>${title}</h3>
+
+                        <p>
+                            ${description}
+                        </p>
+
+                        <a href="${link}" class="outreach-btn">
+                            Read More
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+
                     </div>
-                </div>
+
                 `;
-        });
 
-        $("#carouselIndicators").html(indicators);
-        $("#carouselInner").html(slides);
-        // Initialize carousel after slides are added
-        const carouselElement = document.querySelector(
-          "#carouselExampleCaptions",
-        );
+                // Append card
+                $("#outreachContainer").append(card);
 
-        new bootstrap.Carousel(carouselElement, {
-          interval: 3000,
-          ride: "carousel",
-          pause: false,
-          wrap: true,
-        });
+            });
 
-        // News
-        let newsData = XLSX.utils.sheet_to_json(workbook.Sheets["News"] || {});
+        },
 
-        let newsHTML = "";
+        error: function (error) {
 
-        $.each(newsData, function (i, row) {
-          newsHTML += `
-    <li class="list-group-item">
-      <strong>${row.Date}</strong> - ${row.News}
-    </li>
-  `;
-        });
-
-        $("#newsContainer").html(newsHTML);
-
-        // News Navigation
-        const newsScroller = document.getElementById("newsScroller");
-        const newsItems = document.querySelectorAll("#newsContainer li");
-        const itemHeight = newsItems[0]?.offsetHeight || 60;
-
-        document
-          .getElementById("newsFirst")
-          .addEventListener("click", function () {
-            newsScroller.scrollTop = 0;
-          });
-
-        document
-          .getElementById("newsPrev")
-          .addEventListener("click", function () {
-            newsScroller.scrollTop = Math.max(
-              0,
-              newsScroller.scrollTop - itemHeight,
+            console.error(
+                "Error loading Excel file:",
+                error
             );
-          });
 
-        document
-          .getElementById("newsNext")
-          .addEventListener("click", function () {
-            newsScroller.scrollTop += itemHeight;
-          });
-      },
-      error: function (err) {
-        console.error("Error loading Excel:", err);
-      },
+        }
+
     });
-  });
+
+});
+
 </script>
+
