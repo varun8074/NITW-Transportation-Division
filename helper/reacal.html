@@ -443,6 +443,7 @@
           <th>S.No</th>
           <th>Project Title - Broad Area</th>
           <th>Sponsored By</th>
+          <th>Year</th>
         `;
       }
 
@@ -596,6 +597,9 @@
 
               <td>
                 ${row["Sponsored By"] || "-"}
+              </td>
+              <td>
+                ${row["Year"] || "-"}
               </td>
             `;
           }
