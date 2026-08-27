@@ -13,7 +13,7 @@
 
 .project-card img{
     height:220px;
-    object-fit:cover;
+    object-fit:contain;
 }
 
 .project-title{
@@ -209,7 +209,7 @@ $(document).ready(function(){
                     <div class="card-body">
 
                         <div class="project-title">
-                            ${row.Project_Title || "-"}
+                            ${row.Organization_Name  || "-"}
                         </div>
 
                         <small class="text-muted">
@@ -226,7 +226,7 @@ $(document).ready(function(){
 
     window.showDetails = function(row){
 
-        $("#modalTitle").html(row.Project_Title);
+        $("#modalTitle").html(row.Organization_Name );
 
         let html = "";
 
