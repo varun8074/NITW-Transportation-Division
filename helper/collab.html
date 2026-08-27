@@ -189,12 +189,12 @@ $(document).ready(function(){
 
     function createCard(row,type){
 
-        let imagePath = row.Image || DUMMY_IMAGE;
+        let imagePath = row["Collab-Image"] || DUMMY_IMAGE;
 
         let subtitle =
             type === "academic"
-            ? (row.Partner_Institute || "")
-            : (row.Company_Name || "");
+            ? (row["Partner_Institute"] || "")
+            : (row["Company_Name"] || "");
 
         return `
             <div class="col-lg-4 col-md-6">
