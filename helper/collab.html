@@ -190,7 +190,6 @@ $(document).ready(function(){
     function createCard(row,type){
 
         let imagePath = row["Collab-Image"] || DUMMY_IMAGE;
-        imagePath = imagePath.trim().replace(/\\/g, "/");
 
         let subtitle =
             type === "academic"
@@ -233,7 +232,7 @@ $(document).ready(function(){
 
         Object.keys(row).forEach(key=>{
 
-            if(key !== "Image"){
+            if(key !== "Collab-Image"){
 
                 html += `
                     <div class="row detail-row">
