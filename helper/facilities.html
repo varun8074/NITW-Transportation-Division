@@ -51,6 +51,15 @@
     color: #000;
     vertical-align: middle;
   }
+  .lab-title {
+    display: inline-block;
+    border: 2px solid #c20315;
+    padding: 8px 20px;
+    border-radius: 8px;
+    margin: 10px auto;
+    font-weight: 600;
+    text-align: center;
+}
 </style>
 
 <ul
@@ -197,21 +206,12 @@
 
               <h2 class="accordion-header text-center">
 
-                <figure class="figure mx-auto mt-3">
-                  <img
-                    src="images/labs/${sheetName}.jpg"
-                    class="figure-img img-fluid rounded"
-                    alt="${sheetName} Lab"
-                    style="max-height:50%; max-width:50%;"
-                  />
-
-                  <figcaption class="figure-caption text-danger">
+                <div class="figure-caption text-danger lab-title">
                     ${sheetName} Laboratory
-                  </figcaption>
-                </figure>
+                  </div>
 
                 <button
-                  class="accordion-button ${index !== 0 ? "collapsed" : ""}"
+                  class="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#${collapseId}"
@@ -222,10 +222,20 @@
 
               <div
                 id="${collapseId}"
-                class="accordion-collapse collapse ${index === 0 ? "show" : ""}"
+                class="accordion-collapse collapse"
                 data-bs-parent="#labsAccordion"
               >
-                <div class="accordion-body">
+                <div class="accordion-body text-center">
+
+                  <figure class="figure mx-auto mt-3">
+                  <img
+                    src="images/labs/${sheetName}.jpg"
+                    class="figure-img img-fluid rounded"
+                    alt="${sheetName} Lab"
+                    style="max-height:50%; max-width:50%;"
+                  />
+            
+                </figure>
 
                   <table class="table custom-table align-middle">
                     <tbody>
