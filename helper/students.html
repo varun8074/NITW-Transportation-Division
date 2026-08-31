@@ -1293,6 +1293,8 @@
         'scholar name',
         'thesis abstract',
         'abstract',
+        'roll number',
+        'seminar abstract',
       ];
       const rows = Object.keys(row)
         .filter((key) => {
@@ -1308,26 +1310,52 @@
               : row[key];
 
           // Make Thesis Title clickable
-          if (key.toLowerCase().includes('thesis title')) {
-            const abstract =
-              row['Thesis Abstract'] ||
-              row['THESIS ABSTRACT'] ||
-              row['thesis abstract'] ||
-              row['Abstract'] ||
-              '';
+          // Make Thesis Title or Seminar Title clickable
+if (
+    key.toLowerCase().includes('thesis title') ||
+    key.toLowerCase().includes('seminar title')
+) {
 
-            return `
-            <dt class="col-sm-4">${escapeHtml(key)}</dt>
-            <dd class="col-sm-8">
-                <a href="javascript:void(0)"
-                   class="thesis-link text-primary text-decoration-none fw-bold"
-                   data-title="${escapeHtml(value)}"
-                   data-abstract="${escapeHtml(abstract)}">
-                    ${escapeHtml(value)}
-                </a>
-            </dd>
-        `;
-          }
+    let popupContent = '';
+
+    // Thesis Title → show Thesis Abstract
+    if (key.toLowerCase().includes('thesis title')) {
+
+        popupContent =
+            row['Thesis Abstract'] ||
+            row['THESIS ABSTRACT'] ||
+            row['thesis abstract'] ||
+            row['Abstract'] ||
+            '';
+
+    }
+
+    // Seminar Title → show Seminar Details
+    else if (key.toLowerCase().includes('seminar title')) {
+
+        popupContent =
+            row['Seminar Abstract'] ||
+            row['SEMINAR ABSTRACT'] ||
+            row['seminar abstract'] ||
+            row['Seminar Details'] ||
+            '';
+    }
+
+    return `
+        <dt class="col-sm-4">${escapeHtml(key)}</dt>
+
+        <dd class="col-sm-8">
+            <a href="javascript:void(0)"
+               class="thesis-link text-primary text-decoration-none fw-bold"
+               data-title="${escapeHtml(value)}"
+               data-abstract="${escapeHtml(popupContent)}">
+               
+               ${escapeHtml(value)}
+               
+            </a>
+        </dd>
+    `;
+}
 
           return `
         <dt class="col-sm-4">${escapeHtml(key)}</dt>
@@ -1624,14 +1652,19 @@
     });
 
     $(document).on('click', '.rs-details-btn', function () {
-      const detailsId = $(this).data('details-id');
-      const row = rsDetailsCache[detailsId];
+          const detailsId = $(this).data('details-id');
+          const row = rsDetailsCache[detailsId];
 
-      showDetailsModal(
-        `${$(this).data('name')} - ${$(this).text()}`,
-        row ? buildRsDetails(row) : 'No additional details available.',
-      );
-    });
+          const name = $(this).data('name');
+          const rollNumber = $(this).data('rollnumber');
+
+          showDetailsModal(
+              rollNumber
+                  ? `${name} - ${rollNumber}`
+                  : `${name} - ${$(this).text()}`,
+              row ? buildRsDetails(row) : 'No additional details available.'
+          );
+      });
 
     // ================= RENDER LAYOUT =================
 
@@ -1841,6 +1874,9 @@
                       <button
                           class="btn btn-outline-primary btn-sm rs-details-btn"
                           data-name="${escapeHtml(name)}"
+                          data-rollnumber="${escapeHtml(
+                              s['Roll Number'] || s['Roll No.'] || s['Reg No.'] || 'data not available',
+                          )}"
                           data-details-id="${detailsId}">
                           M.Tech Details
                       </button>
