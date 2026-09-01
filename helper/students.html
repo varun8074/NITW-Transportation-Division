@@ -589,6 +589,29 @@
 
     opacity: 0.65;
 }
+
+/* Back to Details Button */
+
+.back-to-details-btn {
+
+    border-radius: 20px;
+
+    padding: 7px 16px;
+
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+
+}
+
+
+.back-to-details-btn:hover {
+
+    transform: translateX(-4px);
+
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
+
+}
 </style>
 <ul
   class="nav nav-pills-rounded nav-justified mb-3"
@@ -1412,6 +1435,8 @@
 
 <script>
   $(document).ready(function () {
+    let previousModalData = null;
+    
     const rowsPerPage = 12;
 
     const state = {};
@@ -1553,32 +1578,39 @@ if (
       `;
     }
 
-    function showDetailsModal(title, content) {
-      const modalElement = document.getElementById('abstractModal');
+    function showDetailsModal(title, content, showBackButton = false) {
 
-      if (!modalElement) return;
+    const modalElement = document.getElementById('abstractModal');
 
-      if (modalElement.parentElement !== document.body) {
+    if (!modalElement) return;
+
+    if (modalElement.parentElement !== document.body) {
         document.body.appendChild(modalElement);
-      }
-
-      $('#abstractTitle').text(title);
-      $('#abstractContent').html(content);
-
-      const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
-
-      if (!modalElement.classList.contains('show')) {
-        modal.show();
-      }
     }
 
-    $('#abstractModal').on('hidden.bs.modal', function () {
-      $('.modal-backdrop').remove();
-      $('body').removeClass('modal-open').css({
-        overflow: '',
-        paddingRight: '',
-      });
-    });
+    $('#abstractTitle').text(title);
+
+    $('#abstractContent').html(`
+        ${showBackButton ? `
+            <div class="mb-3">
+                <button 
+                    type="button"
+                    class="btn btn-outline-primary btn-sm back-to-details-btn"
+                >
+                    ← Back to Details
+                </button>
+            </div>
+        ` : ''}
+
+        ${content}
+    `);
+
+    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+    if (!modalElement.classList.contains('show')) {
+        modal.show();
+    }
+}
 
     // ================= LOAD EXCEL =================
 
@@ -1825,28 +1857,62 @@ if (
     });
     // ========click event for popup=============
     $(document).on('click', '.thesis-link', function (e) {
-      e.preventDefault();
 
-      showDetailsModal(
-        $(this).data('title'),
-        $(this).data('abstract') || 'Abstract not available.',
-      );
-    });
+    e.preventDefault();
+
+    const title = $(this).data('title');
+
+    const content =
+        $(this).data('abstract') ||
+        'Abstract not available.';
+
+    showDetailsModal(
+        title,
+        content,
+        true
+    );
+
+});
+$(document).on('click', '.back-to-details-btn', function () {
+
+    if (previousModalData) {
+
+        showDetailsModal(
+            previousModalData.title,
+            previousModalData.content,
+            false
+        );
+
+    }
+
+});
 
     $(document).on('click', '.rs-details-btn', function () {
-          const detailsId = $(this).data('details-id');
-          const row = rsDetailsCache[detailsId];
 
-          const name = $(this).data('name');
-          const rollNumber = $(this).data('rollnumber');
+    const detailsId = $(this).data('details-id');
 
-          showDetailsModal(
-              rollNumber
-                  ? `${name} - ${rollNumber}`
-                  : `${name} - ${$(this).text()}`,
-              row ? buildRsDetails(row) : 'No additional details available.'
-          );
-      });
+    const row = rsDetailsCache[detailsId];
+
+    const name = $(this).data('name');
+
+    const rollNumber = $(this).data('rollnumber');
+
+    const title = rollNumber
+        ? `${name} - ${rollNumber}`
+        : `${name} - ${$(this).text()}`;
+
+    const content = row
+        ? buildRsDetails(row)
+        : 'No additional details available.';
+
+    /* Save the first popup */
+    previousModalData = {
+        title: title,
+        content: content
+    };
+
+    showDetailsModal(title, content);
+});
 
     // ================= RENDER LAYOUT =================
 
