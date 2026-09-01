@@ -1,10 +1,99 @@
-<style>
-  .nav-link.active {
-    background-color: #c20315 !important;
-    color: white !important;
-    position: relative;
-  }
-</style>
+<style>/* =====================================
+   CONTINUING EDUCATION ACCORDION STYLE
+===================================== */
+
+/* Accordion item */
+#accordionExample .accordion-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px !important;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+
+/* Accordion button */
+#accordionExample .accordion-button {
+    font-size: 16px;
+    border-radius: 10px !important;
+    transition: all 0.3s ease;
+}
+
+
+/* Hover effect */
+#accordionExample .accordion-button:hover {
+    transform: translateX(5px);
+}
+
+
+/* =====================================
+   ACTIVE / OPEN ACCORDION
+===================================== */
+
+#accordionExample .accordion-button:not(.collapsed) {
+    color: #ffffff !important;
+
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #b309099d
+    ) !important;
+
+    font-weight: 700;
+
+    box-shadow: none;
+
+    transform: translateX(5px);
+}
+
+
+/* Active accordion item */
+#accordionExample .accordion-item:has(.accordion-button:not(.collapsed)) {
+    border: 2px solid #1d0dfd;
+
+    box-shadow:
+        0 6px 20px rgba(13, 110, 253, 0.25);
+}
+
+
+/* Arrow when accordion is open */
+#accordionExample .accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+
+    transform: rotate(-180deg) scale(1.15);
+}
+
+
+/* =====================================
+   CONTENT OPEN ANIMATION
+===================================== */
+
+#accordionExample .accordion-collapse.show .accordion-body {
+    animation: accordionContent 0.35s ease;
+}
+
+
+@keyframes accordionContent {
+
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* Accordion body */
+#accordionExample .accordion-body {
+    background: #ffffff;
+
+    border-top: 1px solid #e9ecef;
+}</style>
 <ul
   class="nav nav-pills-rounded nav-justified mb-3"
   id="pills-tab"
@@ -50,58 +139,34 @@
     tabindex="0"
   >
     <div class="accordion" id="accordionExample">
-      <div class="accordion-item">
+      <div class="accordion-item p-3">
         <h2 class="accordion-header">
           <button
-            class="accordion-button"
+            class="accordion-button collapsed fw-bold"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#collapseOne"
-            aria-expanded="true"
-            aria-controls="collapseOne"
-            style="background-color: rgba(3, 155, 155, 0.11)"
-          >
-            Seminars
-          </button>
-        </h2>
-        <div
-          id="collapseOne"
-          class="accordion-collapse collapse show"
-          data-bs-parent="#accordionExample"
-        >
-          <div class="accordion-body">
-            <div id="seminarsOutput"></div>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseTwo"
+            data-bs-target="#collapseFour"
             aria-expanded="false"
-            aria-controls="collapseTwo"
-            style="background-color: rgba(3, 158, 29, 0.089)"
+            aria-controls="collapseFour"
+            style="background-color: rgba(192, 189, 5, 0.158)"
           >
-            Industry Training Programs
+            Short Term Training Program / GIAN / SPARC Program
           </button>
         </h2>
         <div
-          id="collapseTwo"
+          id="collapseFour"
           class="accordion-collapse collapse"
           data-bs-parent="#accordionExample"
         >
           <div class="accordion-body">
-            <div id="industryOutput"></div>
+            <div id="sttpsOutput"></div>
           </div>
         </div>
       </div>
-      <div class="accordion-item">
+      <div class="accordion-item p-3">
         <h2 class="accordion-header">
           <button
-            class="accordion-button collapsed"
+            class="accordion-button collapsed fw-bold"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapseThree"
@@ -122,27 +187,51 @@
           </div>
         </div>
       </div>
-      <div class="accordion-item">
+      <div class="accordion-item p-3">
         <h2 class="accordion-header">
           <button
-            class="accordion-button collapsed"
+            class="accordion-button collapsed fw-bold"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#collapseFour"
+            data-bs-target="#collapseTwo"
             aria-expanded="false"
-            aria-controls="collapseFour"
-            style="background-color: rgba(192, 189, 5, 0.158)"
+            aria-controls="collapseTwo"
+            style="background-color: rgba(3, 158, 29, 0.089)"
           >
-            Short Term Training Program / GIAN / SPARC Program
+            Industry Training Programs
           </button>
         </h2>
         <div
-          id="collapseFour"
+          id="collapseTwo"
           class="accordion-collapse collapse"
           data-bs-parent="#accordionExample"
         >
           <div class="accordion-body">
-            <div id="sttpsOutput"></div>
+            <div id="industryOutput"></div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item p-3">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed fw-bold"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+            style="background-color: rgba(3, 155, 155, 0.11)"
+          >
+            Seminars
+          </button>
+        </h2>
+        <div
+          id="collapseOne"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <div id="seminarsOutput"></div>
           </div>
         </div>
       </div>
