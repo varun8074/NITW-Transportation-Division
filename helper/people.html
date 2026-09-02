@@ -37,7 +37,7 @@
 ========================================= */
 
   .faculty-profile-card {
-    display: grid;
+    display: block;
     grid-template-columns: 32% 36% 32%;
     min-height: 550px;
 
@@ -52,16 +52,31 @@
 
     font-family: Arial, sans-serif;
   }
+  .faculty-main-content {
+  display: grid;
+  grid-template-columns: 32% 36% 32%;
+}
+
+.full-width-bio {
+  width: 100%;
+  margin-bottom: 0;
+  border-radius: 0;
+}
 
   /* =========================================
    LEFT PANEL
 ========================================= */
 
   .faculty-left {
-    background: #122e4d;
-    padding: 32px;
-    color: white;
-  }
+  background: #122e4d;
+  padding: 32px;
+  color: white;
+  border-radius:12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
   /* IMAGE */
 
@@ -100,7 +115,7 @@
 ========================================= */
 
   .bio-box {
-    background: #eef2f4;
+    background: #fcf4d1;
 
     color: #29435d;
 
@@ -108,7 +123,10 @@
 
     border-radius: 11px;
 
+    border: 1px solid #d4c8a8;
+
     margin-bottom: 20px;
+    margin-top: 10px;
   }
 
   .bio-box p {
@@ -589,56 +607,52 @@
           coreHTML += `
             <div class="faculty-profile-card mb-2">
 
-              <!-- LEFT SECTION -->
-              <div class="faculty-left">
+  <!-- TOP SECTION -->
+  <div class="faculty-main-content">
 
-              <!-- Faculty Image -->
-              <div class="faculty-image-box">
-                <img
-                  src="${getImageWithFallback(f.Image)}"
-                  alt="${f.Name}"
-                  onerror="this.src='images/placeholder.jpg'"
-                >
-              </div>
+    <!-- LEFT SECTION -->
+    <div class="faculty-left">
 
-              <!-- Bio Sketch -->
-              <div class="bio-box">
-                <div class="section-title-people">BIO SKETCH</div>
-                <p>
-  ${f.Name} obtained his doctoral degree in Transportation Engineering from ${f["PhD Institute"]}. He completed his Master's degree in Transportation Engineering specialization from ${f["Masters Institute"]}. His area of expertise is in ${f.Research}.
-</p>
-              </div>
+      <div class="faculty-image-box">
+        <img
+          src="${getImageWithFallback(f.Image)}"
+          alt="${f.Name}"
+          onerror="this.src='images/placeholder.jpg'"
+        >
+      </div>
 
+    </div>
 
-            </div>
+    <!-- MIDDLE SECTION -->
+    <div class="faculty-middle">
 
+      <h1>${f.Name}</h1>
 
-            <!-- MIDDLE SECTION -->
-            <div class="faculty-middle">
+      <h4>${f.Designation}</h4>
 
-              <h1>${f.Name}</h1>
+      <span class="profile-label">FACULTY PROFILE</span>
 
-              <h4>${f.Designation}</h4>
+      <div class="contact-info">
 
-              <span class="profile-label">FACULTY PROFILE</span>
+        <div>
+          <span class="contact-icon">✉</span>
+          ${f.Mail}
+        </div>
 
-              <div class="contact-info">
+        <div>
+          <span class="contact-icon">📞</span>
+          ${f.Mobile}
+        </div>
 
-                <div>
-                  <span class="contact-icon">✉</span>
-                  ${f.Mail}
-                </div>
+      </div>
 
-                <div>
-                  <span class="contact-icon">📞</span>
-                  ${f.Mobile}
-                </div>
+      <a href="${f.Profile || "#"}"
+         target="_blank"
+         class="btn btn-primary btn-sm">
+        View Profile
+      </a>
 
-              </div>
-              <a href="${f.Profile || "#"}" target="_blank" class="btn btn-primary btn-sm">View Profile</a>
-
-            </div>
-
+    </div>
 
             <!-- RIGHT SECTION -->
             <div class="faculty-right">
@@ -704,24 +718,67 @@
 
                 <div class="identifier-item">
                   <strong>Google Scholar</strong>
-                  <span>${f.GoogleScholar || "Not available"}</span>
+                  <span>
+                    ${
+                      f.GoogleScholar
+                        ? `<a href="${f.GoogleScholar}" target="_blank" rel="noopener noreferrer">
+                            ${f.GoogleScholar}
+                          </a>`
+                        : "Not available"
+                    }
+                  </span>
                 </div>
 
                 <div class="identifier-item">
                   <strong>Scopus Author ID</strong>
-                  <span>${f.Scopus || "Not available"}</span>
+                  <span>
+                    ${
+                      f.Scopus
+                        ? `<a href="${f.Scopus}" target="_blank" rel="noopener noreferrer">
+                            ${f.Scopus}
+                          </a>`
+                        : "Not available"
+                    }
+                  </span>
                 </div>
 
                 <div class="identifier-item">
                   <strong>ORCID ID</strong>
-                  <span>${f.ORCID || "Not available"}</span>
+                  <span>
+                    ${
+                      f.ORCID
+                        ? `<a href="${f.ORCID}" target="_blank" rel="noopener noreferrer">
+                            ${f.ORCID}
+                          </a>`
+                        : "Not available"
+                    }
+                  </span>
                 </div>
 
               </div>
 
             </div>
 
-          </div>`;
+          </div>
+          <!-- FULL WIDTH BIO SKETCH AT BOTTOM -->
+  <div class="bio-box full-width-bio">
+
+    <div class="section-title-people">
+      BIO SKETCH
+    </div>
+
+    <p>
+      ${f.Name} obtained his doctoral degree in Transportation Engineering
+      from ${f["PhD Institute"]}. He completed his Master's degree in
+      Transportation Engineering specialization from
+      ${f["Masters Institute"]}. His area of expertise is in
+      ${f.Research}.
+    </p>
+
+  </div>
+
+</div>
+          `;
         });
 
         $("#coreFacultyContainer").html(coreHTML);

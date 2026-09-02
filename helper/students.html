@@ -408,105 +408,90 @@
     }
   }
 
- /* =========================================
+  /* =========================================
    POPUP / MODAL DESIGN
 ========================================= */
 
-/* Modal popup animation */
-#abstractModal .modal-dialog {
+  /* Modal popup animation */
+  #abstractModal .modal-dialog {
     transform: scale(0.6) translateY(-30px);
     opacity: 0;
     transition: none;
-}
+  }
 
-/* When modal opens */
-#abstractModal.show .modal-dialog {
+  /* When modal opens */
+  #abstractModal.show .modal-dialog {
     animation: modalPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
+  }
 
-
-/* =========================================
+  /* =========================================
    POP ANIMATION
 ========================================= */
 
-@keyframes modalPop {
-
+  @keyframes modalPop {
     0% {
-        transform: scale(0.5) translateY(-40px);
-        opacity: 0;
+      transform: scale(0.5) translateY(-40px);
+      opacity: 0;
     }
 
     33% {
-        transform: scale(1.05) translateY(0);
-        opacity: 1;
+      transform: scale(1.05) translateY(0);
+      opacity: 1;
     }
 
     66% {
-        transform: scale(0.97) translateY(0);
+      transform: scale(0.97) translateY(0);
     }
 
     100% {
-        transform: scale(1) translateY(0);
-        opacity: 1;
+      transform: scale(1) translateY(0);
+      opacity: 1;
     }
-}
+  }
 
-
-/* =========================================
+  /* =========================================
    MODAL CONTENT
 ========================================= */
 
-#abstractModal .modal-content {
-
+  #abstractModal .modal-content {
     border: none;
 
     border-radius: 18px;
 
     overflow: hidden;
 
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 
     background: #ffffff;
-}
+  }
 
-
-/* =========================================
+  /* =========================================
    MODAL HEADER
 ========================================= */
 
-#abstractModal .modal-header {
-
-    background: linear-gradient(
-        135deg,
-        #0d6efd,
-        #f04d0dbb
-    );
+  #abstractModal .modal-header {
+    background: linear-gradient(135deg, #0d6efd, #f04d0dbb);
 
     color: white;
 
     border-bottom: none;
 
     padding: 18px 24px;
-}
+  }
 
+  /* Popup title */
 
-/* Popup title */
-
-#abstractModal .modal-title {
-
+  #abstractModal .modal-title {
     font-weight: 700;
 
     font-size: 20px;
 
     letter-spacing: 0.3px;
-}
+  }
 
+  /* Close button */
 
-/* Close button */
-
-#abstractModal .btn-close {
-
+  #abstractModal .btn-close {
     background-color: white;
 
     border-radius: 50%;
@@ -516,23 +501,19 @@
     opacity: 0.9;
 
     transition: all 0.25s ease;
-}
+  }
 
-
-#abstractModal .btn-close:hover {
-
+  #abstractModal .btn-close:hover {
     transform: rotate(90deg) scale(1.1);
 
     opacity: 1;
-}
+  }
 
-
-/* =========================================
+  /* =========================================
    MODAL BODY
 ========================================= */
 
-#abstractModal .modal-body {
-
+  #abstractModal .modal-body {
     padding: 25px;
 
     font-size: 15px;
@@ -542,21 +523,17 @@
     color: #343a40;
 
     background: #ffffff;
-}
+  }
 
-
-/* =========================================
+  /* =========================================
    DETAILS LIST
 ========================================= */
 
-#abstractModal .rs-details-list {
-
+  #abstractModal .rs-details-list {
     margin: 0;
-}
+  }
 
-
-#abstractModal .rs-details-list dt {
-
+  #abstractModal .rs-details-list dt {
     font-weight: 700;
 
     color: #ce0e0ea9;
@@ -568,32 +545,27 @@
     border-radius: 8px;
 
     margin-bottom: 8px;
-}
+  }
 
-
-#abstractModal .rs-details-list dd {
-
+  #abstractModal .rs-details-list dd {
     padding: 12px;
 
     margin-bottom: 8px;
 
     border-bottom: 1px solid #e9ecef;
-}
+  }
 
-
-/* =========================================
+  /* =========================================
    MODAL BACKDROP
 ========================================= */
 
-.modal-backdrop.show {
-
+  .modal-backdrop.show {
     opacity: 0.65;
-}
+  }
 
-/* Back to Details Button */
+  /* Back to Details Button */
 
-.back-to-details-btn {
-
+  .back-to-details-btn {
     border-radius: 20px;
 
     padding: 7px 16px;
@@ -601,17 +573,13 @@
     font-weight: 600;
 
     transition: all 0.3s ease;
+  }
 
-}
-
-
-.back-to-details-btn:hover {
-
+  .back-to-details-btn:hover {
     transform: translateX(-4px);
 
     box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
-
-}
+  }
 </style>
 <ul
   class="nav nav-pills-rounded nav-justified mb-3"
@@ -690,7 +658,7 @@
         <div class="card border-dark mb-3">
           <div class="card-body">
             <h5 class="text-success">Alumni Research Scholars</h5>
-            <p>The Batches from 1980 to 2025</p>
+            <p>The Batches from 1980 to 2026</p>
 
             <div class="container text-center">
               <div class="rs-timeline">
@@ -735,9 +703,9 @@
                   <button
                     type="button"
                     class="btn btn-outline-info batch-btn"
-                    data-batch-range="2020-2025"
+                    data-batch-range="2020-2026"
                   >
-                    2020-2025
+                    2020-2026
                   </button>
                 </div>
               </div>
@@ -1436,7 +1404,7 @@
 <script>
   $(document).ready(function () {
     let previousModalData = null;
-    
+
     const rowsPerPage = 12;
 
     const state = {};
@@ -1518,37 +1486,33 @@
 
           // Make Thesis Title clickable
           // Make Thesis Title or Seminar Title clickable
-if (
-    key.toLowerCase().includes('thesis title') ||
-    key.toLowerCase().includes('seminar title')
-) {
+          if (
+            key.toLowerCase().includes('thesis title') ||
+            key.toLowerCase().includes('seminar title')
+          ) {
+            let popupContent = '';
 
-    let popupContent = '';
+            // Thesis Title → show Thesis Abstract
+            if (key.toLowerCase().includes('thesis title')) {
+              popupContent =
+                row['Thesis Abstract'] ||
+                row['THESIS ABSTRACT'] ||
+                row['thesis abstract'] ||
+                row['Abstract'] ||
+                '';
+            }
 
-    // Thesis Title → show Thesis Abstract
-    if (key.toLowerCase().includes('thesis title')) {
+            // Seminar Title → show Seminar Details
+            else if (key.toLowerCase().includes('seminar title')) {
+              popupContent =
+                row['Seminar Abstract'] ||
+                row['SEMINAR ABSTRACT'] ||
+                row['seminar abstract'] ||
+                row['Seminar Details'] ||
+                '';
+            }
 
-        popupContent =
-            row['Thesis Abstract'] ||
-            row['THESIS ABSTRACT'] ||
-            row['thesis abstract'] ||
-            row['Abstract'] ||
-            '';
-
-    }
-
-    // Seminar Title → show Seminar Details
-    else if (key.toLowerCase().includes('seminar title')) {
-
-        popupContent =
-            row['Seminar Abstract'] ||
-            row['SEMINAR ABSTRACT'] ||
-            row['seminar abstract'] ||
-            row['Seminar Details'] ||
-            '';
-    }
-
-    return `
+            return `
         <dt class="col-sm-4">${escapeHtml(key)}</dt>
 
         <dd class="col-sm-8">
@@ -1562,7 +1526,7 @@ if (
             </a>
         </dd>
     `;
-}
+          }
 
           return `
         <dt class="col-sm-4">${escapeHtml(key)}</dt>
@@ -1579,19 +1543,20 @@ if (
     }
 
     function showDetailsModal(title, content, showBackButton = false) {
+      const modalElement = document.getElementById('abstractModal');
 
-    const modalElement = document.getElementById('abstractModal');
+      if (!modalElement) return;
 
-    if (!modalElement) return;
-
-    if (modalElement.parentElement !== document.body) {
+      if (modalElement.parentElement !== document.body) {
         document.body.appendChild(modalElement);
-    }
+      }
 
-    $('#abstractTitle').text(title);
+      $('#abstractTitle').text(title);
 
-    $('#abstractContent').html(`
-        ${showBackButton ? `
+      $('#abstractContent').html(`
+        ${
+          showBackButton
+            ? `
             <div class="mb-3">
                 <button 
                     type="button"
@@ -1600,17 +1565,19 @@ if (
                     ← Back to Details
                 </button>
             </div>
-        ` : ''}
+        `
+            : ''
+        }
 
         ${content}
     `);
 
-    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+      const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
 
-    if (!modalElement.classList.contains('show')) {
+      if (!modalElement.classList.contains('show')) {
         modal.show();
+      }
     }
-}
 
     // ================= LOAD EXCEL =================
 
@@ -1857,62 +1824,49 @@ if (
     });
     // ========click event for popup=============
     $(document).on('click', '.thesis-link', function (e) {
+      e.preventDefault();
 
-    e.preventDefault();
+      const title = $(this).data('title');
 
-    const title = $(this).data('title');
+      const content = $(this).data('abstract') || 'Abstract not available.';
 
-    const content =
-        $(this).data('abstract') ||
-        'Abstract not available.';
-
-    showDetailsModal(
-        title,
-        content,
-        true
-    );
-
-});
-$(document).on('click', '.back-to-details-btn', function () {
-
-    if (previousModalData) {
-
+      showDetailsModal(title, content, true);
+    });
+    $(document).on('click', '.back-to-details-btn', function () {
+      if (previousModalData) {
         showDetailsModal(
-            previousModalData.title,
-            previousModalData.content,
-            false
+          previousModalData.title,
+          previousModalData.content,
+          false,
         );
-
-    }
-
-});
+      }
+    });
 
     $(document).on('click', '.rs-details-btn', function () {
+      const detailsId = $(this).data('details-id');
 
-    const detailsId = $(this).data('details-id');
+      const row = rsDetailsCache[detailsId];
 
-    const row = rsDetailsCache[detailsId];
+      const name = $(this).data('name');
 
-    const name = $(this).data('name');
+      const rollNumber = $(this).data('rollnumber');
 
-    const rollNumber = $(this).data('rollnumber');
-
-    const title = rollNumber
+      const title = rollNumber
         ? `${name} - ${rollNumber}`
         : `${name} - ${$(this).text()}`;
 
-    const content = row
+      const content = row
         ? buildRsDetails(row)
         : 'No additional details available.';
 
-    /* Save the first popup */
-    previousModalData = {
+      /* Save the first popup */
+      previousModalData = {
         title: title,
-        content: content
-    };
+        content: content,
+      };
 
-    showDetailsModal(title, content);
-});
+      showDetailsModal(title, content);
+    });
 
     // ================= RENDER LAYOUT =================
 
@@ -2123,7 +2077,10 @@ $(document).on('click', '.back-to-details-btn', function () {
                           class="btn btn-outline-primary btn-sm rs-details-btn"
                           data-name="${escapeHtml(name)}"
                           data-rollnumber="${escapeHtml(
-                              s['Roll Number'] || s['Roll No.'] || s['Reg No.'] || 'Roll number data not available',
+                            s['Roll Number'] ||
+                              s['Roll No.'] ||
+                              s['Reg No.'] ||
+                              'Roll number data not available',
                           )}"
                           data-details-id="${detailsId}">
                           M.Tech Details
