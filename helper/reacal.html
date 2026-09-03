@@ -149,8 +149,8 @@
         rowsPerPage: 5,
         fullData: [],
         filteredData: [],
-        output: "#orpOutput",
-        type: "ongoingResearch",
+        output: '#orpOutput',
+        type: 'ongoingResearch',
       },
 
       // COMPLETED RESEARCH
@@ -159,8 +159,8 @@
         rowsPerPage: 5,
         fullData: [],
         filteredData: [],
-        output: "#crpOutput",
-        type: "completedResearch",
+        output: '#crpOutput',
+        type: 'completedResearch',
       },
 
       // ONGOING CONSULTANCY
@@ -169,8 +169,8 @@
         rowsPerPage: 5,
         fullData: [],
         filteredData: [],
-        output: "#ocpOutput",
-        type: "ongoingConsultancy",
+        output: '#ocpOutput',
+        type: 'ongoingConsultancy',
       },
 
       // COMPLETED CONSULTANCY
@@ -179,8 +179,8 @@
         rowsPerPage: 5,
         fullData: [],
         filteredData: [],
-        output: "#ccpOutput",
-        type: "completedConsultancy",
+        output: '#ccpOutput',
+        type: 'completedConsultancy',
       },
     };
 
@@ -188,20 +188,20 @@
     // LOAD RESEARCH FILES
     // =====================================================
 
-    loadExcel("excels/Research.xlsx", "Research_ongoing", "ORP");
+    loadExcel('excels/Research.xlsx', 'Research_ongoing', 'ORP');
 
-    loadExcel("excels/Research.xlsx", "Research_completed", "CRP");
+    loadExcel('excels/Research.xlsx', 'Research_completed', 'CRP');
 
     // =====================================================
     // LOAD CONSULTANCY FILES
     // =====================================================
 
     $('button[data-bs-target="#consultancyPane"]').one(
-      "shown.bs.tab",
+      'shown.bs.tab',
       function () {
-        loadExcel("excels/Consultancy.xlsx", "Ongoing Consultancy", "OCP");
+        loadExcel('excels/Consultancy.xlsx', 'Ongoing Consultancy', 'OCP');
 
-        loadExcel("excels/Consultancy.xlsx", "Completed Consultancy", "CCP");
+        loadExcel('excels/Consultancy.xlsx', 'Completed Consultancy', 'CCP');
       },
     );
 
@@ -224,10 +224,10 @@
 
           try {
             workbook = XLSX.read(data, {
-              type: "array",
+              type: 'array',
             });
           } catch (error) {
-            throw new Error("Invalid or corrupted Excel file.");
+            throw new Error('Invalid or corrupted Excel file.');
           }
 
           const sheet = workbook.Sheets[sheetName];
@@ -241,7 +241,7 @@
           }
 
           let excelData = XLSX.utils.sheet_to_json(sheet, {
-            defval: "",
+            defval: '',
           });
 
           // ==========================
@@ -271,13 +271,13 @@
           // ==========================
 
           const columnRules = {
-            ongoingResearch: ["Project_Title"],
+            ongoingResearch: ['Project_Title'],
 
-            completedResearch: ["Sponsored By"],
+            completedResearch: ['Sponsored By'],
 
-            ongoingConsultancy: ["Project_Title"],
+            ongoingConsultancy: ['Project_Title'],
 
-            completedConsultancy: ["Sponsored By"],
+            completedConsultancy: ['Sponsored By'],
           };
 
           const requiredColumns = columnRules[tableState[mode].type] || [];
@@ -288,7 +288,7 @@
 
           if (missingColumns.length > 0) {
             throw new Error(
-              `Missing required columns: ${missingColumns.join(", ")}`,
+              `Missing required columns: ${missingColumns.join(', ')}`,
             );
           }
 
@@ -351,8 +351,8 @@
     // SEARCH
     // =====================================================
 
-    $(document).on("keyup", "[id^=search]", function () {
-      const mode = this.id.replace("search", "");
+    $(document).on('keyup', '[id^=search]', function () {
+      const mode = this.id.replace('search', '');
 
       const value = $(this).val().toLowerCase();
 
@@ -368,6 +368,63 @@
 
       renderTable(mode);
     });
+
+    // =====================================================
+    // FORMAT EXCEL DATES
+    // =====================================================
+
+    function formatExcelDate(value) {
+      if (value === null || value === undefined || value === '') {
+        return '-';
+      }
+
+      // Excel serial date
+      if (typeof value === 'number' && Number.isFinite(value)) {
+        const parsed = XLSX.SSF.parse_date_code(value);
+
+        if (parsed && parsed.y && parsed.m) {
+          const months = [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec',
+          ];
+
+          return `${months[parsed.m - 1]}-${String(parsed.y).slice(-2)}`;
+        }
+      }
+
+      // JavaScript Date (in case SheetJS returns a Date object)
+      if (value instanceof Date && !isNaN(value.getTime())) {
+        const months = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ];
+
+        return `${months[value.getMonth()]}-${String(value.getFullYear()).slice(-2)}`;
+      }
+
+      // If the value is already text, display it as-is
+      return String(value);
+    }
 
     // =====================================================
     // RENDER TABLE
@@ -396,7 +453,7 @@
       // ONGOING RESEARCH HEADERS
       // =====================================================
 
-      if (state.type === "ongoingResearch") {
+      if (state.type === 'ongoingResearch') {
         html += `
           <th>Project Title</th>
           <th>Funding Amount</th>
@@ -409,7 +466,7 @@
       // =====================================================
       // COMPLETED RESEARCH HEADERS
       // =====================================================
-      else if (state.type === "completedResearch") {
+      else if (state.type === 'completedResearch') {
         html += `
           <th>S.No</th>
           <th>Project Title – Broad Area</th>
@@ -422,7 +479,7 @@
       // =====================================================
       // ONGOING CONSULTANCY HEADERS
       // =====================================================
-      else if (state.type === "ongoingConsultancy") {
+      else if (state.type === 'ongoingConsultancy') {
         html += `
           <th>Consultancy ID</th>
           <th>Client Name</th>
@@ -485,28 +542,28 @@
           // ONGOING RESEARCH DATA
           // =====================================================
 
-          if (state.type === "ongoingResearch") {
+          if (state.type === 'ongoingResearch') {
             html += `
             
 
               <td>
-                ${row["Project_Title"] || "-"}
+                ${row['Project_Title'] || '-'}
               </td>
 
               <td>
-                ${row["Funding_amount"] || "-"}
+                ${row['Funding_amount'] || '-'}
               </td>
 
               <td>
-                ${row["Funding_agency"] || "-"}
+                ${row['Funding_agency'] || '-'}
               </td>
 
               <td class="text-center">
-                ${row["Start_Date"] || "-"}
+                ${formatExcelDate(row['Start_Date'])}
               </td>
 
               <td class="text-center">
-                ${row["PI&CoPIs"] || "-"}
+                ${row['PI&CoPIs'] || '-'}
               </td>
 
             `;
@@ -515,7 +572,7 @@
           // =====================================================
           // COMPLETED RESEARCH DATA
           // =====================================================
-          else if (state.type === "completedResearch") {
+          else if (state.type === 'completedResearch') {
             html += `
               <td class="text-center">
                 ${start + index + 1}
@@ -523,22 +580,22 @@
 
               <td>
                 ${
-                  row["Project Title – Broad Area"] ||
-                  row["Project Title-Broad Area"] ||
-                  "-"
+                  row['Project Title – Broad Area'] ||
+                  row['Project Title-Broad Area'] ||
+                  '-'
                 }
               </td>
 
               <td>
-                ${row["Sponsored By"] || "-"}
+                ${row['Sponsored By'] || '-'}
               </td>
 
               <td class="text-center">
-                ${row["Year of Study"] || "-"}
+                ${row['Year of Study'] || '-'}
               </td>
 
               <td class="text-end">
-                ${row["Amount (Rs. Lakhs)"] || "-"}
+                ${row['Amount (Rs. Lakhs)'] || '-'}
               </td>
             `;
           }
@@ -546,38 +603,38 @@
           // =====================================================
           // ONGOING CONSULTANCY DATA
           // =====================================================
-          else if (state.type === "ongoingConsultancy") {
+          else if (state.type === 'ongoingConsultancy') {
             html += `
               <td>
-                ${row["Consultancy_ID"] || "-"}
+                ${row['Consultancy_ID'] || '-'}
               </td>
 
               <td>
-                ${row["Client_Name"] || "-"}
+                ${row['Client_Name'] || '-'}
               </td>
 
               <td>
-                ${row["Project_Title"] || "-"}
+                ${row['Project_Title'] || '-'}
               </td>
 
               <td>
-                ${row["Consultancy_Area"] || "-"}
+                ${row['Consultancy_Area'] || '-'}
               </td>
 
               <td class="text-center">
-                ${row["Start_Date"] || "-"}
+                ${formatExcelDate(row['Start_Date'])}
               </td>
 
               <td class="text-center">
-                ${row["Status"] || "-"}
+                ${row['Status'] || '-'}
               </td>
 
               <td class="text-center">
-                ${row["Consultant_Team_Size"] || "-"}
+                ${row['Consultant_Team_Size'] || '-'}
               </td>
 
               <td class="text-end">
-                ${row["Project_Value"] || "-"}
+                ${row['Project_Value'] || '-'}
               </td>
             `;
           }
@@ -588,18 +645,18 @@
           else {
             html += `
               <td class="text-center">
-                ${row["S.No"] || "-"}
+                ${row['S.No'] || '-'}
               </td>
 
               <td>
-                ${row["Project Title-Broad Area"] || "-"}
+                ${row['Project Title-Broad Area'] || '-'}
               </td>
 
               <td>
-                ${row["Sponsored By"] || "-"}
+                ${row['Sponsored By'] || '-'}
               </td>
               <td>
-                ${row["Year"] || "-"}
+                ${row['Year'] || '-'}
               </td>
             `;
           }
@@ -616,7 +673,7 @@
         </div>
       `;
 
-      $("#content" + mode).html(html);
+      $('#content' + mode).html(html);
 
       renderPagination(mode);
     }
@@ -632,7 +689,7 @@
         state.filteredData.length / state.rowsPerPage,
       );
 
-      let controls = "";
+      let controls = '';
 
       // =====================================================
       // PREV BUTTON
@@ -643,7 +700,7 @@
           class="btn btn-sm btn-secondary me-1 page-btn"
           data-mode="${mode}"
           data-page="${state.currentPage - 1}"
-          ${state.currentPage === 1 ? "disabled" : ""}>
+          ${state.currentPage === 1 ? 'disabled' : ''}>
 
           Prev
 
@@ -658,7 +715,7 @@
         controls += `
           <button
             class="btn btn-sm me-1 mb-1 page-btn
-            ${i === state.currentPage ? "btn-primary" : "btn-outline-primary"}"
+            ${i === state.currentPage ? 'btn-primary' : 'btn-outline-primary'}"
 
             data-mode="${mode}"
             data-page="${i}">
@@ -678,20 +735,20 @@
           class="btn btn-sm btn-secondary page-btn"
           data-mode="${mode}"
           data-page="${state.currentPage + 1}"
-          ${state.currentPage === totalPages ? "disabled" : ""}>
+          ${state.currentPage === totalPages ? 'disabled' : ''}>
 
           Next
 
         </button>
       `;
 
-      $("#pagination" + mode).html(controls);
+      $('#pagination' + mode).html(controls);
 
       // =====================================================
       // TABLE INFO
       // =====================================================
 
-      $("#info" + mode).html(`
+      $('#info' + mode).html(`
 
         Showing
 
@@ -721,10 +778,10 @@
     // PAGINATION CLICK
     // =====================================================
 
-    $(document).on("click", ".page-btn", function () {
-      const mode = $(this).data("mode");
+    $(document).on('click', '.page-btn', function () {
+      const mode = $(this).data('mode');
 
-      const page = Number($(this).data("page"));
+      const page = Number($(this).data('page'));
 
       const state = tableState[mode];
 
