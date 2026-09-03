@@ -180,6 +180,7 @@
           let softwareList = [];
           let hardwareList = [];
           let instructionsList = [];
+          let laboratoryName = "";
 
           data.forEach((row) => {
             if (row["Faculty Incharge"]) {
@@ -197,6 +198,9 @@
             if (row["Instructions"]) {
               instructionsList.push(row["Instructions"]);
             }
+            if (row["Lab"]) {
+                laboratoryName = row["Lab"];
+            }
           });
 
           const collapseId = `collapse${index}`;
@@ -207,7 +211,7 @@
               <h2 class="accordion-header text-center">
 
                 <div class="figure-caption text-danger lab-title">
-                    ${sheetName} Laboratory
+                    ${laboratoryName} Laboratory
                   </div>
 
                 <button

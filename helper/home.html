@@ -102,6 +102,13 @@
 
     transition: all 0.35s ease;
   }
+  .stats-clickable {
+    cursor: pointer;
+  }
+
+  .stats-clickable:active {
+    transform: translateY(-3px) scale(0.98);
+  }
 
   /* Different colors for each tab */
   .col-md-4:nth-child(1) .stats-box {
@@ -341,7 +348,7 @@
         <div class="row g-4">
           <!-- Faculty -->
           <div class="col-md-4">
-            <div class="stats-box">
+            <div class="stats-box stats-clickable" id="facultyStats">
               <p class="stats-number">7</p>
               <p class="stats-title">Faculty</p>
             </div>
@@ -349,7 +356,7 @@
 
           <!-- PhD -->
           <div class="col-md-4">
-            <div class="stats-box">
+            <div class="stats-box stats-clickable" id="phdStats">
               <p class="stats-number">38</p>
               <p class="stats-title">PhD Research Scholars</p>
             </div>
@@ -357,7 +364,7 @@
 
           <!-- Postgraduate -->
           <div class="col-md-4">
-            <div class="stats-box">
+            <div class="stats-box stats-clickable" id="postgraduateStats">
               <p class="stats-number">78</p>
               <p class="stats-title">Postgraduate Students</p>
             </div>
@@ -365,7 +372,7 @@
 
           <!-- Publications -->
           <div class="col-md-4">
-            <div class="stats-box">
+            <div class="stats-box stats-clickable" id="publicationsStats">
               <p class="stats-number">304</p>
               <p class="stats-title">Publications</p>
             </div>
@@ -381,8 +388,8 @@
 
           <!-- CEP -->
           <div class="col-md-4">
-            <div class="stats-box">
-              <p class="stats-number">--</p>
+            <div class="stats-box stats-clickable" id="cepStats">
+              <p class="stats-number">14</p>
               <p class="stats-title">Continuing Education Programs</p>
             </div>
           </div>
@@ -619,4 +626,44 @@
       },
     });
   });
+  $(document).on(
+    "click",
+    "#facultyStats, #phdStats, #postgraduateStats, #publicationsStats, #cepStats",
+    function () {
+      switch (this.id) {
+        case "facultyStats":
+          $("#v-pills-people-tab").trigger("click");
+          break;
+
+        case "phdStats":
+          $("#v-pills-Students-tab").trigger("click");
+          break;
+
+        case "postgraduateStats":
+          // Open Students
+          $("#v-pills-Students-tab").trigger("click");
+
+          // Open M.Tech
+          setTimeout(function () {
+            const mtechTab = document.getElementById("mtech-tab");
+
+            if (mtechTab) {
+              new bootstrap.Tab(mtechTab).show();
+            }
+          }, 200);
+
+          break;
+
+        case "publicationsStats":
+          $("#v-pills-Publications-tab").trigger("click");
+          break;
+
+        case "cepStats":
+          $("#v-pills-CapacityBuildingAndKnowledgeTransfer-tab").trigger(
+            "click",
+          );
+          break;
+      }
+    },
+  );
 </script>
