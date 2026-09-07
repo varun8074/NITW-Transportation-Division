@@ -1,37 +1,34 @@
 <style>
- /* =====================================================
+  /* =====================================================
    RESEARCH & CONSULTANCY
    COMPLETE TABLE DESIGN
    SCOPED ONLY TO THIS SECTION
 ===================================================== */
 
-
-/* =====================================================
+  /* =====================================================
    TABLE CARD
 ===================================================== */
 
-#researchConsultancySection .tab-pane .card {
+  #researchConsultancySection .tab-pane .card {
     border: none !important;
     border-radius: 16px;
 
     background: #ffffff;
 
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 
     overflow: hidden;
-}
+  }
 
-
-#researchConsultancySection .tab-pane .card-body {
+  #researchConsultancySection .tab-pane .card-body {
     padding: 22px;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    SECTION HEADINGS
 ===================================================== */
 
-#researchConsultancySection .tab-pane .card-body h5 {
+  #researchConsultancySection .tab-pane .card-body h5 {
     font-weight: 700;
 
     padding-bottom: 12px;
@@ -39,28 +36,25 @@
     margin-bottom: 20px !important;
 
     border-bottom: 2px solid #eeeeee;
-}
+  }
 
+  /* Ongoing headings */
 
-/* Ongoing headings */
-
-#researchConsultancySection .text-info {
+  #researchConsultancySection .text-info {
     color: #0d8b8b !important;
-}
+  }
 
+  /* Completed headings */
 
-/* Completed headings */
-
-#researchConsultancySection .text-success {
+  #researchConsultancySection .text-success {
     color: #7b2cbf !important;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    SEARCH BOX
 ===================================================== */
 
-#researchConsultancySection [id^="search"] {
+  #researchConsultancySection [id^="search"] {
     width: 100%;
 
     border: 2px solid #e4d5f7;
@@ -71,11 +65,7 @@
 
     font-size: 14px;
 
-    background: linear-gradient(
-        135deg,
-        #ffffff,
-        #faf7ff
-    );
+    background: linear-gradient(135deg, #ffffff, #faf7ff);
 
     color: #343a40;
 
@@ -84,32 +74,29 @@
     outline: none;
 
     margin-bottom: 18px !important;
-}
+  }
 
-
-#researchConsultancySection [id^="search"]:focus {
+  #researchConsultancySection [id^="search"]:focus {
     border-color: #a855f7;
 
     background: #ffffff;
 
     box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.12);
-}
+  }
 
+  /* Search placeholder */
 
-/* Search placeholder */
-
-#researchConsultancySection [id^="search"]::placeholder {
+  #researchConsultancySection [id^="search"]::placeholder {
     color: #9ca3af;
 
     opacity: 1;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    TABLE CONTAINER
 ===================================================== */
 
-#researchConsultancySection .table-responsive {
+  #researchConsultancySection .table-responsive {
     border-radius: 16px;
 
     overflow-x: auto;
@@ -120,17 +107,16 @@
 
     background: #ffffff;
 
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 
     margin-top: 15px;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    TABLE
 ===================================================== */
 
-#researchConsultancySection .table {
+  #researchConsultancySection .table {
     width: 100%;
 
     margin-bottom: 0;
@@ -142,20 +128,15 @@
     font-size: 14px;
 
     background: #ffffff;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    TABLE HEADER
    SOFT / SOOTHING CORAL ACCENT
 ===================================================== */
 
-#researchConsultancySection .table thead.table-dark th {
-    background: linear-gradient(
-        135deg,
-        #087a1131,
-        #fffaf8
-    ) !important;
+  #researchConsultancySection .table thead.table-dark th {
+    background: linear-gradient(135deg, #087a1131, #fffaf8) !important;
 
     color: #0c0909 !important;
 
@@ -170,28 +151,25 @@
     border: none !important;
 
     white-space: nowrap;
-}
+  }
 
+  /* Header first column */
 
-/* Header first column */
-
-#researchConsultancySection .table thead.table-dark th:first-child {
+  #researchConsultancySection .table thead.table-dark th:first-child {
     border-top-left-radius: 15px;
-}
+  }
 
+  /* Header last column */
 
-/* Header last column */
-
-#researchConsultancySection .table thead.table-dark th:last-child {
+  #researchConsultancySection .table thead.table-dark th:last-child {
     border-top-right-radius: 15px;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    TABLE BODY CELLS
 ===================================================== */
 
-#researchConsultancySection .table tbody td {
+  #researchConsultancySection .table tbody td {
     padding: 14px 13px;
 
     vertical-align: middle;
@@ -203,119 +181,99 @@
     line-height: 1.5;
 
     transition:
-        background-color 0.25s ease,
-        color 0.25s ease,
-        transform 0.25s ease;
-}
+      background-color 0.25s ease,
+      color 0.25s ease,
+      transform 0.25s ease;
+  }
 
-
-/* =====================================================
+  /* =====================================================
    ALTERNATING ROW COLORS
 ===================================================== */
 
+  /* Odd rows */
 
-/* Odd rows */
-
-#researchConsultancySection .table tbody tr:nth-child(odd) td {
+  #researchConsultancySection .table tbody tr:nth-child(odd) td {
     background-color: #ffffff !important;
-}
+  }
 
+  /* Even rows */
 
-/* Even rows */
+  #researchConsultancySection .table tbody tr:nth-child(even) td {
+    background: linear-gradient(90deg, #faf5ff, #fff5f7) !important;
+  }
 
-#researchConsultancySection .table tbody tr:nth-child(even) td {
-    background: linear-gradient(
-        90deg,
-        #faf5ff,
-        #fff5f7
-    ) !important;
-}
-
-
-/* =====================================================
+  /* =====================================================
    TABLE ROW HOVER
 ===================================================== */
 
-#researchConsultancySection .table.table-hover tbody tr:hover td {
-    background: linear-gradient(
-        90deg,
-        #e0f7fa,
-        #e8f5ff
-    ) !important;
+  #researchConsultancySection .table.table-hover tbody tr:hover td {
+    background: linear-gradient(90deg, #e0f7fa, #e8f5ff) !important;
 
     color: #212529;
 
     cursor: default;
-}
+  }
 
+  /* Left colorful indicator */
 
-/* Left colorful indicator */
-
-#researchConsultancySection .table.table-hover tbody tr:hover td:first-child {
+  #researchConsultancySection .table.table-hover tbody tr:hover td:first-child {
     border-left: 5px solid #ff6b6b !important;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    IMPORTANT COLUMNS
 ===================================================== */
 
+  /* First column */
 
-/* First column */
-
-#researchConsultancySection .table tbody td:first-child {
+  #researchConsultancySection .table tbody td:first-child {
     font-weight: 600;
 
     color: #6a11cb;
-}
+  }
 
+  /* Project title / important content */
 
-/* Project title / important content */
-
-#researchConsultancySection .table tbody td:nth-child(2) {
+  #researchConsultancySection .table tbody td:nth-child(2) {
     font-weight: 500;
 
     min-width: 220px;
 
     color: #5a189a;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    TEXT WRAPPING
 ===================================================== */
 
-#researchConsultancySection .table td,
-#researchConsultancySection .table th {
+  #researchConsultancySection .table td,
+  #researchConsultancySection .table th {
     white-space: normal;
 
     overflow-wrap: break-word;
 
     word-break: normal;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    CENTER ALIGNMENT
 ===================================================== */
 
-#researchConsultancySection .table .text-center {
+  #researchConsultancySection .table .text-center {
     text-align: center !important;
-}
+  }
 
+  /* Right ALIGNMENT */
 
-/* Right ALIGNMENT */
-
-#researchConsultancySection .table .text-end {
+  #researchConsultancySection .table .text-end {
     text-align: right !important;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    NO RECORDS FOUND
 ===================================================== */
 
-#researchConsultancySection .table tbody td[colspan] {
+  #researchConsultancySection .table tbody td[colspan] {
     padding: 35px;
 
     text-align: center;
@@ -326,57 +284,38 @@
 
     font-weight: 500;
 
-    background: linear-gradient(
-        135deg,
-        #fff7ed,
-        #fef3f2
-    ) !important;
-}
+    background: linear-gradient(135deg, #fff7ed, #fef3f2) !important;
+  }
 
-
-/* =====================================================
+  /* =====================================================
    TABLE SCROLLBAR
 ===================================================== */
 
-#researchConsultancySection .table-responsive::-webkit-scrollbar {
+  #researchConsultancySection .table-responsive::-webkit-scrollbar {
     height: 9px;
-}
+  }
 
-
-#researchConsultancySection .table-responsive::-webkit-scrollbar-track {
+  #researchConsultancySection .table-responsive::-webkit-scrollbar-track {
     background: #f1f1f1;
 
     border-radius: 10px;
-}
+  }
 
-
-#researchConsultancySection .table-responsive::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-        90deg,
-        #a855f7,
-        #ec4899,
-        #f97316
-    );
+  #researchConsultancySection .table-responsive::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #a855f7, #ec4899, #f97316);
 
     border-radius: 10px;
-}
+  }
 
+  #researchConsultancySection .table-responsive::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #7c3aed, #db2777, #ea580c);
+  }
 
-#researchConsultancySection .table-responsive::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-        90deg,
-        #7c3aed,
-        #db2777,
-        #ea580c
-    );
-}
-
-
-/* =====================================================
+  /* =====================================================
    TABLE INFORMATION
 ===================================================== */
 
-#researchConsultancySection [id^="info"] {
+  #researchConsultancySection [id^="info"] {
     display: inline-flex;
 
     align-items: center;
@@ -385,11 +324,7 @@
 
     border-radius: 10px;
 
-    background: linear-gradient(
-        135deg,
-        #f3e8ff,
-        #fdf2f8
-    );
+    background: linear-gradient(135deg, #f3e8ff, #fdf2f8);
 
     color: #6b21a8;
 
@@ -398,14 +333,13 @@
     font-weight: 600;
 
     border: 1px solid #e9d5ff;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    PAGINATION CONTAINER
 ===================================================== */
 
-#researchConsultancySection [id^="pagination"] {
+  #researchConsultancySection [id^="pagination"] {
     display: flex;
 
     align-items: center;
@@ -415,14 +349,13 @@
     flex-wrap: wrap;
 
     gap: 7px;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    COMMON PAGINATION BUTTON STYLE
 ===================================================== */
 
-#researchConsultancySection .page-btn {
+  #researchConsultancySection .page-btn {
     min-width: 40px;
 
     height: 40px;
@@ -438,37 +371,27 @@
     border: none !important;
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        filter 0.25s ease;
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      filter 0.25s ease;
 
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    NORMAL PAGE BUTTON
 ===================================================== */
 
-#researchConsultancySection .page-btn.btn-outline-primary {
-    background: linear-gradient(
-        135deg,
-        #ffffff,
-        #f3e8ff
-    ) !important;
+  #researchConsultancySection .page-btn.btn-outline-primary {
+    background: linear-gradient(135deg, #ffffff, #f3e8ff) !important;
 
     color: #7b2cbf !important;
 
     border: 1px solid #d8b4fe !important;
-}
+  }
 
-
-#researchConsultancySection .page-btn.btn-outline-primary:hover {
-    background: linear-gradient(
-        135deg,
-        #a855f7,
-        transparent
-    ) !important;
+  #researchConsultancySection .page-btn.btn-outline-primary:hover {
+    background: linear-gradient(135deg, #a855f7, transparent) !important;
 
     color: #0e0d0d !important;
 
@@ -476,20 +399,15 @@
 
     transform: translateY(-3px) scale(1.05);
 
-    box-shadow: 0 6px 14px rgba(123, 44, 191, 0.30);
-}
+    box-shadow: 0 6px 14px rgba(123, 44, 191, 0.3);
+  }
 
-
-/* =====================================================
+  /* =====================================================
    ACTIVE PAGE BUTTON
 ===================================================== */
 
-#researchConsultancySection .page-btn.btn-primary {
-    background: linear-gradient(
-        180deg,
-        #ff6b6b,
-        transparent
-    ) !important;
+  #researchConsultancySection .page-btn.btn-primary {
+    background: linear-gradient(180deg, #ff6b6b, transparent) !important;
 
     border-color: transparent !important;
 
@@ -498,19 +416,14 @@
     transform: scale(1.05);
 
     box-shadow: 0 5px 12px rgba(255, 107, 107, 0.35);
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    PREVIOUS BUTTON
 ===================================================== */
 
-#researchConsultancySection .page-btn.btn-secondary {
-    background: linear-gradient(
-        135deg,
-        #11998e,
-        #38ef7d
-    ) !important;
+  #researchConsultancySection .page-btn.btn-secondary {
+    background: linear-gradient(135deg, #11998e, #38ef7d) !important;
 
     border-color: transparent !important;
 
@@ -519,41 +432,33 @@
     padding-left: 15px !important;
 
     padding-right: 15px !important;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    NEXT BUTTON
 ===================================================== */
 
-#researchConsultancySection
-[id^="pagination"] .page-btn:last-child {
-    background: linear-gradient(
-        135deg,
-        #36d1dc,
-        #5b86e5
-    ) !important;
-}
+  #researchConsultancySection [id^="pagination"] .page-btn:last-child {
+    background: linear-gradient(135deg, #36d1dc, #5b86e5) !important;
+  }
 
-
-/* =====================================================
+  /* =====================================================
    PREVIOUS / NEXT HOVER
 ===================================================== */
 
-#researchConsultancySection .page-btn.btn-secondary:hover:not(:disabled) {
+  #researchConsultancySection .page-btn.btn-secondary:hover:not(:disabled) {
     transform: translateY(-3px);
 
     filter: brightness(1.08);
 
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.20);
-}
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  }
 
-
-/* =====================================================
+  /* =====================================================
    DISABLED PAGINATION BUTTON
 ===================================================== */
 
-#researchConsultancySection .page-btn:disabled {
+  #researchConsultancySection .page-btn:disabled {
     opacity: 0.45;
 
     cursor: not-allowed;
@@ -563,256 +468,240 @@
     transform: none !important;
 
     box-shadow: none !important;
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    MOBILE RESPONSIVE
 ===================================================== */
 
-@media (max-width: 768px) {
-
+  @media (max-width: 768px) {
     #researchConsultancySection .tab-pane .card-body {
-        padding: 15px;
+      padding: 15px;
     }
-
 
     #researchConsultancySection .tab-pane .card-body h5 {
-        font-size: 17px;
+      font-size: 17px;
     }
-
 
     #researchConsultancySection [id^="search"] {
-        padding: 10px 13px;
+      padding: 10px 13px;
 
-        font-size: 14px;
+      font-size: 14px;
     }
-
 
     #researchConsultancySection .table {
-        font-size: 13px;
+      font-size: 13px;
     }
-
 
     #researchConsultancySection .table thead.table-dark th {
-        padding: 11px 10px;
+      padding: 11px 10px;
 
-        white-space: nowrap;
+      white-space: nowrap;
     }
-
 
     #researchConsultancySection .table tbody td {
-        padding: 11px 10px;
+      padding: 11px 10px;
     }
-
 
     #researchConsultancySection .table-responsive {
-        border-radius: 12px;
+      border-radius: 12px;
     }
-
 
     /* Table info */
 
     #researchConsultancySection [id^="info"] {
-        margin-bottom: 12px;
+      margin-bottom: 12px;
 
-        font-size: 13px;
+      font-size: 13px;
     }
-
 
     /* Pagination */
 
     #researchConsultancySection [id^="pagination"] {
-        justify-content: flex-start;
+      justify-content: flex-start;
 
-        width: 100%;
+      width: 100%;
     }
-
 
     #researchConsultancySection .page-btn {
-        min-width: 35px;
+      min-width: 35px;
 
-        height: 35px;
+      height: 35px;
 
-        font-size: 13px;
+      font-size: 13px;
 
-        padding: 5px 9px !important;
+      padding: 5px 9px !important;
     }
-}
+  }
 
-
-/* =====================================================
+  /* =====================================================
    SMALL MOBILE DEVICES
 ===================================================== */
 
-@media (max-width: 480px) {
-
+  @media (max-width: 480px) {
     #researchConsultancySection .tab-pane .card-body {
-        padding: 12px;
+      padding: 12px;
     }
-
 
     #researchConsultancySection .table {
-        font-size: 12px;
+      font-size: 12px;
     }
-
 
     #researchConsultancySection .page-btn {
-        min-width: 32px;
+      min-width: 32px;
 
-        height: 32px;
+      height: 32px;
 
-        padding: 4px 7px !important;
+      padding: 4px 7px !important;
 
-        font-size: 12px;
+      font-size: 12px;
     }
-
 
     #researchConsultancySection [id^="info"] {
-        width: 100%;
+      width: 100%;
 
-        justify-content: center;
+      justify-content: center;
     }
-}
+  }
 </style>
 <!-- ================= MAIN TABS ================= -->
 <div id="researchConsultancySection">
-<ul
-  class="nav nav-pills-rounded nav-justified mb-3"
-  id="mainTabs"
-  role="tablist"
-  style="min-width: 1000px"
->
-  <li class="nav-item pe-3">
-    <button
-      class="nav-link active"
-      id="research-tab"
-      data-bs-toggle="pill"
-      data-bs-target="#researchPane"
-      type="button"
-    >
-      Research
-    </button>
-  </li>
+  <ul
+    class="nav nav-pills-rounded nav-justified mb-3"
+    id="mainTabs"
+    role="tablist"
+    style="min-width: 1000px"
+  >
+    <li class="nav-item pe-3">
+      <button
+        class="nav-link active"
+        id="research-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#researchPane"
+        type="button"
+      >
+        Research
+      </button>
+    </li>
 
-  <li class="nav-item pe-3">
-    <button
-      class="nav-link"
-      id="consultancy-tab"
-      data-bs-toggle="pill"
-      data-bs-target="#consultancyPane"
-      type="button"
-    >
-      Consultancy
-    </button>
-  </li>
-</ul>
+    <li class="nav-item pe-3">
+      <button
+        class="nav-link"
+        id="consultancy-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#consultancyPane"
+        type="button"
+      >
+        Consultancy
+      </button>
+    </li>
+  </ul>
 
-<div class="tab-content">
-  <!-- ================= RESEARCH ================= -->
-  <div class="tab-pane fade show active" id="researchPane">
-    <!-- SUB TABS -->
-    <ul class="nav nav-pills-rounded nav-justified mb-3" id="researchTabs">
-      <li class="nav-item pe-3">
-        <button
-          class="nav-link active"
-          data-bs-toggle="pill"
-          data-bs-target="#ongoingResearchPane"
-          type="button"
-        >
-          Ongoing Research
-        </button>
-      </li>
+  <div class="tab-content">
+    <!-- ================= RESEARCH ================= -->
+    <div class="tab-pane fade show active" id="researchPane">
+      <!-- SUB TABS -->
+      <ul class="nav nav-pills-rounded nav-justified mb-3" id="researchTabs">
+        <li class="nav-item pe-3">
+          <button
+            class="nav-link active"
+            data-bs-toggle="pill"
+            data-bs-target="#ongoingResearchPane"
+            type="button"
+          >
+            Ongoing Research
+          </button>
+        </li>
 
-      <li class="nav-item pe-3">
-        <button
-          class="nav-link"
-          data-bs-toggle="pill"
-          data-bs-target="#completedResearchPane"
-          type="button"
-        >
-          Completed Research
-        </button>
-      </li>
-    </ul>
+        <li class="nav-item pe-3">
+          <button
+            class="nav-link"
+            data-bs-toggle="pill"
+            data-bs-target="#completedResearchPane"
+            type="button"
+          >
+            Completed Research
+          </button>
+        </li>
+      </ul>
 
-    <div class="tab-content">
-      <!-- ================= ONGOING RESEARCH ================= -->
-      <div class="tab-pane fade show active" id="ongoingResearchPane">
-        <div class="card border-dark mb-3">
-          <div class="card-body">
-            <h5 class="text-info mb-3">Ongoing Research Projects</h5>
+      <div class="tab-content">
+        <!-- ================= ONGOING RESEARCH ================= -->
+        <div class="tab-pane fade show active" id="ongoingResearchPane">
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-info mb-3">Ongoing Research Projects</h5>
 
-            <div id="orpOutput"></div>
+              <div id="orpOutput"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= COMPLETED RESEARCH ================= -->
+        <div class="tab-pane fade" id="completedResearchPane">
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-success mb-3">Completed Research Projects</h5>
+
+              <div id="crpOutput"></div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- ================= COMPLETED RESEARCH ================= -->
-      <div class="tab-pane fade" id="completedResearchPane">
-        <div class="card border-dark mb-3">
-          <div class="card-body">
-            <h5 class="text-success mb-3">Completed Research Projects</h5>
+    <!-- ================= CONSULTANCY ================= -->
+    <div class="tab-pane fade" id="consultancyPane">
+      <!-- SUB TABS -->
+      <ul class="nav nav-pills-rounded nav-justified mb-3" id="consultancyTabs">
+        <li class="nav-item pe-3">
+          <button
+            class="nav-link active"
+            data-bs-toggle="pill"
+            data-bs-target="#ongoingConsultancyPane"
+            type="button"
+          >
+            Ongoing Consultancy
+          </button>
+        </li>
 
-            <div id="crpOutput"></div>
+        <li class="nav-item pe-3">
+          <button
+            class="nav-link"
+            data-bs-toggle="pill"
+            data-bs-target="#completedConsultancyPane"
+            type="button"
+          >
+            Completed Consultancy
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- ================= ONGOING CONSULTANCY ================= -->
+        <div class="tab-pane fade show active" id="ongoingConsultancyPane">
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-info mb-3">Ongoing Consultancy Projects</h5>
+
+              <div id="ocpOutput"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= COMPLETED CONSULTANCY ================= -->
+        <div class="tab-pane fade" id="completedConsultancyPane">
+          <div class="card border-dark mb-3">
+            <div class="card-body">
+              <h5 class="text-success mb-3">Completed Consultancy Projects</h5>
+
+              <div id="ccpOutput"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- ================= CONSULTANCY ================= -->
-  <div class="tab-pane fade" id="consultancyPane">
-    <!-- SUB TABS -->
-    <ul class="nav nav-pills-rounded nav-justified mb-3" id="consultancyTabs">
-      <li class="nav-item pe-3">
-        <button
-          class="nav-link active"
-          data-bs-toggle="pill"
-          data-bs-target="#ongoingConsultancyPane"
-          type="button"
-        >
-          Ongoing Consultancy
-        </button>
-      </li>
-
-      <li class="nav-item pe-3">
-        <button
-          class="nav-link"
-          data-bs-toggle="pill"
-          data-bs-target="#completedConsultancyPane"
-          type="button"
-        >
-          Completed Consultancy
-        </button>
-      </li>
-    </ul>
-
-    <div class="tab-content">
-      <!-- ================= ONGOING CONSULTANCY ================= -->
-      <div class="tab-pane fade show active" id="ongoingConsultancyPane">
-        <div class="card border-dark mb-3">
-          <div class="card-body">
-            <h5 class="text-info mb-3">Ongoing Consultancy Projects</h5>
-
-            <div id="ocpOutput"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ================= COMPLETED CONSULTANCY ================= -->
-      <div class="tab-pane fade" id="completedConsultancyPane">
-        <div class="card border-dark mb-3">
-          <div class="card-body">
-            <h5 class="text-success mb-3">Completed Consultancy Projects</h5>
-
-            <div id="ccpOutput"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 </div>
 <script>
   $(document).ready(function () {
@@ -1159,12 +1048,8 @@
       // =====================================================
       else if (state.type === "ongoingConsultancy") {
         html += `
-          <th>Consultancy ID</th>
-          <th>Client Name</th>
           <th>Project Title</th>
-          <th>Consultancy Area</th>
           <th>Start Date</th>
-          <th>Status</th>
           <th>Consultant Team</th>
           <th>Project Value</th>
         `;
@@ -1283,28 +1168,13 @@
           // =====================================================
           else if (state.type === "ongoingConsultancy") {
             html += `
-              <td>
-                ${row["Consultancy_ID"] || "-"}
-              </td>
-
-              <td>
-                ${row["Client_Name"] || "-"}
-              </td>
-
+        
               <td>
                 ${row["Project_Title"] || "-"}
               </td>
 
-              <td>
-                ${row["Consultancy_Area"] || "-"}
-              </td>
-
               <td class="text-center">
                 ${formatExcelDate(row["Start_Date"])}
-              </td>
-
-              <td class="text-center">
-                ${row["Status"] || "-"}
               </td>
 
               <td class="text-center">
